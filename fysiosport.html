@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funktionell Axel-Screening - Rapport</title>
+    <script src="https://cdn.plot.ly/plotly-2.27.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Avenir:wght@400&family=Futura:wght@400&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --app-primary-color: #285484;
+            --app-secondary-color: rgb(112, 188, 252);
+            --app-tertiary-color: #121630;
+            --app-text-on-primary: #ffffff;
+            --light-gray: #f8f9fa;
+            --box-background-color: #f0f2f5;
+            --medium-gray: #dee2e6;
+            --dark-gray: #495057;
+            --text-color: #212529;
+            --success-color: #2a9d8f;
+            --danger-color: #e63946;
+            --white: #ffffff;
+            --border-radius: 4px;
+            
+            --ho-color: #193c64;
+            --va-color: #c8a84f;
+
+            --base-font-size-css: 16px; 
+            --normal-font-weight: 400;
+            --semibold-font-weight: 400;
+            --bold-font-weight: 700;
+        }
+        body {
+            font-family: 'Avenir', sans-serif;
+            background-color: var(--white);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            box-sizing: border-box;
+            line-height: 1.6;
+            font-weight: var(--normal-font-weight);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .page {
+            overflow: hidden;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+        
+        .app-main-content {
+            padding: 5mm 20mm !important;
+            height: auto !important;
+            overflow: visible !important;
+            box-shadow: none !important;
+            border: none !important;
+        }
+        .content-container {
+            max-width: 100% !important;
+             margin: 0 auto;
+        }
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10mm 20mm 0 20mm;
+            margin-bottom: 15px;
+        }
+        .report-header img {
+            max-height: 35px; 
+            width: auto;
+        }
+        h3.position-title, h3.normative-title {
+            color: var(--dark-gray);
+            margin-bottom: 0.3em; 
+            text-transform: uppercase; 
+            text-align: center;
+        }
+        
+        .info-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 30px;
+            background-color: var(--white);
+            border: 1px solid var(--medium-gray);
+            padding: 12px 20px;
+            margin-bottom: 25px;
+            border-radius: var(--border-radius);
+            font-size: 13px;
+        }
+        .info-box div {
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 4px;
+        }
+        .info-box strong {
+            color: var(--app-primary-color);
+            margin-right: 10px;
+            font-weight: var(--semibold-font-weight);
+        }
+
+        .explanation-box-small {
+            display: flex !important;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 5px;
+            background-color: var(--box-background-color);
+            border: none;
+            border-left: 4px solid var(--app-primary-color);
+            padding: 10px 15px;
+            margin-top: 10px;
+            border-radius: var(--border-radius);
+            color: var(--dark-gray);
+            page-break-inside: avoid;
+            font-size: calc(12px * var(--scale-factor, 1)); 
+            min-height: 50px; 
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+        .explanation-box-small i {
+            font-size: 1.4em;
+            color: var(--app-primary-color);
+        }
+        .explanation-box-small p {
+            margin: 0;
+        }
+        .percentage-display {
+            font-weight: var(--bold-font-weight);
+            font-size: 1.1em;
+        }
+        .percentage-display.green {
+            color: var(--success-color);
+        }
+        .percentage-display.red {
+            color: var(--danger-color);
+        }
+
+
+        .position-box, .normative-box { 
+            border: none !important; 
+            padding: 10px 20px 15px 20px !important; 
+            border-radius: var(--border-radius); 
+            background-color: var(--box-background-color) !important; 
+            box-shadow: none !important; 
+            margin-bottom: 0; display: flex !important; 
+            flex-direction: column !important; 
+            height: 200px !important; 
+            min-height: 200px !important; 
+            position: relative; 
+            overflow: hidden !important; 
+            width: 100% !important; box-sizing: border-box !important; 
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        .js-plotly-plot { flex-grow: 1 !important; position: relative; z-index: 1; width: 100% !important; height: 100% !important; }
+        .js-plotly-plot .plotly > div, .js-plotly-plot .plotly > div > svg {
+            max-width: 100%;
+            height: auto !important;
+        }
+        .plotly .scatterlayer .trace.fill { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+        
+        .plotly .annotation text { font-weight: normal !important; }
+        .plotly .gtitle { fill: black !important; font-weight: normal !important; }
+        
+        .plotly .modebar { display: none !important; }
+        .js-plotly-plot .plotly svg { -webkit-user-select: text !important; -moz-user-select: text !important; -ms-user-select: text !important; user-select: text !important; }
+        .js-plotly-plot .plotly text { pointer-events: auto !important; }
+
+        .position-row {
+            display: flex !important;
+            flex-wrap: wrap !important; 
+            gap: 20px !important;
+            margin-bottom: 20px; 
+            padding-bottom: 3px;
+            align-items: stretch; 
+            page-break-inside: avoid !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+        .graph-column {
+            flex: 1 !important;
+            min-width: 0 !important; 
+            display: flex; 
+            flex-direction: column;
+            page-break-inside: avoid !important;
+        }
+        .text-box {
+            background-color: var(--box-background-color);
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+        .text-box .text-content {
+            color: var(--dark-gray);
+            font-size: calc(13px * var(--scale-factor, 1));
+            flex-grow: 1;
+        }
+        .text-box h3.position-title {
+             font-size: calc(18.4px * var(--scale-factor, 1));
+        }
+
+        .text-box .text-content p {
+            margin: 5px 0;
+            line-height: 1.5;
+        }
+        .text-box .text-content b {
+            font-size: 1.1em;
+        }
+        
+        .graph-overlay-image {
+            position: absolute;
+            top: 55px; /* Moved up */
+            left: 80%; 
+            transform: translateX(-50%); 
+            width: 80px;
+            height: auto;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .graph-overlay-text {
+            position: absolute;
+            bottom: 30px; /* Moved up */
+            left: 80%;
+            transform: translateX(-50%);
+            width: 100px; 
+            font-size: 10px;
+            color: var(--dark-gray);
+            text-align: center;
+            pointer-events: none;
+            z-index: 2;
+            line-height: 1.2;
+        }
+
+        #donut-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+            flex-grow: 1;
+        }
+        .donut-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            height: 100%;
+            justify-content: center;
+        }
+        .donut-wrapper .js-plotly-plot {
+            width: 90px !important;
+            height: 90px !important;
+        }
+        .donut-label {
+            margin-top: 8px;
+            font-size: 11px;
+            color: var(--dark-gray);
+            text-align: center;
+            font-weight: var(--semibold-font-weight);
+        }
+        
+        .no-data-placeholder {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            color: var(--medium-gray);
+            text-align: center;
+            flex-grow: 1;
+        }
+        .no-data-placeholder i {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .page {
+                box-shadow: none !important;
+                border: none !important;
+                margin: 0;
+                padding: 0;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="page page-break">
+        <header class="report-header">
+            <img src="https://storage.googleapis.com/intro_alphatek/logo%20fysiosport.png" alt="Fysiosport Logo" class="logo-left">
+            <img src="https://storage.googleapis.com/intro_alphatek/Kopi%2Bav%2BLogo%2BNegative%2Bnarrow.webp" alt="Alphatek Logo" class="logo-right">
+        </header>
+        <main class="app-main-content">
+            <div class="content-container">
+                <div id="report-content-page1">
+                    <div class="info-box">
+                        <div><strong>NAMN:</strong> <span id="p1-name"></span></div>
+                        <div><strong>DATUM:</strong> <span id="p1-date"></span></div>
+                        <div><strong>SPORT/POSITION:</strong> <span id="p1-sport"></span></div>
+                        <div><strong>SKAPAD AV:</strong> <span id="p1-createdBy"></span></div>
+                    </div>
+                    
+                    <!-- Row 1 -->
+                    <div class="position-row"> 
+                        <div class="graph-column"> 
+                            <div id="p1-position-box-I" class="position-box"> 
+                                <h3 class="position-title"></h3> 
+                                <div id="p1-bar-chart-I" class="js-plotly-plot"></div> 
+                            </div>
+                            <div id="p1-balance-comment-box" class="explanation-box-small">
+                                <p class="comment-text"></p>
+                            </div>
+                        </div> 
+                        <div class="graph-column"> 
+                            <div id="p1-normative-chart-container-I" class="normative-box"> 
+                                <h3 class="normative-title"></h3> 
+                                <div id="p1-bar-chart-I-copy" class="js-plotly-plot"></div> 
+                            </div>
+                            <div id="p1-cmj-comment-box" class="explanation-box-small">
+                                <p class="comment-text"></p>
+                            </div>
+                        </div> 
+                    </div>
+
+                    <!-- Row 2 -->
+                    <div class="position-row"> 
+                        <div class="graph-column"> 
+                            <div id="p1-position-box-Y" class="position-box"> 
+                                <h3 class="position-title"></h3> 
+                                <div id="p1-bar-chart-Y" class="js-plotly-plot"></div> 
+                            </div>
+                            <div id="p1-tia-comment-box" class="explanation-box-small">
+                                <p class="comment-text"></p>
+                            </div>
+                        </div> 
+                        <div class="graph-column"> 
+                            <div id="p1-normative-chart-container-Y" class="normative-box"> 
+                                <h3 class="normative-title"></h3> 
+                                <div id="p1-bar-chart-Y-copy" class="js-plotly-plot"></div> 
+                            </div>
+                            <div id="p1-sidehop-comment-box" class="explanation-box-small">
+                                <p class="comment-text"></p>
+                            </div>
+                        </div> 
+                    </div>
+
+                    <!-- Row 3 -->
+                    <div class="position-row"> 
+                        <div class="graph-column">
+                            <div id="p1-position-box-T" class="position-box">
+                                <h3 class="position-title"></h3>
+                                <div id="donut-container">
+                                    <div class="donut-wrapper">
+                                        <div id="donut-chart-1" class="js-plotly-plot"></div>
+                                        <p class="donut-label">Försök 1</p>
+                                    </div>
+                                    <div class="donut-wrapper">
+                                        <div id="donut-chart-2" class="js-plotly-plot"></div>
+                                        <p class="donut-label">Försök 2</p>
+                                    </div>
+                                    <div class="donut-wrapper">
+                                        <div id="donut-chart-3" class="js-plotly-plot"></div>
+                                        <p class="donut-label">Försök 3</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="p1-squat-comment-box" class="explanation-box-small">
+                                <p class="comment-text"></p>
+                            </div>
+                        </div>
+                        <div class="graph-column"> 
+                            <div id="p1-normative-chart-container-T" class="normative-box"> 
+                                <h3 class="normative-title"></h3> 
+                                <div id="p1-bar-chart-T-copy" class="js-plotly-plot"></div> 
+                            </div>
+                            <div id="p1-repeated-comment-box" class="explanation-box-small">
+                                <p class="comment-text"></p>
+                            </div>
+                        </div> 
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="page">
+        <header class="report-header">
+            <img src="https://storage.googleapis.com/intro_alphatek/logo%20fysiosport.png" alt="Fysiosport Logo" class="logo-left">
+            <img src="https://storage.googleapis.com/intro_alphatek/Kopi%2Bav%2BLogo%2BNegative%2Bnarrow.webp" alt="Alphatek Logo" class="logo-right">
+        </header>
+        <main class="app-main-content">
+            <div class="content-container">
+                <div id="report-content-page2">
+                    <div class="info-box">
+                        <div><strong>NAMN:</strong> <span id="p2-name"></span></div>
+                        <div><strong>DATUM:</strong> <span id="p2-date"></span></div>
+                        <div><strong>SPORT/POSITION:</strong> <span id="p2-sport"></span></div>
+                        <div><strong>SKAPAD AV:</strong> <span id="p2-createdBy"></span></div>
+                    </div>
+                    
+                    <!-- Row 1 -->
+                    <div class="position-row"> 
+                        <div class="graph-column"> 
+                            <div id="p2-position-box-I" class="position-box"> 
+                                <h3 class="position-title"></h3> 
+                                <div id="p2-bar-chart-I" class="js-plotly-plot"></div> 
+                                <img id="overlay-image-I" src="" class="graph-overlay-image" alt="Animal">
+                                <div id="overlay-text-I" class="graph-overlay-text"></div>
+                            </div>
+                            <div id="p2-hipthrust-comment-box" class="explanation-box-small">
+                                <p class="comment-text"></p>
+                            </div>
+                        </div> 
+                        <div class="graph-column"> 
+                            <div id="p2-normative-chart-container-I" class="normative-box"> 
+                                <h3 class="normative-title"></h3> 
+                                <div id="p2-bar-chart-I-copy" class="js-plotly-plot"></div> 
+                            </div>
+                             <div id="p2-quads-comment-box" class="explanation-box-small">
+                                <p class="comment-text"></p>
+                            </div>
+                        </div> 
+                    </div>
+
+                    <!-- Row 2 -->
+                    <div class="position-row"> 
+                        <div class="graph-column"> 
+                            <div id="p2-position-box-Y" class="position-box"> 
+                                <h3 class="position-title"></h3> 
+                                <div id="p2-bar-chart-Y" class="js-plotly-plot"></div> 
+                                 <img id="overlay-image-Y" src="" class="graph-overlay-image" alt="Animal">
+                                 <div id="overlay-text-Y" class="graph-overlay-text"></div>
+                            </div>
+                             <div id="p2-squat-comment-box" class="explanation-box-small">
+                                <p class="comment-text"></p>
+                            </div>
+                        </div> 
+                        <div class="graph-column"> 
+                            <div id="p2-normative-chart-container-Y" class="normative-box"> 
+                                <h3 class="normative-title"></h3> 
+                                <div id="p2-bar-chart-Y-copy" class="js-plotly-plot"></div> 
+                            </div>
+                             <div id="p2-hamstring-comment-box" class="explanation-box-small">
+                                <p class="comment-text"></p>
+                            </div>
+                        </div> 
+                    </div>
+
+                    <!-- Row 3 with Text Boxes -->
+                    <div class="position-row" id="manual-text-boxes">
+                        <div class="graph-column text-box">
+                            <h3 class="position-title">ISOMETRIC ROW PULL</h3>
+                            <div class="text-content" id="manual-srp">
+                            </div>
+                        </div>
+                        <div class="graph-column text-box">
+                            <h3 class="position-title">SQUAT POWER TO SPEED</h3>
+                            <div class="text-content" id="manual-spts">
+                            </div>
+                        </div>
+                        <div class="graph-column text-box">
+                            <h3 class="position-title">MAX PRESS PUSH UP</h3>
+                            <div class="text-content" id="manual-mpu">
+                            </div>
+                        </div>
+                        <div class="graph-column text-box">
+                            <h3 class="position-title">BLAZE POD CHALLENGE</h3>
+                            <div class="text-content" id="manual-bpc">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const plotlyConfig = { responsive: true, displaylogo: false, modeBarButtonsToRemove: ['sendDataToCloud', 'lasso2d', 'select2d', 'autoScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian', 'toggleSpikelines'] };
+        const globalScaleFactor = 0.65; 
+
+        function hexToRgba(hex, alpha) { hex = hex.replace('#', ''); const r = parseInt(hex.substring(0, 2), 16); const g = parseInt(hex.substring(2, 4), 16); const b = parseInt(hex.substring(4, 6), 16); return `rgba(${r}, ${g}, ${b}, ${alpha})`; }
+        
+        function scaleHtmlFontSizes(scaleFactor) {
+            document.documentElement.style.setProperty('--scale-factor', scaleFactor);
+            const originalSizes = { body: 16, h1: 32, h2: 24, h3Base: 18.4, explanationBoxBase: 14.4 };
+            const newBodyFontSize = Math.round(originalSizes.body * scaleFactor);
+            document.body.style.fontSize = newBodyFontSize + 'px';
+            
+            document.querySelectorAll('h3.position-title, h3.normative-title').forEach(el => { el.style.fontSize = Math.round(originalSizes.h3Base * scaleFactor) + 'px'; });
+            document.querySelectorAll('.explanation-box-small').forEach(el => { el.style.fontSize = Math.round(originalSizes.explanationBoxBase * scaleFactor) + 'px'; });
+        }
+
+        // --- PAGE 2 ANIMAL LOGIC ---
+        function getAnimalForWeight(weight) {
+            const baseUrl = "https://storage.googleapis.com/intro_alphatek/animals/";
+            if (weight <= 66.2) return { name: "Koala", url: baseUrl + "Koala.png" };
+            if (weight <= 99.5) return { name: "Dog", url: baseUrl + "Dog.png" };
+            if (weight <= 132.8) return { name: "Kangaroo", url: baseUrl + "Kangaroo.png" };
+            if (weight <= 166.2) return { name: "Gazelle", url: baseUrl + "Gazelle.png" };
+            if (weight <= 199.5) return { name: "Jaguar", url: baseUrl + "Jaguar.png" };
+            if (weight <= 232.8) return { name: "Panda", url: baseUrl + "Panda.png" };
+            if (weight <= 266.2) return { name: "Wild Hog", url: baseUrl + "Wild%20Hog.png" };
+            if (weight <= 299.5) return { name: "Lion", url: baseUrl + "Lion.png" };
+            if (weight <= 332.8) return { name: "Tiger", url: baseUrl + "Tiger.png" };
+            if (weight <= 366.2) return { name: "Gorilla", url: baseUrl + "Gorilla.png" };
+            if (weight <= 399.5) return { name: "Anaconda", url: baseUrl + "Anaconda(1).png" };
+            if (weight <= 432.8) return { name: "Alligator", url: baseUrl + "Alligator.png" };
+            if (weight <= 466.2) return { name: "Grizzly", url: baseUrl + "Grizzly.png" };
+            if (weight <= 499.5) return { name: "Polar Bear", url: baseUrl + "Polar%20Bear.png" };
+            return { name: "The Beast", url: baseUrl + "the_beast.png" };
+        }
+
+        function updateAnimalOverlay(weight, imageElementId, textElementId) {
+            const animal = getAnimalForWeight(weight);
+            document.getElementById(imageElementId).src = animal.url;
+            document.getElementById(textElementId).innerHTML = `Sammanlagd kraft: ${weight.toFixed(1)} kg<br>Du är en ${animal.name}!`;
+        }
+
+        // --- CHART CREATION FUNCTIONS ---
+        function createDualAxisBarChart(data, config) {
+            const vaColorHex = getComputedStyle(document.documentElement).getPropertyValue('--va-color').trim();
+            const hoColorHex = getComputedStyle(document.documentElement).getPropertyValue('--ho-color').trim();
+            const leftColorRgba = hexToRgba(vaColorHex, 0.8);
+            const rightColorRgba = hexToRgba(hoColorHex, 0.8);
+            const darkGrayColor = getComputedStyle(document.documentElement).getPropertyValue('--dark-gray').trim();
+            const whiteColor = getComputedStyle(document.documentElement).getPropertyValue('--white').trim();
+
+            const { leftVal1, rightVal1, leftVal2, rightVal2 } = data;
+            const { metricNames, y1Title, y2Title, y1Decimals, y2Decimals } = config;
+            
+            const maxY1 = Math.max(leftVal1, rightVal1, 0.1) * 1.25;
+            const maxY2 = Math.max(leftVal2, rightVal2, 0.1) * 1.25;
+            const barTextFontSize = Math.round(18 * globalScaleFactor);
+
+            const fig = {
+                data: [
+                    { type: 'bar', name: 'VÄ', x: [metricNames[0]], y: [leftVal1], marker: { color: leftColorRgba }, text: [leftVal1.toFixed(y1Decimals)], textposition: 'inside', insidetextanchor: 'middle', textfont: { color: whiteColor, size: barTextFontSize }, hoverinfo: 'name+x+y', yaxis: 'y' },
+                    { type: 'bar', name: 'HÖ', x: [metricNames[0]], y: [rightVal1], marker: { color: rightColorRgba }, text: [rightVal1.toFixed(y1Decimals)], textposition: 'inside', insidetextanchor: 'middle', textfont: { color: whiteColor, size: barTextFontSize }, hoverinfo: 'name+x+y', yaxis: 'y' },
+                    { type: 'bar', name: 'VÄ', x: [metricNames[1]], y: [leftVal2], marker: { color: leftColorRgba }, text: [leftVal2.toFixed(y2Decimals)], textposition: 'inside', insidetextanchor: 'middle', textfont: { color: whiteColor, size: barTextFontSize }, hoverinfo: 'name+x+y', yaxis: 'y2', showlegend: false },
+                    { type: 'bar', name: 'HÖ', x: [metricNames[1]], y: [rightVal2], marker: { color: rightColorRgba }, text: [rightVal2.toFixed(y2Decimals)], textposition: 'inside', insidetextanchor: 'middle', textfont: { color: whiteColor, size: barTextFontSize }, hoverinfo: 'name+x+y', yaxis: 'y2', showlegend: false },
+                ],
+                layout: {
+                    height: 200, barmode: 'group',
+                    font: { color: darkGrayColor, family: 'Avenir, sans-serif', size: Math.round(14 * globalScaleFactor), weight: 400 },
+                    yaxis: { title: y1Title, titlefont: { size: Math.round(16 * globalScaleFactor) }, tickfont: { size: Math.round(14 * globalScaleFactor) }, range: [0, maxY1], showgrid: false, zeroline: false },
+                    yaxis2: { title: y2Title, titlefont: { size: Math.round(16 * globalScaleFactor) }, tickfont: { size: Math.round(14 * globalScaleFactor) }, overlaying: 'y', side: 'right', showgrid: false, zeroline: false, showline: false, range: [0, maxY2] },
+                    xaxis: { showgrid: false, zeroline: false, showline: false, tickfont: { size: Math.round(14 * globalScaleFactor) }, automargin: true, fixedrange: true, categoryorder: 'array', categoryarray: metricNames },
+                    paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
+                    legend: { orientation: "h", yanchor: "bottom", y: 1.02, xanchor: "center", x: 0.5, font: { size: Math.round(14 * globalScaleFactor) } },
+                    margin: { l: 50, r: 65, b: 75, t: 35, pad: 5 },
+                    width: 285, bargap: 0.4, bargroupgap: 0.1
+                }
+            };
+            return fig;
+        }
+
+        function createGroupedBarChart(data, config) {
+           const hoColorHex = getComputedStyle(document.documentElement).getPropertyValue('--ho-color').trim();
+           const vaColorHex = getComputedStyle(document.documentElement).getPropertyValue('--va-color').trim();
+           const hoColorRgba = hexToRgba(hoColorHex, 0.8);
+           const vaColorRgba = hexToRgba(vaColorHex, 0.8);
+           const darkGrayColor = getComputedStyle(document.documentElement).getPropertyValue('--dark-gray').trim();
+           const whiteColor = getComputedStyle(document.documentElement).getPropertyValue('--white').trim();
+
+           const { labels, vaValues, hoValues } = data;
+           const { yTitle } = config;
+           const maxYValue = Math.max(...vaValues, ...hoValues, 10) + 10;
+           const barTextFontSize = Math.round(18 * globalScaleFactor);
+
+           const fig = {
+               data: [
+                   { type: 'bar', name: 'VÄ', x: labels, y: vaValues, marker: { color: vaColorRgba }, text: vaValues.map(String), textposition: 'inside', insidetextanchor: 'middle', textfont: { color: whiteColor, size: barTextFontSize }, hoverinfo: 'name', hovertemplate: 'VÄ: %{y} cm<extra></extra>' },
+                   { type: 'bar', name: 'HÖ', x: labels, y: hoValues, marker: { color: hoColorRgba }, text: hoValues.map(String), textposition: 'inside', insidetextanchor: 'middle', textfont: { color: whiteColor, size: barTextFontSize }, hoverinfo: 'name', hovertemplate: 'HÖ: %{y} cm<extra></extra>' }
+               ],
+               layout: {
+                   height: 200, barmode: 'group',
+                   font: { color: darkGrayColor, family: 'Avenir, sans-serif', size: Math.round(14 * globalScaleFactor), weight: 400 },
+                   yaxis: { title: yTitle, titlefont: { size: Math.round(16 * globalScaleFactor) }, tickfont: { size: Math.round(14 * globalScaleFactor) }, range: [0, maxYValue], showgrid: false, zeroline: false },
+                   xaxis: { showgrid: false, zeroline: false, showline: false, tickfont: { size: Math.round(14 * globalScaleFactor) }, automargin: true, fixedrange: true },
+                   paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
+                   legend: { orientation: "h", yanchor: "bottom", y: 1.02, xanchor: "center", x: 0.5, font: { size: Math.round(14 * globalScaleFactor) }},
+                   margin: { l: 50, r: 20, b: 75, t: 35, pad: 5 },
+                   width: 285, bargroupgap: 0.1
+               }
+           };
+           return fig;
+        }
+
+        function createSingleMetricBarChart(data, config) {
+           const hoColorHex = getComputedStyle(document.documentElement).getPropertyValue('--ho-color').trim();
+           const vaColorHex = getComputedStyle(document.documentElement).getPropertyValue('--va-color').trim();
+           const hoColorRgba = hexToRgba(hoColorHex, 0.8);
+           const vaColorRgba = hexToRgba(vaColorHex, 0.8);
+           const darkGrayColor = getComputedStyle(document.documentElement).getPropertyValue('--dark-gray').trim();
+           const whiteColor = getComputedStyle(document.documentElement).getPropertyValue('--white').trim();
+
+           const { leftVal, rightVal } = data;
+           const { yAxisTitle, metricName, decimals } = config;
+           const maxYValue = Math.max(leftVal, rightVal, 10) * 1.25;
+           const barTextFontSize = Math.round(18 * globalScaleFactor);
+
+           const fig = {
+               data: [
+                   { type: 'bar', name: 'VÄ', x: [' ', metricName, '  '], y: [null, leftVal, null], marker: { color: vaColorRgba }, text: [null, leftVal.toFixed(decimals), null], textposition: 'inside', insidetextanchor: 'middle', textfont: { color: whiteColor, size: barTextFontSize }, hoverinfo: 'name', hovertemplate: 'VÄ: %{y}<extra></extra>' },
+                   { type: 'bar', name: 'HÖ', x: [' ', metricName, '  '], y: [null, rightVal, null], marker: { color: hoColorRgba }, text: [null, rightVal.toFixed(decimals), null], textposition: 'inside', insidetextanchor: 'middle', textfont: { color: whiteColor, size: barTextFontSize }, hoverinfo: 'name', hovertemplate: 'HÖ: %{y}<extra></extra>' }
+               ],
+               layout: {
+                   height: 200, barmode: 'group',
+                   font: { color: darkGrayColor, family: 'Avenir, sans-serif', size: Math.round(14 * globalScaleFactor), weight: 400 },
+                   yaxis: { title: yAxisTitle, titlefont: { size: Math.round(16 * globalScaleFactor) }, tickfont: { size: Math.round(14 * globalScaleFactor) }, range: [0, maxYValue], showgrid: true, zeroline: false },
+                   xaxis: { showgrid: false, zeroline: false, showline: false, tickfont: { size: Math.round(14 * globalScaleFactor) }, automargin: true, fixedrange: true },
+                   paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
+                   legend: { orientation: "h", yanchor: "bottom", y: 1.02, xanchor: "center", x: 0.5, font: { size: Math.round(14 * globalScaleFactor) }},
+                   margin: { l: 50, r: 20, b: 75, t: 35, pad: 5 },
+                   width: 285, bargroupgap: 0.1
+               }
+           };
+           return fig;
+        }
+
+        function createSingleDonutChart(value) {
+            const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--app-primary-color').trim();
+            const primaryColorRgba = hexToRgba(primaryColor, 0.8);
+            const emptyColorRgba = 'rgba(222, 226, 230, 0.8)';
+            const darkGrayColor = getComputedStyle(document.documentElement).getPropertyValue('--dark-gray').trim();
+
+            const barWidth = 360 * (value / 100);
+
+            const data = [
+                { type: "barpolar", r: [100], theta: [0], width: [360], marker: { color: emptyColorRgba }, hoverinfo: "none", layer: 'below' },
+                { type: "barpolar", r: [100], theta: [barWidth / 2], width: [barWidth], marker: { color: primaryColorRgba }, hoverinfo: "none" }
+            ];
+
+            const layout = {
+                showlegend: false,
+                paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
+                margin: { t: 5, b: 5, l: 5, r: 5 },
+                polar: { hole: 0.7, barmode: 'overlay', radialaxis: { visible: false, range: [0, 100] }, angularaxis: { rotation: 90, direction: "clockwise", visible: false } },
+                annotations: [{ font: { size: Math.round(20 * globalScaleFactor), color: darkGrayColor, weight: 'bold' }, showarrow: false, text: `${value}`, x: 0.5, y: 0.5, xanchor: 'center', yanchor: 'middle' }]
+            };
+            return { data, layout };
+        }
+
+        function createBilateralDualAxisChart(data, config) {
+            const primaryColorHex = getComputedStyle(document.documentElement).getPropertyValue('--app-primary-color').trim();
+            const primaryColorRgba = hexToRgba(primaryColorHex, 0.8);
+            const darkGrayColor = getComputedStyle(document.documentElement).getPropertyValue('--dark-gray').trim();
+            const whiteColor = getComputedStyle(document.documentElement).getPropertyValue('--white').trim();
+
+            const { val1, val2 } = data;
+            const { metricNames, y1Title, y2Title } = config;
+
+            const maxY1 = val1 * 1.25;
+            const maxY2 = val2 * 1.25;
+            const barTextFontSize = Math.round(18 * globalScaleFactor);
+
+            const fig = {
+                data: [
+                    { type: 'bar', name: metricNames[0], x: [metricNames[0]], y: [val1], marker: { color: primaryColorRgba }, text: [val1.toFixed(1)], textposition: 'inside', insidetextanchor: 'middle', textfont: { color: whiteColor, size: barTextFontSize }, hoverinfo: 'name+y', yaxis: 'y' },
+                    { type: 'bar', name: metricNames[1], x: [metricNames[1]], y: [val2], marker: { color: primaryColorRgba }, text: [val2.toFixed(2)], textposition: 'inside', insidetextanchor: 'middle', textfont: { color: whiteColor, size: barTextFontSize }, hoverinfo: 'name+y', yaxis: 'y2' },
+                ],
+                layout: {
+                    height: 200, barmode: 'group', showlegend: false,
+                    font: { color: darkGrayColor, family: 'Avenir, sans-serif', size: Math.round(14 * globalScaleFactor), weight: 400 },
+                    yaxis: { title: y1Title, titlefont: { size: Math.round(16 * globalScaleFactor) }, tickfont: { size: Math.round(14 * globalScaleFactor) }, range: [0, maxY1], showgrid: false, zeroline: false },
+                    yaxis2: { title: y2Title, titlefont: { size: Math.round(16 * globalScaleFactor) }, tickfont: { size: Math.round(14 * globalScaleFactor) }, overlaying: 'y', side: 'right', showgrid: false, zeroline: false, showline: false, range: [0, maxY2] },
+                    xaxis: { showgrid: false, zeroline: false, showline: false, tickfont: { size: Math.round(14 * globalScaleFactor) }, automargin: true, fixedrange: true, categoryorder: 'array', categoryarray: metricNames },
+                    paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
+                    margin: { l: 50, r: 65, b: 75, t: 35, pad: 5 },
+                    width: 285, bargap: 0.5,
+                }
+            };
+            return fig;
+        }
+
+        // RESTORED: This function is now the original one you provided.
+        function createPage2CustomBarChart(chartData, config = {}) {
+            const vaColorHex = getComputedStyle(document.documentElement).getPropertyValue('--va-color').trim();
+            const hoColorHex = getComputedStyle(document.documentElement).getPropertyValue('--ho-color').trim();
+            const leftColorRgba = hexToRgba(vaColorHex, 0.8);
+            const rightColorRgba = hexToRgba(hoColorHex, 0.8);
+            const darkGrayColor = getComputedStyle(document.documentElement).getPropertyValue('--dark-gray').trim();
+            const whiteColor = getComputedStyle(document.documentElement).getPropertyValue('--white').trim();
+
+            const { leftVal1 = 0, rightVal1 = 0 } = chartData;
+            const { yAxisTitle = 'Value', metricNames = ['Gj. hopphøyde', 'GCT'], decimals = 1 } = config;
+            
+            const leftTexts = [leftVal1.toFixed(decimals), ''];
+            const rightTexts = [rightVal1.toFixed(decimals), ''];
+
+            const maxY1 = Math.max(leftVal1, rightVal1) * 1.25;
+            const barTextFontSize = Math.round(18 * globalScaleFactor);
+
+            const data = [
+                { type: 'bar', name: 'VÄ', x: [metricNames[0]], y: [leftVal1], marker: { color: leftColorRgba }, text: [leftTexts[0]], textposition: 'inside', insidetextanchor: 'middle', textfont: { color: whiteColor, size: barTextFontSize, angle: 0 }, hoverinfo: 'name+y', yaxis: 'y' },
+                { type: 'bar', name: 'HÖ', x: [metricNames[0]], y: [rightVal1], marker: { color: rightColorRgba }, text: [rightTexts[0]], textposition: 'inside', insidetextanchor: 'middle', textfont: { color: whiteColor, size: barTextFontSize, angle: 0 }, hoverinfo: 'name+y', yaxis: 'y' },
+                { type: 'bar', name: 'VÄ', x: [metricNames[1]], y: [0], marker: { color: 'rgba(0,0,0,0)' }, text: [''], hoverinfo: 'none', yaxis: 'y2', showlegend: false },
+                { type: 'bar', name: 'HÖ', x: [metricNames[1]], y: [0], marker: { color: 'rgba(0,0,0,0)' }, text: [''], hoverinfo: 'none', yaxis: 'y2', showlegend: false }
+            ];
+            
+            const fig = {
+                data: data,
+                layout: {
+                    height: 200, barmode: 'group',
+                    font: { color: darkGrayColor, family: 'Avenir, sans-serif', size: Math.round(14 * globalScaleFactor), weight: 400 },
+                    yaxis: { title: yAxisTitle, titlefont: { size: Math.round(16 * globalScaleFactor) }, tickfont: { size: Math.round(14 * globalScaleFactor) }, range: [0, maxY1], showgrid: false, zeroline: false },
+                    yaxis2: { visible: false, range: [0, 1] },
+                    xaxis: { 
+                        showgrid: false, zeroline: false, showline: false, showticklabels: true,
+                        tickangle: 0, tickfont: { size: Math.round(14 * globalScaleFactor) }, 
+                        automargin: true, fixedrange: true, categoryorder: 'array', categoryarray: metricNames 
+                    },
+                    paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
+                    legend: { orientation: "h", yanchor: "bottom", y: 1.02, xanchor: "left", x: 0, font: { size: Math.round(14 * globalScaleFactor) } },
+                    margin: { l: 40, r: 25, b: 75, t: 35, pad: 5 },
+                    annotations: [],
+                    width: 285,
+                    bargap: 0.4,
+                    bargroupgap: 0.1
+                }
+            };
+            return fig;
+        }
+
+        function populateInfoBoxes(patientInfo) {
+            document.getElementById('p1-name').textContent = patientInfo.name || 'N/A';
+            document.getElementById('p1-date').textContent = patientInfo.date || 'N/A';
+            document.getElementById('p1-sport').textContent = patientInfo.sportPosition || 'N/A';
+            document.getElementById('p1-createdBy').textContent = patientInfo.createdBy || 'N/A';
+            
+            document.getElementById('p2-name').textContent = patientInfo.name || 'N/A';
+            document.getElementById('p2-date').textContent = patientInfo.date || 'N/A';
+            document.getElementById('p2-sport').textContent = patientInfo.sportPosition || 'N/A';
+            document.getElementById('p2-createdBy').textContent = patientInfo.createdBy || 'N/A';
+        }
+
+        function updateManualTextBoxes(manualData) {
+            const srpContent = document.getElementById('manual-srp');
+            if (manualData.srp.force === 0 && manualData.srp.tare === 0) {
+                srpContent.innerHTML = `<div class="no-data-placeholder"><i class="fas fa-tasks"></i><p>Test ej genomfört</p></div>`;
+            } else {
+                const srpResult = manualData.srp.force - manualData.srp.tare;
+                srpContent.innerHTML = `
+                    <p><b>Tare:</b> ${manualData.srp.tare}N (Detta visar din ursprungsvikt i Newton på plattan)</p>
+                    <p><b>Force:</b> ${manualData.srp.force}N (Detta visar din kraftutveckling)</p>
+                    <p>= <b>${srpResult.toFixed(0)}N</b> i Kraftutveckling</p>`;
+            }
+
+            const sptsContent = document.getElementById('manual-spts');
+            if (manualData.spts.kg === 0) {
+                sptsContent.innerHTML = `<div class="no-data-placeholder"><i class="fas fa-tasks"></i><p>Test ej genomfört</p></div>`;
+            } else {
+                sptsContent.innerHTML = `
+                    <p>Vi testade på vilken vikt du kunde bibehålla din <b>explosivitet</b> i knäböj kring <b>0,85m/s</b> (mellan <b>POWER og SPEED</b>) under 12 repetitioner, 3 set.</p>
+                    <p>= <b>${manualData.spts.kg}kg</b></p>`;
+            }
+
+            const mpuContent = document.getElementById('manual-mpu');
+            if (manualData.mpu.force === 0 && manualData.mpu.tare === 0) {
+                mpuContent.innerHTML = `<div class="no-data-placeholder"><i class="fas fa-tasks"></i><p>Test ej genomfört</p></div>`;
+            } else {
+                const mpuResult = manualData.mpu.force - manualData.mpu.tare;
+                mpuContent.innerHTML = `
+                    <p><b>Tare:</b> ${manualData.mpu.tare}N (Detta visar din överkropps ursprungsvikt i Newton på plattan)</p>
+                    <p><b>Force:</b> ${manualData.mpu.force}N (Detta visar din kraftutveckling)</p>
+                    <p>= <b>${mpuResult.toFixed(0)}N</b> i Kraftutveckling</p>`;
+            }
+            
+            const bpcContent = document.getElementById('manual-bpc');
+            if (manualData.bpc.hits === 0) {
+                bpcContent.innerHTML = `<div class="no-data-placeholder"><i class="fas fa-tasks"></i><p>Test ej genomfört</p></div>`;
+            } else {
+                bpcContent.innerHTML = `
+                    <p>Plankstående 30s <b>reaktionsförmåga</b>, <b>max antal nudd</b></p>
+                    <p>= <b>${manualData.bpc.hits}st</b></p>`;
+            }
+        }
+
+        function showNoDataPlaceholder(plotDivId, message = "Test ej genomfört") {
+            const plotDiv = document.getElementById(plotDivId);
+            if (plotDiv) {
+                Plotly.purge(plotDiv);
+                plotDiv.innerHTML = `
+                    <div class="no-data-placeholder">
+                        <i class="fas fa-chart-line"></i>
+                        <p>${message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        function populateCommentsAndDifferences(reportData) {
+            function updateBox(boxId, comment, asymmetryPercent, hasData) {
+                const box = document.getElementById(boxId);
+                if (!box) return;
+
+                const commentEl = box.querySelector('.comment-text');
+                if (!commentEl) return;
+
+                if (!hasData) {
+                    commentEl.innerHTML = `<p style="color: var(--medium-gray); font-style: italic;">Ingen data for denne testen.</p>`;
+                    return;
+                }
+
+                let contentHTML = '';
+                if (asymmetryPercent !== undefined && !isNaN(asymmetryPercent)) {
+                    const colorClass = asymmetryPercent <= -10 ? 'red' : 'green';
+                    contentHTML += `<span class="percentage-display ${colorClass}">Asymmetri: ${asymmetryPercent.toFixed(1)}%.</span> `;
+                }
+                
+                contentHTML += (comment || 'Ingen kommentar.');
+                commentEl.innerHTML = contentHTML;
+            }
+            
+            // Page 1
+            const balanceData = reportData.page1.balance;
+            const hasBalanceData = !(balanceData.leftScore === 0 && balanceData.rightScore === 0 && balanceData.leftDiff === 0 && balanceData.rightDiff === 0);
+            updateBox('p1-balance-comment-box', balanceData.comment, balanceData.asymmetryPercent, hasBalanceData);
+
+            const cmjData = reportData.page1.cmj;
+            const hasCmjData = !(cmjData.vaJumps.every(j => j === 0) && cmjData.hoJumps.every(j => j === 0));
+            updateBox('p1-cmj-comment-box', cmjData.comment, cmjData.asymmetryPercent, hasCmjData);
+            
+            const tiaData = reportData.page1.tia;
+            const hasTiaData = !(tiaData.leftJump === 0 && tiaData.rightJump === 0 && tiaData.leftGct === 0 && tiaData.rightGct === 0);
+            updateBox('p1-tia-comment-box', tiaData.comment, tiaData.asymmetryPercent, hasTiaData);
+
+            const sidehopData = reportData.page1.sidehop;
+            const hasSidehopData = !(sidehopData.leftCount === 0 && sidehopData.rightCount === 0);
+            updateBox('p1-sidehop-comment-box', sidehopData.comment, sidehopData.asymmetryPercent, hasSidehopData);
+            
+            const squatData = reportData.page1.squatAnalytics;
+            const hasSquatData = !(squatData.attempt1 === 0 && squatData.attempt2 === 0 && squatData.attempt3 === 0);
+            updateBox('p1-squat-comment-box', squatData.comment, undefined, hasSquatData); // No asymmetry
+
+            const repeatedData = reportData.page1.repeatedBilateral;
+            const hasRepeatedData = !(repeatedData.avgHeight === 0 && repeatedData.avgGct === 0);
+            updateBox('p1-repeated-comment-box', repeatedData.comment, undefined, hasRepeatedData); // No asymmetry
+            
+            // Page 2
+            const hipThrustData = reportData.page2.strengthTests.hipThrust;
+            const hasHipThrustData = !(hipThrustData.left === 0 && hipThrustData.right === 0);
+            updateBox('p2-hipthrust-comment-box', hipThrustData.comment, hipThrustData.asymmetryPercent, hasHipThrustData);
+
+            const quadsData = reportData.page2.strengthTests.quadriceps;
+            const hasQuadsData = !(quadsData.left === 0 && quadsData.right === 0);
+            updateBox('p2-quads-comment-box', quadsData.comment, quadsData.asymmetryPercent, hasQuadsData);
+
+            const staticSquatData = reportData.page2.strengthTests.staticSquat;
+            const hasStaticSquatData = !(staticSquatData.left === 0 && staticSquatData.right === 0);
+            updateBox('p2-squat-comment-box', staticSquatData.comment, staticSquatData.asymmetryPercent, hasStaticSquatData);
+
+            const hamstringData = reportData.page2.strengthTests.hamstring;
+            const hasHamstringData = !(hamstringData.left === 0 && hamstringData.right === 0);
+            updateBox('p2-hamstring-comment-box', hamstringData.comment, hamstringData.asymmetryPercent, hasHamstringData);
+        }
+
+        async function updateAllGraphs(reportData) { 
+            const plotPromises = [];
+            
+            // --- PAGE 1 ---
+            document.querySelector('#p1-position-box-I .position-title').textContent = 'STÅENDE BALANS 15S - UTAN RÖRELSE';
+            const balanceData = reportData.page1.balance;
+            if (!(balanceData.leftScore === 0 && balanceData.rightScore === 0 && balanceData.leftDiff === 0 && balanceData.rightDiff === 0)) {
+                const fig1_p1 = createDualAxisBarChart({leftVal1: balanceData.leftScore, rightVal1: balanceData.rightScore, leftVal2: balanceData.leftDiff, rightVal2: balanceData.rightDiff}, {metricNames: ['Score', 'Gj. diff'], y1Title: 'Score', y2Title: 'cm', y1Decimals: 0, y2Decimals: 2});
+                plotPromises.push(Plotly.react('p1-bar-chart-I', fig1_p1.data, fig1_p1.layout, plotlyConfig));
+            } else {
+                showNoDataPlaceholder('p1-bar-chart-I', 'Test ej genomfört');
+            }
+
+            document.querySelector('#p1-normative-chart-container-I .normative-title').textContent = 'MAX HOPP CMJ (TOV)';
+            const cmjData = reportData.page1.cmj;
+            if (!(cmjData.vaJumps.every(j => j === 0) && cmjData.hoJumps.every(j => j === 0))) {
+                const fig2_p1 = createGroupedBarChart({labels: ['Hopp 1', 'Hopp 2', 'Hopp 3'], vaValues: cmjData.vaJumps, hoValues: cmjData.hoJumps}, {yTitle: 'Hopphøyde (cm)'});
+                plotPromises.push(Plotly.react('p1-bar-chart-I-copy', fig2_p1.data, fig2_p1.layout, plotlyConfig));
+            } else {
+                showNoDataPlaceholder('p1-bar-chart-I-copy', 'Test ej genomfört');
+            }
+
+            document.querySelector('#p1-position-box-Y .position-title').textContent = 'REPETERADE HOPP (TIA) ETT BEN I TAGET X5';
+            const tiaData = reportData.page1.tia;
+            if (!(tiaData.leftJump === 0 && tiaData.rightJump === 0 && tiaData.leftGct === 0 && tiaData.rightGct === 0)) {
+                const fig3_p1 = createDualAxisBarChart({leftVal1: tiaData.leftJump, rightVal1: tiaData.rightJump, leftVal2: tiaData.leftGct, rightVal2: tiaData.rightGct}, {metricNames: ['Gj. hopp', 'GCT'], y1Title: 'cm', y2Title: 's', y1Decimals: 1, y2Decimals: 2});
+                plotPromises.push(Plotly.react('p1-bar-chart-Y', fig3_p1.data, fig3_p1.layout, plotlyConfig));
+            } else {
+                showNoDataPlaceholder('p1-bar-chart-Y', 'Test ej genomfört');
+            }
+            
+            document.querySelector('#p1-normative-chart-container-Y .normative-title').textContent = 'SIDOHOPP (TIA) 1 FÖRSÖK PER BEN, ANTAL';
+            const sidehopData = reportData.page1.sidehop;
+            if (!(sidehopData.leftCount === 0 && sidehopData.rightCount === 0)) {
+                const fig4_p1 = createSingleMetricBarChart({leftVal: sidehopData.leftCount, rightVal: sidehopData.rightCount}, {yAxisTitle: 'Antall (stk)', metricName: 'Antall', decimals: 0});
+                plotPromises.push(Plotly.react('p1-bar-chart-Y-copy', fig4_p1.data, fig4_p1.layout, plotlyConfig));
+            } else {
+                showNoDataPlaceholder('p1-bar-chart-Y-copy', 'Test ej genomfört');
+            }
+
+            document.querySelector('#p1-position-box-T .position-title').textContent = 'Squat Analytics';
+            const squatData = reportData.page1.squatAnalytics;
+            if (!(squatData.attempt1 === 0 && squatData.attempt2 === 0 && squatData.attempt3 === 0)) {
+                const donutValues = [squatData.attempt1, squatData.attempt2, squatData.attempt3];
+                const donutIds = ['donut-chart-1', 'donut-chart-2', 'donut-chart-3'];
+                donutIds.forEach((id, index) => {
+                    const fig = createSingleDonutChart(donutValues[index]);
+                    plotPromises.push(Plotly.newPlot(id, fig.data, fig.layout, plotlyConfig));
+                });
+            } else {
+                showNoDataPlaceholder('donut-container', 'Test ej genomfört');
+            }
+            
+            document.querySelector('#p1-normative-chart-container-T .normative-title').textContent = 'Repeated jumps TVÅ BEN x10';
+            const repeatedData = reportData.page1.repeatedBilateral;
+            if (!(repeatedData.avgHeight === 0 && repeatedData.avgGct === 0)) {
+                const fig6_p1 = createBilateralDualAxisChart({val1: repeatedData.avgHeight, val2: repeatedData.avgGct}, {metricNames: ['Gj. hopp', 'Gj. GCT'], y1Title: 'cm', y2Title: 's'});
+                plotPromises.push(Plotly.react('p1-bar-chart-T-copy', fig6_p1.data, fig6_p1.layout, plotlyConfig)); 
+            } else {
+                showNoDataPlaceholder('p1-bar-chart-T-copy', 'Test ej genomfört');
+            }
+
+            // --- PAGE 2 ---
+            const forceMetric_p2 = ['Force', ' '];
+            document.querySelector('#p2-position-box-I .position-title').textContent = 'HIP THRUSTERS PULL';
+            const hipThrustData = reportData.page2.strengthTests.hipThrust;
+            if (!(hipThrustData.left === 0 && hipThrustData.right === 0)) {
+                const fig1_p2 = createPage2CustomBarChart({leftVal1: hipThrustData.left, rightVal1: hipThrustData.right}, { yAxisTitle: 'KG', metricNames: forceMetric_p2, decimals: 1 });
+                plotPromises.push(Plotly.react('p2-bar-chart-I', fig1_p2.data, fig1_p2.layout, plotlyConfig));
+            } else {
+                showNoDataPlaceholder('p2-bar-chart-I', 'Test ej genomfört');
+            }
+            if (hipThrustData.tva && hipThrustData.tva > 0) {
+                document.getElementById('overlay-image-I').style.display = 'block';
+                document.getElementById('overlay-text-I').style.display = 'block';
+                updateAnimalOverlay(hipThrustData.tva, 'overlay-image-I', 'overlay-text-I');
+            } else {
+                document.getElementById('overlay-image-I').style.display = 'none';
+                document.getElementById('overlay-text-I').style.display = 'none';
+            }
+
+            document.querySelector('#p2-normative-chart-container-I .normative-title').textContent = 'QUADRICEPS ISOMETRISK STYRKA';
+            const quadsData = reportData.page2.strengthTests.quadriceps;
+            if (!(quadsData.left === 0 && quadsData.right === 0)) {
+                const fig2_p2 = createPage2CustomBarChart({leftVal1: quadsData.left, rightVal1: quadsData.right}, { yAxisTitle: 'KG', metricNames: forceMetric_p2, decimals: 1 });
+                plotPromises.push(Plotly.react('p2-bar-chart-I-copy', fig2_p2.data, fig2_p2.layout, plotlyConfig));
+            } else {
+                showNoDataPlaceholder('p2-bar-chart-I-copy', 'Test ej genomfört');
+            }
+
+            document.querySelector('#p2-position-box-Y .position-title').textContent = 'STATIC SQUAT PULL';
+            const staticSquatData = reportData.page2.strengthTests.staticSquat;
+            if (!(staticSquatData.left === 0 && staticSquatData.right === 0)) {
+                const fig3_p2 = createPage2CustomBarChart({leftVal1: staticSquatData.left, rightVal1: staticSquatData.right}, { yAxisTitle: 'KG', metricNames: forceMetric_p2, decimals: 1 });
+                plotPromises.push(Plotly.react('p2-bar-chart-Y', fig3_p2.data, fig3_p2.layout, plotlyConfig));
+            } else {
+                showNoDataPlaceholder('p2-bar-chart-Y', 'Test ej genomfört');
+            }
+            if (staticSquatData.tva && staticSquatData.tva > 0) {
+                document.getElementById('overlay-image-Y').style.display = 'block';
+                document.getElementById('overlay-text-Y').style.display = 'block';
+                updateAnimalOverlay(staticSquatData.tva, 'overlay-image-Y', 'overlay-text-Y');
+            } else {
+                document.getElementById('overlay-image-Y').style.display = 'none';
+                document.getElementById('overlay-text-Y').style.display = 'none';
+            }
+            
+            document.querySelector('#p2-normative-chart-container-Y .normative-title').textContent = 'HAMSTRING ISOMETRISK STYRKA';
+            const hamstringData = reportData.page2.strengthTests.hamstring;
+            if (!(hamstringData.left === 0 && hamstringData.right === 0)) {
+                const fig4_p2 = createPage2CustomBarChart({leftVal1: hamstringData.left, rightVal1: hamstringData.right}, { yAxisTitle: 'Newton', metricNames: forceMetric_p2, decimals: 1 });
+                plotPromises.push(Plotly.react('p2-bar-chart-Y-copy', fig4_p2.data, fig4_p2.layout, plotlyConfig));
+            } else {
+                showNoDataPlaceholder('p2-bar-chart-Y-copy', 'Test ej genomfört');
+            }
+            
+            // --- FINAL RENDERING STEPS ---
+            await Promise.all(plotPromises);
+            
+            setTimeout(() => { 
+                const allPlotDivs = document.querySelectorAll('.js-plotly-plot');
+                allPlotDivs.forEach(gd => { 
+                    if (gd && typeof gd.layout !== 'undefined') { 
+                        try { Plotly.Plots.resize(gd); } catch (e) { console.warn("Error resizing plot:", gd.id, e); } 
+                    } 
+                });
+                setTimeout(() => window.print(), 500);
+            }, 150);
+        }
+        
+        window.addEventListener('load', () => {
+            scaleHtmlFontSizes(globalScaleFactor); 
+            const storedData = localStorage.getItem('fysiosportData');
+            
+            if (storedData) {
+                try {
+                    const reportData = JSON.parse(storedData);
+                    populateInfoBoxes(reportData.patientInfo);
+                    updateManualTextBoxes(reportData.page2.manual);
+                    populateCommentsAndDifferences(reportData);
+                    updateAllGraphs(reportData);
+                } catch (e) {
+                    console.error("Failed to parse or render data from localStorage:", e);
+                }
+            } else {
+                console.warn("No data found in localStorage. Cannot generate report.");
+            }
+        });
+
+        window.addEventListener('resize', () => { 
+            const allDivs = document.querySelectorAll('.js-plotly-plot');
+            allDivs.forEach(gd => { 
+                if (gd && typeof gd.layout !== 'undefined') { 
+                    try { Plotly.Plots.resize(gd); } catch (e) { /* Ignore */ } 
+                } 
+            }); 
+        }, 150); 
+    </script>
+</body>
+</html>

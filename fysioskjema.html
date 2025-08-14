@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inmatning - Fysiosport Rapport</title>
+    <script src="https://cdn.plot.ly/plotly-2.27.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Avenir:wght@400&family=Futura:wght@400&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --app-primary-color: #285484;
+            --app-secondary-color: rgb(112, 188, 252);
+            --light-gray: #f8f9fa;
+            --box-background-color: #f0f2f5;
+            --medium-gray: #dee2e6;
+            --dark-gray: #495057;
+            --text-color: #212529;
+            --white: #ffffff;
+            --border-radius: 4px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --subtle-shadow: 0 1px 3px rgba(0,0,0,0.07);
+            --sidebar-width: 220px;
+            --ho-color: #193c64;
+            --va-color: #c8a84f;
+            --app-button-light-gradient-start: rgba(112, 188, 252, 0.8);
+            --app-button-light-gradient-end: rgba(40, 84, 132, 0.9);
+            --app-text-on-primary: #ffffff;
+        }
+        body {
+            font-family: 'Avenir', sans-serif;
+            background-color: var(--light-gray);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .app-sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--box-background-color);
+            padding: 20px 15px;
+            border-right: 1px solid var(--medium-gray);
+            display: flex;
+            flex-direction: column;
+        }
+        .sidebar-header {
+             margin-bottom: 30px;
+             text-align: center;
+        }
+        .sidebar-header h2 {
+            font-size: 1.8rem;
+            color: var(--app-primary-color);
+            margin-top: 0;
+            font-weight: 400;
+        }
+        .sidebar-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            flex-grow: 1;
+        }
+        .app-sidebar button {
+            font-family: 'Avenir', sans-serif;
+            font-size: 0.9rem;
+            padding: 10px 15px;
+            color: var(--app-primary-color);
+            background-color: transparent;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .app-sidebar button i {
+            width: 20px;
+            text-align: center;
+            font-size: 1em;
+        }
+        .app-sidebar button:hover {
+            background-image: linear-gradient(to right, var(--app-button-light-gradient-start), var(--app-button-light-gradient-end));
+            color: var(--app-text-on-primary);
+            transform: translateY(-1px);
+        }
+        .sidebar-footer {
+            margin-top: auto;
+        }
+        .app-main-content {
+            flex-grow: 1;
+            padding: 30px 40px;
+            overflow-y: auto;
+            background-color: var(--white);
+        }
+        .report-header-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .report-header-main .logo-left {
+            max-height: 50px;
+            width: auto;
+        }
+        .report-header-main .logo-right {
+            max-height: 35px;
+            width: auto;
+        }
+        .content-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 2.2rem;
+            color: var(--app-primary-color);
+            margin-top: 0;
+            margin-bottom: 1em;
+            font-weight: 400;
+        }
+        h2.section-title-main {
+            font-size: 1.5rem;
+            padding-bottom: 0.4em;
+            margin-top: 1.8em;
+            margin-bottom: 1em;
+            color: var(--app-secondary-color);
+            font-weight: 400;
+        }
+        h3.test-title {
+            font-size: 1.5rem;
+            color: var(--app-primary-color);
+            font-weight: 400;
+            margin-top: 2.5em;
+            margin-bottom: 1em;
+        }
+        .personalia-section {
+            background-color: var(--box-background-color);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            margin-bottom: 40px;
+        }
+        .personalia-grid {
+             display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        .dominance-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--medium-gray);
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .dominance-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .dominance-group label {
+             font-size: 0.9rem;
+             margin-bottom: 8px;
+             color: var(--dark-gray);
+             font-weight: bold;
+        }
+        .radio-group {
+            display: flex;
+            gap: 15px;
+        }
+        .radio-group label {
+            font-weight: normal;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .input-group label {
+            display: block;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            color: var(--dark-gray);
+        }
+        .input-group input, .input-group select, .input-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--medium-gray);
+            border-radius: var(--border-radius);
+            box-sizing: border-box;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+        .input-group input:focus, .input-group textarea:focus {
+            outline: 2px solid var(--app-secondary-color);
+            border-color: var(--app-primary-color);
+        }
+        .test-row {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            align-items: stretch;
+        }
+        .input-column {
+            flex: 1;
+            min-width: 320px;
+            display: flex;
+            flex-direction: column;
+        }
+        .input-container {
+            padding: 20px;
+            background: linear-gradient(to top right, rgb(222, 226, 230), rgb(112, 188, 252));
+            box-shadow: var(--box-shadow);
+            border-radius: var(--border-radius);
+            flex-grow: 1;
+        }
+        .comment-container {
+            background-color: var(--box-background-color);
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            margin-top: 15px;
+            box-shadow: var(--subtle-shadow);
+        }
+        .asymmetry-display {
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        .comment-container .input-group textarea {
+            height: 50px;
+            resize: vertical;
+        }
+        .input-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+        .input-row label {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            flex-shrink: 0;
+        }
+        .input-wrapper {
+            display: flex;
+            align-items: baseline;
+            flex-grow: 1;
+            justify-content: flex-end;
+        }
+        .input-container input {
+            font-size: 1.5rem;
+            width: 100px;
+            border: none;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 0;
+            padding: 6px 0 4px 0;
+            text-align: center;
+            background-color: transparent;
+            color: var(--text-color);
+        }
+        .input-container input:focus {
+            outline: none;
+            border-bottom-color: var(--app-primary-color);
+        }
+        .unit-text {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            margin-left: 8px;
+            width: 25px;
+            display: inline-block;
+            text-align: left;
+        }
+        .unit-text.phantom {
+            visibility: hidden;
+        }
+        .input-separator {
+            border: none;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            margin: 25px 0;
+        }
+        .graph-container {
+            flex: 1.5;
+            background: var(--box-background-color);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            min-width: 420px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--subtle-shadow);
+            position: relative;
+        }
+        .graph-container h3 {
+            text-align: center;
+            color: var(--dark-gray);
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-weight: 400;
+            text-transform: uppercase;
+            font-size: 1.15rem;
+        }
+        .js-plotly-plot {
+            min-height: 220px;
+            flex-grow: 1;
+        }
+        .graph-overlay-image {
+            position: absolute;
+            top: 65px;
+            left: 80%; 
+            transform: translateX(-50%); 
+            width: 80px;
+            height: auto;
+            pointer-events: none;
+            z-index: 2;
+        }
+        .graph-overlay-text {
+            position: absolute;
+            bottom: 20px;
+            left: 80%;
+            transform: translateX(-50%);
+            width: 100px; 
+            font-size: 12px;
+            color: var(--dark-gray);
+            text-align: center;
+            pointer-events: none;
+            z-index: 2;
+            line-height: 1.2;
+        }
+        #donut-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+            flex-grow: 1;
+        }
+        .donut-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            height: 100%;
+            justify-content: center;
+        }
+        .donut-wrapper .js-plotly-plot {
+            width: 120px !important;
+            height: 120px !important;
+            min-height: 120px;
+        }
+        .donut-label {
+            margin-top: 8px;
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+            text-align: center;
+        }
+        .manual-measurements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .manual-box {
+             background-color: var(--box-background-color);
+             padding: 20px;
+             border-radius: var(--border-radius);
+        }
+        .manual-box h4 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: var(--app-primary-color);
+            font-weight: 400;
+        }
+        #manual-preview-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            padding: 10px;
+            height: 100%;
+        }
+        .manual-preview-box {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .manual-preview-box h4 {
+            color: var(--app-primary-color);
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+        .manual-preview-box p {
+            margin: 0;
+            color: var(--dark-gray);
+            font-size: 0.85rem;
+        }
+        .manual-preview-box b {
+            color: var(--text-color);
+            font-size: 1.5em;
+            display: block;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="app-sidebar">
+        <div class="sidebar-header">
+            <h2><i class="fas fa-bars"></i></h2>
+        </div>
+        <div>
+            <div class="sidebar-buttons">
+                <button id="import-data"><i class="fas fa-download"></i><span>Importera Data</span></button>
+                <button id="export-data"><i class="fas fa-upload"></i><span>Exportera Data</span></button>
+                <button id="clear-form"><i class="fas fa-eraser"></i><span>Töm formulär</span></button>
+            </div>
+        </div>
+        <div class="sidebar-footer">
+             <button id="pdf-preview"><i class="fas fa-file-pdf"></i><span>PDF Preview</span></button>
+        </div>
+    </aside>
+
+    <main class="app-main-content">
+        <div class="content-container">
+            <header class="report-header-main">
+                <img src="https://storage.googleapis.com/intro_alphatek/logo%20fysiosport.png" alt="Fysiosport Logo" class="logo-left">
+                <img src="https://storage.googleapis.com/intro_alphatek/Kopi%2Bav%2BLogo%2BNegative%2Bnarrow.webp" alt="Alphatek Logo" class="logo-right">
+            </header>
+            <h1>Testdata Inmatning</h1>
+            <input type="file" id="import-file-input" style="display: none;" accept=".xlsx">
+
+            <form id="input-form">
+                <h2 class="section-title-main">Personuppgifter</h2>
+                <div class="personalia-section">
+                    <div class="personalia-grid">
+                        <div class="input-group"><label for="name">Namn:</label><input type="text" id="name" placeholder="Ola Nordmann"></div>
+                        <div class="input-group"><label for="date">Datum:</label><input type="date" id="date"></div>
+                        <div class="input-group"><label for="sport">Sport/Position:</label><input type="text" id="sport" placeholder="Fotboll / Mittfältare"></div>
+                        <div class="input-group"><label for="createdBy">Skapad Av:</label><input type="text" id="createdBy" placeholder="Fysioterapeut"></div>
+                    </div>
+                    <div class="dominance-section">
+                        <div class="dominance-group">
+                            <label>Referens för asymmetri:</label>
+                            <div class="radio-group">
+                                <label><input type="radio" name="dominance_type" value="dominant" checked> Dominant sida</label>
+                                <label><input type="radio" name="dominance_type" value="injured"> Skadad sida</label>
+                            </div>
+                        </div>
+                        <div class="dominance-group">
+                            <label>Sida:</label>
+                             <div class="radio-group">
+                                <label><input type="radio" name="dominant_side" value="Vänster"> Vänster</label>
+                                <label><input type="radio" name="dominant_side" value="Höger" checked> Höger</label>
+                                <label><input type="radio" name="dominant_side" value="Ingen"> Ingen</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="test-title">1. Balans</h3>
+                <div class="test-row">
+                    <div class="input-column">
+                        <div class="input-container">
+                            <div class="input-row"><label>VÄ Score:</label><div class="input-wrapper"><input type="number" id="p1_g1_va_score"><span class="unit-text phantom"></span></div></div>
+                            <div class="input-row"><label>VÄ Gen. diff:</label><div class="input-wrapper"><input type="number" step="0.01" id="p1_g1_va_diff"><span class="unit-text">cm</span></div></div>
+                            <hr class="input-separator">
+                            <div class="input-row"><label>HÖ Score:</label><div class="input-wrapper"><input type="number" id="p1_g1_ho_score"><span class="unit-text phantom"></span></div></div>
+                            <div class="input-row"><label>HÖ Gen. diff:</label><div class="input-wrapper"><input type="number" step="0.01" id="p1_g1_ho_diff"><span class="unit-text">cm</span></div></div>
+                        </div>
+                        <div class="comment-container">
+                            <div class="asymmetry-display" id="asymmetry_balance"></div>
+                            <div class="input-group"><label for="comment_balance">Kommentar:</label><textarea id="comment_balance"></textarea></div>
+                        </div>
+                    </div>
+                    <div class="graph-container">
+                        <h3>Balans</h3>
+                        <div id="p1-chart-balance" class="js-plotly-plot"></div>
+                    </div>
+                </div>
+
+                <h3 class="test-title">2. Max Hopp CMJ</h3>
+                <div class="test-row">
+                    <div class="input-column">
+                        <div class="input-container">
+                            <div class="input-row"><label>VÄ Hopp 1:</label><div class="input-wrapper"><input type="number" id="p1_g2_va_1"><span class="unit-text">cm</span></div></div>
+                            <div class="input-row"><label>VÄ Hopp 2:</label><div class="input-wrapper"><input type="number" id="p1_g2_va_2"><span class="unit-text">cm</span></div></div>
+                            <div class="input-row"><label>VÄ Hopp 3:</label><div class="input-wrapper"><input type="number" id="p1_g2_va_3"><span class="unit-text">cm</span></div></div>
+                            <hr class="input-separator">
+                            <div class="input-row"><label>HÖ Hopp 1:</label><div class="input-wrapper"><input type="number" id="p1_g2_ho_1"><span class="unit-text">cm</span></div></div>
+                            <div class="input-row"><label>HÖ Hopp 2:</label><div class="input-wrapper"><input type="number" id="p1_g2_ho_2"><span class="unit-text">cm</span></div></div>
+                            <div class="input-row"><label>HÖ Hopp 3:</label><div class="input-wrapper"><input type="number" id="p1_g2_ho_3"><span class="unit-text">cm</span></div></div>
+                        </div>
+                        <div class="comment-container">
+                            <div class="asymmetry-display" id="asymmetry_cmj"></div>
+                            <div class="input-group"><label for="comment_cmj">Kommentar:</label><textarea id="comment_cmj"></textarea></div>
+                        </div>
+                    </div>
+                    <div class="graph-container">
+                        <h3>Max Hopp CMJ</h3>
+                        <div id="p1-chart-cmj" class="js-plotly-plot"></div>
+                    </div>
+                </div>
+
+                <h3 class="test-title">3. Repeterade Hopp (TIA)</h3>
+                <div class="test-row">
+                    <div class="input-column">
+                        <div class="input-container">
+                            <div class="input-row"><label>VÄ Gen. hopphöjd:</label><div class="input-wrapper"><input type="number" step="0.1" id="p1_g3_va_jump"><span class="unit-text">cm</span></div></div>
+                            <div class="input-row"><label>VÄ GCT:</label><div class="input-wrapper"><input type="number" step="0.01" id="p1_g3_va_gct"><span class="unit-text">s</span></div></div>
+                            <hr class="input-separator">
+                            <div class="input-row"><label>HÖ Gen. hopphöjd:</label><div class="input-wrapper"><input type="number" step="0.1" id="p1_g3_ho_jump"><span class="unit-text">cm</span></div></div>
+                            <div class="input-row"><label>HÖ GCT:</label><div class="input-wrapper"><input type="number" step="0.01" id="p1_g3_ho_gct"><span class="unit-text">s</span></div></div>
+                        </div>
+                        <div class="comment-container">
+                            <div class="asymmetry-display" id="asymmetry_tia"></div>
+                            <div class="input-group"><label for="comment_tia">Kommentar:</label><textarea id="comment_tia"></textarea></div>
+                        </div>
+                    </div>
+                    <div class="graph-container">
+                        <h3>Repeterade Hopp (TIA)</h3>
+                        <div id="p1-chart-tia" class="js-plotly-plot"></div>
+                    </div>
+                </div>
+
+                <h3 class="test-title">4. Sidhopp (TIA)</h3>
+                <div class="test-row">
+                    <div class="input-column">
+                        <div class="input-container">
+                            <div class="input-row"><label>VÄ Antal:</label><div class="input-wrapper"><input type="number" id="p1_g4_va_count"><span class="unit-text">st</span></div></div>
+                            <hr class="input-separator">
+                            <div class="input-row"><label>HÖ Antal:</label><div class="input-wrapper"><input type="number" id="p1_g4_ho_count"><span class="unit-text">st</span></div></div>
+                        </div>
+                        <div class="comment-container">
+                            <div class="asymmetry-display" id="asymmetry_sidehop"></div>
+                            <div class="input-group"><label for="comment_sidehop">Kommentar:</label><textarea id="comment_sidehop"></textarea></div>
+                        </div>
+                    </div>
+                    <div class="graph-container">
+                        <h3>Sidhopp (TIA)</h3>
+                        <div id="p1-chart-sidehop" class="js-plotly-plot"></div>
+                    </div>
+                </div>
+
+                <h3 class="test-title">5. Squat Analytics</h3>
+                <div class="test-row">
+                    <div class="input-column">
+                         <div class="input-container">
+                            <div class="input-row"><label>Försök 1:</label><div class="input-wrapper"><input type="number" id="p1_g5_attempt_1"><span class="unit-text">%</span></div></div>
+                            <div class="input-row"><label>Försök 2:</label><div class="input-wrapper"><input type="number" id="p1_g5_attempt_2"><span class="unit-text">%</span></div></div>
+                            <div class="input-row"><label>Försök 3:</label><div class="input-wrapper"><input type="number" id="p1_g5_attempt_3"><span class="unit-text">%</span></div></div>
+                        </div>
+                        <div class="comment-container">
+                             <div class="input-group"><label for="comment_squat">Kommentar:</label><textarea id="comment_squat"></textarea></div>
+                        </div>
+                    </div>
+                    <div class="graph-container">
+                        <h3>Squat Analytics</h3>
+                        <div id="donut-container">
+                            <div class="donut-wrapper">
+                                <div id="p1-chart-donut-1" class="js-plotly-plot"></div>
+                                <p class="donut-label">Försök 1</p>
+                            </div>
+                            <div class="donut-wrapper">
+                                <div id="p1-chart-donut-2" class="js-plotly-plot"></div>
+                                <p class="donut-label">Försök 2</p>
+                            </div>
+                            <div class="donut-wrapper">
+                                <div id="p1-chart-donut-3" class="js-plotly-plot"></div>
+                                <p class="donut-label">Försök 3</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="test-title">6. Repeated Jumps (Två Ben)</h3>
+                <div class="test-row">
+                    <div class="input-column">
+                        <div class="input-container">
+                            <div class="input-row"><label>Gen. hopphöjd:</label><div class="input-wrapper"><input type="number" step="0.1" id="p1_g6_avg_height"><span class="unit-text">cm</span></div></div>
+                            <div class="input-row"><label>Gen. GCT:</label><div class="input-wrapper"><input type="number" step="0.01" id="p1_g6_avg_gct"><span class="unit-text">s</span></div></div>
+                        </div>
+                        <div class="comment-container">
+                            <div class="input-group"><label for="comment_repeated_bilateral">Kommentar:</label><textarea id="comment_repeated_bilateral"></textarea></div>
+                        </div>
+                    </div>
+                    <div class="graph-container">
+                        <h3>Repeated Jumps (Två Ben)</h3>
+                        <div id="p1-chart-repeated-bilateral" class="js-plotly-plot"></div>
+                    </div>
+                </div>
+
+                <h3 class="test-title">7. Hip Thrusters Pull</h3>
+                <div class="test-row">
+                    <div class="input-column">
+                        <div class="input-container">
+                            <div class="input-row"><label>Hip Thrust VÄ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g1_va"><span class="unit-text">kg</span></div></div>
+                            <div class="input-row"><label>Hip Thrust HÖ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g1_ho"><span class="unit-text">kg</span></div></div>
+                            <hr class="input-separator">
+                            <div class="input-row"><label>Två ben (Djur):</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g1_tva"><span class="unit-text">kg</span></div></div>
+                        </div>
+                        <div class="comment-container">
+                            <div class="asymmetry-display" id="asymmetry_hipthrust"></div>
+                            <div class="input-group"><label for="comment_hipthrust">Kommentar:</label><textarea id="comment_hipthrust"></textarea></div>
+                        </div>
+                    </div>
+                    <div class="graph-container">
+                        <h3>Hip Thrusters Pull</h3>
+                        <div id="p2-chart-hipthrust" class="js-plotly-plot"></div>
+                        <img id="overlay-image-hipthrust" src="" class="graph-overlay-image" alt="Animal">
+                        <div id="overlay-text-hipthrust" class="graph-overlay-text"></div>
+                    </div>
+                </div>
+
+                <h3 class="test-title">8. Quadriceps Isometrisk Styrka</h3>
+                <div class="test-row">
+                    <div class="input-column">
+                        <div class="input-container">
+                            <div class="input-row"><label>Quadriceps VÄ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g2_va"><span class="unit-text">kg</span></div></div>
+                            <hr class="input-separator">
+                            <div class="input-row"><label>Quadriceps HÖ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g2_ho"><span class="unit-text">kg</span></div></div>
+                        </div>
+                        <div class="comment-container">
+                            <div class="asymmetry-display" id="asymmetry_quads"></div>
+                            <div class="input-group"><label for="comment_quads">Kommentar:</label><textarea id="comment_quads"></textarea></div>
+                        </div>
+                    </div>
+                    <div class="graph-container">
+                        <h3>Quadriceps Isometrisk Styrka</h3>
+                        <div id="p2-chart-quads" class="js-plotly-plot"></div>
+                    </div>
+                </div>
+
+                <h3 class="test-title">9. Static Squat Pull</h3>
+                <div class="test-row">
+                    <div class="input-column">
+                        <div class="input-container">
+                            <div class="input-row"><label>Static Squat VÄ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g3_va"><span class="unit-text">kg</span></div></div>
+                            <div class="input-row"><label>Static Squat HÖ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g3_ho"><span class="unit-text">kg</span></div></div>
+                            <hr class="input-separator">
+                            <div class="input-row"><label>Två ben (Djur):</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g3_tva"><span class="unit-text">kg</span></div></div>
+                        </div>
+                        <div class="comment-container">
+                             <div class="asymmetry-display" id="asymmetry_squat_pull"></div>
+                            <div class="input-group"><label for="comment_squat_pull">Kommentar:</label><textarea id="comment_squat_pull"></textarea></div>
+                        </div>
+                    </div>
+                    <div class="graph-container">
+                        <h3>Static Squat Pull</h3>
+                        <div id="p2-chart-squat" class="js-plotly-plot"></div>
+                        <img id="overlay-image-squat" src="" class="graph-overlay-image" alt="Animal">
+                        <div id="overlay-text-squat" class="graph-overlay-text"></div>
+                    </div>
+                </div>
+                
+                <h3 class="test-title">10. Hamstring Isometrisk Styrka</h3>
+                <div class="test-row">
+                    <div class="input-column">
+                        <div class="input-container">
+                            <div class="input-row"><label>Hamstring VÄ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g4_va"><span class="unit-text">N</span></div></div>
+                             <hr class="input-separator">
+                            <div class="input-row"><label>Hamstring HÖ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g4_ho"><span class="unit-text">N</span></div></div>
+                        </div>
+                        <div class="comment-container">
+                            <div class="asymmetry-display" id="asymmetry_hamstring"></div>
+                            <div class="input-group"><label for="comment_hamstring">Kommentar:</label><textarea id="comment_hamstring"></textarea></div>
+                        </div>
+                    </div>
+                    <div class="graph-container">
+                        <h3>Hamstring Isometrisk Styrka</h3>
+                        <div id="p2-chart-hamstring" class="js-plotly-plot"></div>
+                    </div>
+                </div>
+
+                <h3 class="test-title">11. Manuella Mätningar</h3>
+                 <div class="test-row">
+                    <div class="input-column">
+                        <div class="input-container">
+                            <div class="manual-measurements-grid">
+                                <div class="manual-box">
+                                    <h4>Static Row Pull</h4>
+                                    <div class="input-group"><label>Tare (N):</label><input type="number" id="p2_text_srp_tare"></div>
+                                    <div class="input-group"><label>Force (N):</label><input type="number" id="p2_text_srp_force"></div>
+                                </div>
+                                <div class="manual-box">
+                                    <h4>Squat Power to Speed</h4>
+                                    <div class="input-group"><label>Vikt (kg):</label><input type="number" id="p2_text_spts_kg"></div>
+                                </div>
+                                <div class="manual-box">
+                                    <h4>Max Press Push Up</h4>
+                                    <div class="input-group"><label>Tare (N):</label><input type="number" id="p2_text_mpu_tare"></div>
+                                    <div class="input-group"><label>Force (N):</label><input type="number" id="p2_text_mpu_force"></div>
+                                </div>
+                                <div class="manual-box">
+                                    <h4>Blaze Pod Challenge</h4>
+                                    <div class="input-group"><label>Antal träffar:</label><input type="number" id="p2_text_bpc_hits"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="graph-container">
+                        <h3>Manuella Mätningar</h3>
+                        <div id="manual-preview-content"></div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </main>
+
+    <script>
+        // --- UTILITY FUNCTIONS ---
+        const plotlyConfig = { responsive: true, displaylogo: false, modeBarButtonsToRemove: ['sendDataToCloud', 'lasso2d', 'select2d', 'autoScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian', 'toggleSpikelines'] };
+        function hexToRgba(hex, alpha) { hex = hex.replace('#', ''); const r = parseInt(hex.substring(0, 2), 16); const g = parseInt(hex.substring(2, 4), 16); const b = parseInt(hex.substring(4, 6), 16); return `rgba(${r}, ${g}, ${b}, ${alpha})`; }
+
+        // --- ANIMAL LOGIC ---
+        function getAnimalForWeight(weight) {
+            const baseUrl = "https://storage.googleapis.com/intro_alphatek/animals/";
+            if (weight <= 66.2) return { name: "Koala", url: baseUrl + "Koala.png" };
+            if (weight <= 99.5) return { name: "Dog", url: baseUrl + "Dog.png" };
+            if (weight <= 132.8) return { name: "Kangaroo", url: baseUrl + "Kangaroo.png" };
+            if (weight <= 166.2) return { name: "Gazelle", url: baseUrl + "Gazelle.png" };
+            if (weight <= 199.5) return { name: "Jaguar", url: baseUrl + "Jaguar.png" };
+            if (weight <= 232.8) return { name: "Panda", url: baseUrl + "Panda.png" };
+            if (weight <= 266.2) return { name: "Wild Hog", url: baseUrl + "Wild%20Hog.png" };
+            if (weight <= 299.5) return { name: "Lion", url: baseUrl + "Lion.png" };
+            if (weight <= 332.8) return { name: "Tiger", url: baseUrl + "Tiger.png" };
+            if (weight <= 366.2) return { name: "Gorilla", url: baseUrl + "Gorilla.png" };
+            if (weight <= 399.5) return { name: "Anaconda", url: baseUrl + "Anaconda(1).png" };
+            if (weight <= 432.8) return { name: "Alligator", url: baseUrl + "Alligator.png" };
+            if (weight <= 466.2) return { name: "Grizzly", url: baseUrl + "Grizzly.png" };
+            if (weight <= 499.5) return { name: "Polar Bear", url: baseUrl + "Polar%20Bear.png" };
+            return { name: "The Beast", url: baseUrl + "the_beast.png" };
+        }
+
+        function updateAnimalOverlay(weight, imageElementId, textElementId) {
+            const animal = getAnimalForWeight(weight);
+            document.getElementById(imageElementId).src = animal.url;
+            document.getElementById(textElementId).innerHTML = `Du drar ${weight.toFixed(1)} kg<br>Du är en ${animal.name}!`;
+        }
+
+        // --- CHART CREATION FUNCTIONS ---
+        function processChartData(dataArray) {
+            if (dataArray.length === 2) {
+                return [dataArray[0], null, dataArray[1]];
+            }
+            return dataArray;
+        }
+
+        function createPairedBarChart(config) {
+            const vaColorHex = getComputedStyle(document.documentElement).getPropertyValue('--va-color').trim();
+            const hoColorHex = getComputedStyle(document.documentElement).getPropertyValue('--ho-color').trim();
+            const leftColorRgba = hexToRgba(vaColorHex, 0.8);
+            const rightColorRgba = hexToRgba(hoColorHex, 0.8);
+            const darkGrayColor = getComputedStyle(document.documentElement).getPropertyValue('--dark-gray').trim();
+            const whiteColor = getComputedStyle(document.documentElement).getPropertyValue('--white').trim();
+
+            const MAX_BARS = 3;
+            const labels = new Array(MAX_BARS).fill('');
+            const va_y1 = new Array(MAX_BARS).fill(null);
+            const ho_y1 = new Array(MAX_BARS).fill(null);
+            const text_va_y1 = new Array(MAX_BARS).fill(null);
+            const text_ho_y1 = new Array(MAX_BARS).fill(null);
+            
+            const va_y2 = new Array(MAX_BARS).fill(null);
+            const ho_y2 = new Array(MAX_BARS).fill(null);
+            const text_va_y2 = new Array(MAX_BARS).fill(null);
+            const text_ho_y2 = new Array(MAX_BARS).fill(null);
+
+            let max_y1 = 0;
+            let max_y2 = 0;
+
+            const processedData = processChartData(config.data);
+
+            processedData.forEach((d, i) => {
+                if (i < MAX_BARS && d) {
+                    labels[i] = d.name;
+                    if (d.yaxis === 'y2') {
+                        va_y2[i] = d.va;
+                        ho_y2[i] = d.ho;
+                        text_va_y2[i] = d.va.toFixed(d.decimals ?? 1);
+                        text_ho_y2[i] = d.ho.toFixed(d.decimals ?? 1);
+                        max_y2 = Math.max(max_y2, d.va, d.ho);
+                    } else {
+                        va_y1[i] = d.va;
+                        ho_y1[i] = d.ho;
+                        text_va_y1[i] = d.va.toFixed(d.decimals ?? 1);
+                        text_ho_y1[i] = d.ho.toFixed(d.decimals ?? 1);
+                        max_y1 = Math.max(max_y1, d.va, d.ho);
+                    }
+                }
+            });
+
+            const traces = [
+                { type: 'bar', name: 'VÄ', x: labels, y: va_y1, marker: { color: leftColorRgba }, text: text_va_y1, textposition: 'inside', insidetextanchor: 'middle', textfont: { color: whiteColor }, hoverinfo: 'none', yaxis: 'y' },
+                { type: 'bar', name: 'HÖ', x: labels, y: ho_y1, marker: { color: rightColorRgba }, text: text_ho_y1, textposition: 'inside', insidetextanchor: 'middle', textfont: { color: whiteColor }, hoverinfo: 'none', yaxis: 'y' },
+            ];
+
+            if (config.y2Title) {
+                traces.push({ type: 'bar', name: 'VÄ (y2)', x: labels, y: va_y2, marker: { color: leftColorRgba }, text: text_va_y2, textposition: 'inside', insidetextanchor: 'middle', textfont: { color: whiteColor }, hoverinfo: 'none', yaxis: 'y2', showlegend: false });
+                traces.push({ type: 'bar', name: 'HÖ (y2)', x: labels, y: ho_y2, marker: { color: rightColorRgba }, text: text_ho_y2, textposition: 'inside', insidetextanchor: 'middle', textfont: { color: whiteColor }, hoverinfo: 'none', yaxis: 'y2', showlegend: false });
+            }
+
+            const layout = {
+                barmode: 'group',
+                font: { color: darkGrayColor, family: 'Avenir, sans-serif' },
+                yaxis: { title: config.y1Title, range: [0, max_y1 > 0 ? max_y1 * 1.25 : 10], showgrid: false, zeroline: false },
+                xaxis: { showgrid: false, zeroline: false, showline: false, fixedrange: true, categoryorder: 'array', categoryarray: labels, tickvals: labels.filter(l => l !== '') },
+                paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
+                legend: { orientation: "h", yanchor: "bottom", y: 1.02, xanchor: "center", x: 0.5 },
+                margin: { l: 50, r: config.y2Title ? 65 : 25, b: 40, t: 35, pad: 5 },
+            };
+            
+            if (config.y2Title) {
+                layout.yaxis2 = { title: config.y2Title, overlaying: 'y', side: 'right', showgrid: false, zeroline: false, showline: false, range: [0, max_y2 > 0 ? max_y2 * 1.25 : 1] };
+            }
+
+            return { data: traces, layout: layout };
+        }
+        
+        function createSingleBarChart(config) {
+            const primaryColorHex = getComputedStyle(document.documentElement).getPropertyValue('--app-primary-color').trim();
+            const primaryColorRgba = hexToRgba(primaryColorHex, 0.8);
+            const darkGrayColor = getComputedStyle(document.documentElement).getPropertyValue('--dark-gray').trim();
+            const whiteColor = getComputedStyle(document.documentElement).getPropertyValue('--white').trim();
+
+            const MAX_BARS = 3;
+            const labels = new Array(MAX_BARS).fill('');
+            const y1_vals = new Array(MAX_BARS).fill(null);
+            const y2_vals = new Array(MAX_BARS).fill(null);
+            const y1_texts = new Array(MAX_BARS).fill(null);
+            const y2_texts = new Array(MAX_BARS).fill(null);
+
+            let max_y1 = 0;
+            let max_y2 = 0;
+            
+            const processedData = processChartData(config.data);
+
+            processedData.forEach((d, i) => {
+                if (i < MAX_BARS && d) {
+                    labels[i] = d.name;
+                    if (d.yaxis === 'y2') {
+                        y2_vals[i] = d.val;
+                        y2_texts[i] = d.val.toFixed(d.decimals ?? 1);
+                        max_y2 = Math.max(max_y2, d.val);
+                    } else {
+                        y1_vals[i] = d.val;
+                        y1_texts[i] = d.val.toFixed(d.decimals ?? 1);
+                        max_y1 = Math.max(max_y1, d.val);
+                    }
+                }
+            });
+
+            const traces = [
+                { type: 'bar', name: config.y1Title, x: labels, y: y1_vals, marker: { color: primaryColorRgba }, text: y1_texts, textposition: 'inside', insidetextanchor: 'middle', textfont: { color: whiteColor }, hoverinfo: 'none', yaxis: 'y' },
+            ];
+            
+            if (config.y2Title) {
+                traces.push({ type: 'bar', name: config.y2Title, x: labels, y: y2_vals, marker: { color: primaryColorRgba }, text: y2_texts, textposition: 'inside', insidetextanchor: 'middle', textfont: { color: whiteColor }, hoverinfo: 'none', yaxis: 'y2' });
+            }
+
+            const layout = {
+                barmode: 'group',
+                showlegend: false,
+                font: { color: darkGrayColor, family: 'Avenir, sans-serif' },
+                yaxis: { title: config.y1Title, range: [0, max_y1 > 0 ? max_y1 * 1.25 : 10], showgrid: false, zeroline: false },
+                xaxis: { showgrid: false, zeroline: false, showline: false, fixedrange: true, categoryorder: 'array', categoryarray: labels, tickvals: labels.filter(l => l !== '') },
+                paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
+                margin: { l: 50, r: config.y2Title ? 65 : 25, b: 40, t: 35, pad: 5 },
+            };
+
+            if (config.y2Title) {
+                layout.yaxis2 = { title: config.y2Title, overlaying: 'y', side: 'right', showgrid: false, zeroline: false, showline: false, range: [0, max_y2 > 0 ? max_y2 * 1.25 : 1] };
+            }
+
+            return { data: traces, layout: layout };
+        }
+
+        function createSingleDonutChart(value) {
+            const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--app-primary-color').trim();
+            const primaryColorRgba = hexToRgba(primaryColor, 0.8);
+            const emptyColorRgba = 'rgba(222, 226, 230, 0.8)';
+            const darkGrayColor = getComputedStyle(document.documentElement).getPropertyValue('--dark-gray').trim();
+
+            const barWidth = 360 * (value / 100);
+
+            const data = [
+                { type: "barpolar", r: [100], theta: [0], width: [360], marker: { color: emptyColorRgba }, hoverinfo: "none", layer: 'below' },
+                { type: "barpolar", r: [100], theta: [barWidth / 2], width: [barWidth], marker: { color: primaryColorRgba }, hoverinfo: "none" }
+            ];
+
+            const layout = {
+                showlegend: false,
+                paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
+                margin: { t: 5, b: 5, l: 5, r: 5 },
+                polar: {
+                    hole: 0.7, barmode: 'overlay',
+                    radialaxis: { visible: false, range: [0, 100] },
+                    angularaxis: { rotation: 90, direction: "clockwise", visible: false }
+                },
+                annotations: [{
+                    font: { size: 24, color: darkGrayColor, weight: 'bold' }, showarrow: false,
+                    text: `${value}`, x: 0.5, y: 0.5, xanchor: 'center', yanchor: 'middle'
+                }]
+            };
+            return { data, layout };
+        }
+
+        // --- CORE LOGIC ---
+        let saveTimeout;
+        const saveData = () => {
+             clearTimeout(saveTimeout);
+             saveTimeout = setTimeout(() => {
+                const data = collectDataFromForm();
+                localStorage.setItem('fysiosportData', JSON.stringify(data));
+             }, 500); // Debounce time in ms
+        };
+
+        function collectDataFromForm() {
+            const getNum = (id) => parseFloat(document.getElementById(id).value) || 0;
+            const getText = (id) => document.getElementById(id).value;
+            const getRadio = (name) => document.querySelector(`input[name="${name}"]:checked`)?.value;
+            const getAsymmetry = (id) => {
+                const el = document.getElementById(id);
+                return el ? parseFloat(el.dataset.asymmetryValue) || 0 : 0;
+            };
+
+            return {
+                patientInfo: {
+                    name: getText('name'),
+                    date: getText('date'),
+                    sportPosition: getText('sport'),
+                    createdBy: getText('createdBy'),
+                    dominantSideType: getRadio('dominance_type'),
+                    dominantSide: getRadio('dominant_side'),
+                },
+                page1: {
+                    balance: { leftScore: getNum('p1_g1_va_score'), rightScore: getNum('p1_g1_ho_score'), leftDiff: getNum('p1_g1_va_diff'), rightDiff: getNum('p1_g1_ho_diff'), comment: getText('comment_balance'), asymmetryPercent: getAsymmetry('asymmetry_balance') },
+                    cmj: { vaJumps: [getNum('p1_g2_va_1'), getNum('p1_g2_va_2'), getNum('p1_g2_va_3')], hoJumps: [getNum('p1_g2_ho_1'), getNum('p1_g2_ho_2'), getNum('p1_g2_ho_3')], comment: getText('comment_cmj'), asymmetryPercent: getAsymmetry('asymmetry_cmj') },
+                    tia: { leftJump: getNum('p1_g3_va_jump'), rightJump: getNum('p1_g3_ho_jump'), leftGct: getNum('p1_g3_va_gct'), rightGct: getNum('p1_g3_ho_gct'), comment: getText('comment_tia'), asymmetryPercent: getAsymmetry('asymmetry_tia') },
+                    sidehop: { leftCount: getNum('p1_g4_va_count'), rightCount: getNum('p1_g4_ho_count'), comment: getText('comment_sidehop'), asymmetryPercent: getAsymmetry('asymmetry_sidehop') },
+                    squatAnalytics: { attempt1: getNum('p1_g5_attempt_1'), attempt2: getNum('p1_g5_attempt_2'), attempt3: getNum('p1_g5_attempt_3'), comment: getText('comment_squat') },
+                    repeatedBilateral: { avgHeight: getNum('p1_g6_avg_height'), avgGct: getNum('p1_g6_avg_gct'), comment: getText('comment_repeated_bilateral') },
+                },
+                page2: {
+                    strengthTests: {
+                        hipThrust: { left: getNum('p2_g1_va'), right: getNum('p2_g1_ho'), tva: getNum('p2_g1_tva'), comment: getText('comment_hipthrust'), asymmetryPercent: getAsymmetry('asymmetry_hipthrust') },
+                        quadriceps: { left: getNum('p2_g2_va'), right: getNum('p2_g2_ho'), comment: getText('comment_quads'), asymmetryPercent: getAsymmetry('asymmetry_quads') },
+                        staticSquat: { left: getNum('p2_g3_va'), right: getNum('p2_g3_ho'), tva: getNum('p2_g3_tva'), comment: getText('comment_squat_pull'), asymmetryPercent: getAsymmetry('asymmetry_squat_pull') },
+                        hamstring: { left: getNum('p2_g4_va'), right: getNum('p2_g4_ho'), comment: getText('comment_hamstring'), asymmetryPercent: getAsymmetry('asymmetry_hamstring') },
+                    },
+                    manual: {
+                        srp: { tare: getNum('p2_text_srp_tare'), force: getNum('p2_text_srp_force') },
+                        spts: { kg: getNum('p2_text_spts_kg') },
+                        mpu: { tare: getNum('p2_text_mpu_tare'), force: getNum('p2_text_mpu_force') },
+                        bpc: { hits: getNum('p2_text_bpc_hits') },
+                    }
+                }
+            };
+        }
+
+        function populateFormFromData(data) {
+            const setVal = (id, value) => { if (value !== undefined && document.getElementById(id)) document.getElementById(id).value = value; };
+            const setRadio = (name, value) => { if(value) document.querySelector(`input[name="${name}"][value="${value}"]`).checked = true; };
+
+            setVal('name', data.patientInfo?.name);
+            setVal('date', data.patientInfo?.date);
+            setVal('sport', data.patientInfo?.sportPosition);
+            setVal('createdBy', data.patientInfo?.createdBy);
+            setRadio('dominance_type', data.patientInfo?.dominantSideType);
+            setRadio('dominant_side', data.patientInfo?.dominantSide);
+
+            setVal('p1_g1_va_score', data.page1?.balance?.leftScore);
+            setVal('p1_g1_ho_score', data.page1?.balance?.rightScore);
+            setVal('p1_g1_va_diff', data.page1?.balance?.leftDiff);
+            setVal('p1_g1_ho_diff', data.page1?.balance?.rightDiff);
+            setVal('comment_balance', data.page1?.balance?.comment);
+            setVal('p1_g2_va_1', data.page1?.cmj?.vaJumps?.[0]);
+            setVal('p1_g2_va_2', data.page1?.cmj?.vaJumps?.[1]);
+            setVal('p1_g2_va_3', data.page1?.cmj?.vaJumps?.[2]);
+            setVal('p1_g2_ho_1', data.page1?.cmj?.hoJumps?.[0]);
+            setVal('p1_g2_ho_2', data.page1?.cmj?.hoJumps?.[1]);
+            setVal('p1_g2_ho_3', data.page1?.cmj?.hoJumps?.[2]);
+            setVal('comment_cmj', data.page1?.cmj?.comment);
+            setVal('p1_g3_va_jump', data.page1?.tia?.leftJump);
+            setVal('p1_g3_ho_jump', data.page1?.tia?.rightJump);
+            setVal('p1_g3_va_gct', data.page1?.tia?.leftGct);
+            setVal('p1_g3_ho_gct', data.page1?.tia?.rightGct);
+            setVal('comment_tia', data.page1?.tia?.comment);
+            setVal('p1_g4_va_count', data.page1?.sidehop?.leftCount);
+            setVal('p1_g4_ho_count', data.page1?.sidehop?.rightCount);
+            setVal('comment_sidehop', data.page1?.sidehop?.comment);
+            setVal('p1_g5_attempt_1', data.page1?.squatAnalytics?.attempt1);
+            setVal('p1_g5_attempt_2', data.page1?.squatAnalytics?.attempt2);
+            setVal('p1_g5_attempt_3', data.page1?.squatAnalytics?.attempt3);
+            setVal('comment_squat', data.page1?.squatAnalytics?.comment);
+            setVal('p1_g6_avg_height', data.page1?.repeatedBilateral?.avgHeight);
+            setVal('p1_g6_avg_gct', data.page1?.repeatedBilateral?.avgGct);
+            setVal('comment_repeated_bilateral', data.page1?.repeatedBilateral?.comment);
+
+            setVal('p2_g1_va', data.page2?.strengthTests?.hipThrust?.left);
+            setVal('p2_g1_ho', data.page2?.strengthTests?.hipThrust?.right);
+            setVal('p2_g1_tva', data.page2?.strengthTests?.hipThrust?.tva);
+            setVal('comment_hipthrust', data.page2?.strengthTests?.hipThrust?.comment);
+            setVal('p2_g2_va', data.page2?.strengthTests?.quadriceps?.left);
+            setVal('p2_g2_ho', data.page2?.strengthTests?.quadriceps?.right);
+            setVal('comment_quads', data.page2?.strengthTests?.quadriceps?.comment);
+            setVal('p2_g3_va', data.page2?.strengthTests?.staticSquat?.left);
+            setVal('p2_g3_ho', data.page2?.strengthTests?.staticSquat?.right);
+            setVal('p2_g3_tva', data.page2?.strengthTests?.staticSquat?.tva);
+            setVal('comment_squat_pull', data.page2?.strengthTests?.staticSquat?.comment);
+            setVal('p2_g4_va', data.page2?.strengthTests?.hamstring?.left);
+            setVal('p2_g4_ho', data.page2?.strengthTests?.hamstring?.right);
+            setVal('comment_hamstring', data.page2?.strengthTests?.hamstring?.comment);
+            setVal('p2_text_srp_tare', data.page2?.manual?.srp?.tare);
+            setVal('p2_text_srp_force', data.page2?.manual?.srp?.force);
+            setVal('p2_text_spts_kg', data.page2?.manual?.spts?.kg);
+            setVal('p2_text_mpu_tare', data.page2?.manual?.mpu?.tare);
+            setVal('p2_text_mpu_force', data.page2?.manual?.mpu?.force);
+            setVal('p2_text_bpc_hits', data.page2?.manual?.bpc?.hits);
+
+            updatePreview();
+        }
+
+        function updateManualPreview(manualData) {
+            const previewContainer = document.getElementById('manual-preview-content');
+            if (!previewContainer) return;
+
+            const srpResult = manualData.srp.force - manualData.srp.tare;
+            const mpuResult = manualData.mpu.force - manualData.mpu.tare;
+
+            previewContainer.innerHTML = `
+                <div class="manual-preview-box">
+                    <h4>Static Row Pull</h4>
+                    <p>Resultat</p>
+                    <b>${srpResult.toFixed(0)} N</b>
+                </div>
+                <div class="manual-preview-box">
+                    <h4>Squat Power to Speed</h4>
+                    <p>Vikt</p>
+                    <b>${manualData.spts.kg} kg</b>
+                </div>
+                <div class="manual-preview-box">
+                    <h4>Max Press Push Up</h4>
+                    <p>Resultat</p>
+                    <b>${mpuResult.toFixed(0)} N</b>
+                </div>
+                <div class="manual-preview-box">
+                    <h4>Blaze Pod Challenge</h4>
+                    <p>Antal träffar</p>
+                    <b>${manualData.bpc.hits} st</b>
+                </div>
+            `;
+        }
+        
+        function updateAsymmetryDisplay(valV, valH, referenceSide, displayId, isLowerBetter = false) {
+            const displayEl = document.getElementById(displayId);
+            if (!displayEl) return;
+
+            if (valV === 0 || valH === 0 || referenceSide === 'Ingen') {
+                displayEl.innerHTML = 'Asymmetri: N/A';
+                displayEl.dataset.asymmetryValue = 0;
+                return;
+            }
+
+            let referenceVal = (referenceSide === 'Vänster') ? valV : valH;
+            let otherVal = (referenceSide === 'Vänster') ? valH : valV;
+            
+            let asymmetryPercent = ((otherVal - referenceVal) / referenceVal) * 100;
+            if (isLowerBetter) {
+                asymmetryPercent *= -1;
+            }
+
+            const color = asymmetryPercent < -10 ? '#d9534f' : '#5cb85c';
+            const asymmetryHTML = `Asymmetri: <span style="color: ${color}; font-weight: bold;">${asymmetryPercent.toFixed(1)}%</span>`;
+            
+            displayEl.innerHTML = asymmetryHTML;
+            displayEl.dataset.asymmetryValue = asymmetryPercent.toFixed(1);
+        }
+
+        function updateCombinedAsymmetryDisplay(v1, h1, isLowerBetter1, v2, h2, isLowerBetter2, referenceSide, displayId) {
+            const displayEl = document.getElementById(displayId);
+            if (!displayEl) return;
+
+            const asymmetries = [];
+
+            if (v1 > 0 && h1 > 0 && referenceSide !== 'Ingen') {
+                let ref = (referenceSide === 'Vänster') ? v1 : h1;
+                let other = (referenceSide === 'Vänster') ? h1 : v1;
+                let percent = ((other - ref) / ref) * 100;
+                if (isLowerBetter1) percent *= -1;
+                asymmetries.push(percent);
+            }
+
+            if (v2 > 0 && h2 > 0 && referenceSide !== 'Ingen') {
+                let ref = (referenceSide === 'Vänster') ? v2 : h2;
+                let other = (referenceSide === 'Vänster') ? h2 : v2;
+                let percent = ((other - ref) / ref) * 100;
+                if (isLowerBetter2) percent *= -1;
+                asymmetries.push(percent);
+            }
+
+            if (asymmetries.length === 0) {
+                displayEl.innerHTML = 'Asymmetri: N/A';
+                displayEl.dataset.asymmetryValue = 0;
+                return;
+            }
+
+            const avgPercent = asymmetries.reduce((a, b) => a + b, 0) / asymmetries.length;
+            const color = avgPercent < -10 ? '#d9534f' : '#5cb85c';
+            const asymmetryHTML = `Sammanlagd Asymmetri: <span style="color: ${color}; font-weight: bold;">${avgPercent.toFixed(1)}%</span>`;
+            
+            displayEl.innerHTML = asymmetryHTML;
+            displayEl.dataset.asymmetryValue = avgPercent.toFixed(1);
+        }
+
+        function updatePreview() {
+            const data = collectDataFromForm();
+            const referenceSide = data.patientInfo.dominantSide;
+
+            updateCombinedAsymmetryDisplay(data.page1.balance.leftScore, data.page1.balance.rightScore, false, data.page1.balance.leftDiff, data.page1.balance.rightDiff, true, referenceSide, 'asymmetry_balance');
+            const avgVJump = (data.page1.cmj.vaJumps.reduce((a, b) => a + b, 0) / 3) || 0;
+            const avgHJump = (data.page1.cmj.hoJumps.reduce((a, b) => a + b, 0) / 3) || 0;
+            updateAsymmetryDisplay(avgVJump, avgHJump, referenceSide, 'asymmetry_cmj');
+            updateCombinedAsymmetryDisplay(data.page1.tia.leftJump, data.page1.tia.rightJump, false, data.page1.tia.leftGct, data.page1.tia.rightGct, true, referenceSide, 'asymmetry_tia');
+            updateAsymmetryDisplay(data.page1.sidehop.leftCount, data.page1.sidehop.rightCount, referenceSide, 'asymmetry_sidehop');
+            updateAsymmetryDisplay(data.page2.strengthTests.hipThrust.left, data.page2.strengthTests.hipThrust.right, referenceSide, 'asymmetry_hipthrust');
+            updateAsymmetryDisplay(data.page2.strengthTests.quadriceps.left, data.page2.strengthTests.quadriceps.right, referenceSide, 'asymmetry_quads');
+            updateAsymmetryDisplay(data.page2.strengthTests.staticSquat.left, data.page2.strengthTests.staticSquat.right, referenceSide, 'asymmetry_squat_pull');
+            updateAsymmetryDisplay(data.page2.strengthTests.hamstring.left, data.page2.strengthTests.hamstring.right, referenceSide, 'asymmetry_hamstring');
+
+            const balanceChartConfig = {
+                y1Title: 'Score', y2Title: 'cm',
+                data: [
+                    { name: 'Score', va: data.page1.balance.leftScore, ho: data.page1.balance.rightScore, decimals: 0 },
+                    { name: 'Gen. diff', va: data.page1.balance.leftDiff, ho: data.page1.balance.rightDiff, yaxis: 'y2', decimals: 2 }
+                ]
+            };
+            Plotly.react('p1-chart-balance', createPairedBarChart(balanceChartConfig).data, createPairedBarChart(balanceChartConfig).layout, plotlyConfig);
+
+            const cmjChartConfig = {
+                y1Title: 'Hopphöjd (cm)',
+                data: [
+                    { name: 'Hopp 1', va: data.page1.cmj.vaJumps[0], ho: data.page1.cmj.hoJumps[0], decimals: 0 },
+                    { name: 'Hopp 2', va: data.page1.cmj.vaJumps[1], ho: data.page1.cmj.hoJumps[1], decimals: 0 },
+                    { name: 'Hopp 3', va: data.page1.cmj.vaJumps[2], ho: data.page1.cmj.hoJumps[2], decimals: 0 }
+                ]
+            };
+            Plotly.react('p1-chart-cmj', createPairedBarChart(cmjChartConfig).data, createPairedBarChart(cmjChartConfig).layout, plotlyConfig);
+            
+            const tiaChartConfig = {
+                y1Title: 'cm', y2Title: 's',
+                data: [
+                    { name: 'Gen. hopp', va: data.page1.tia.leftJump, ho: data.page1.tia.rightJump, decimals: 1 },
+                    { name: 'GCT', va: data.page1.tia.leftGct, ho: data.page1.tia.rightGct, yaxis: 'y2', decimals: 2 }
+                ]
+            };
+            Plotly.react('p1-chart-tia', createPairedBarChart(tiaChartConfig).data, createPairedBarChart(tiaChartConfig).layout, plotlyConfig);
+
+            const sidehopChartConfig = {
+                y1Title: 'Antal (st)',
+                data: [ { name: 'Antal', va: data.page1.sidehop.leftCount, ho: data.page1.sidehop.rightCount, decimals: 0 } ]
+            };
+            Plotly.react('p1-chart-sidehop', createPairedBarChart(sidehopChartConfig).data, createPairedBarChart(sidehopChartConfig).layout, plotlyConfig);
+            
+            const donut1 = createSingleDonutChart(data.page1.squatAnalytics.attempt1);
+            Plotly.react('p1-chart-donut-1', donut1.data, donut1.layout, plotlyConfig);
+            const donut2 = createSingleDonutChart(data.page1.squatAnalytics.attempt2);
+            Plotly.react('p1-chart-donut-2', donut2.data, donut2.layout, plotlyConfig);
+            const donut3 = createSingleDonutChart(data.page1.squatAnalytics.attempt3);
+            Plotly.react('p1-chart-donut-3', donut3.data, donut3.layout, plotlyConfig);
+
+            const repeatedBilateralConfig = {
+                y1Title: 'cm', y2Title: 's',
+                data: [
+                    { name: 'Gen. hopp', val: data.page1.repeatedBilateral.avgHeight, decimals: 1 },
+                    { name: 'Gen. GCT', val: data.page1.repeatedBilateral.avgGct, yaxis: 'y2', decimals: 2 }
+                ]
+            };
+            Plotly.react('p1-chart-repeated-bilateral', createSingleBarChart(repeatedBilateralConfig).data, createSingleBarChart(repeatedBilateralConfig).layout, plotlyConfig);
+
+            const hipThrustConfig = {
+                y1Title: 'KG',
+                data: [ { name: 'Hip Thrust', va: data.page2.strengthTests.hipThrust.left, ho: data.page2.strengthTests.hipThrust.right, decimals: 1 } ]
+            };
+            Plotly.react('p2-chart-hipthrust', createPairedBarChart(hipThrustConfig).data, createPairedBarChart(hipThrustConfig).layout, plotlyConfig);
+            updateAnimalOverlay(data.page2.strengthTests.hipThrust.tva, 'overlay-image-hipthrust', 'overlay-text-hipthrust');
+            
+            const quadsConfig = {
+                y1Title: 'KG',
+                data: [ { name: 'Quadriceps', va: data.page2.strengthTests.quadriceps.left, ho: data.page2.strengthTests.quadriceps.right, decimals: 1 } ]
+            };
+            Plotly.react('p2-chart-quads', createPairedBarChart(quadsConfig).data, createPairedBarChart(quadsConfig).layout, plotlyConfig);
+            
+            const squatConfig = {
+                y1Title: 'KG',
+                data: [ { name: 'Static Squat', va: data.page2.strengthTests.staticSquat.left, ho: data.page2.strengthTests.staticSquat.right, decimals: 1 } ]
+            };
+            Plotly.react('p2-chart-squat', createPairedBarChart(squatConfig).data, createPairedBarChart(squatConfig).layout, plotlyConfig);
+            updateAnimalOverlay(data.page2.strengthTests.staticSquat.tva, 'overlay-image-squat', 'overlay-text-squat');
+            
+            const hamstringConfig = {
+                y1Title: 'Newton',
+                data: [ { name: 'Hamstring', va: data.page2.strengthTests.hamstring.left, ho: data.page2.strengthTests.hamstring.right, decimals: 1 } ]
+            };
+            Plotly.react('p2-chart-hamstring', createPairedBarChart(hamstringConfig).data, createPairedBarChart(hamstringConfig).layout, plotlyConfig);
+
+            updateManualPreview(data.page2.manual);
+        }
+
+        function exportToExcel() {
+            const data = collectDataFromForm();
+            const flatData = [
+                { Test: 'Namn', Verdi: data.patientInfo.name },
+                { Test: 'Datum', Verdi: data.patientInfo.date },
+                { Test: 'Sport/Position', Verdi: data.patientInfo.sportPosition },
+                { Test: 'Skapad Av', Verdi: data.patientInfo.createdBy },
+                { Test: 'Referenstyp', Verdi: data.patientInfo.dominantSideType },
+                { Test: 'Referenssida', Verdi: data.patientInfo.dominantSide },
+                { Test: 'Balans - VÄ Score', Verdi: data.page1.balance.leftScore },
+                { Test: 'Balans - HÖ Score', Verdi: data.page1.balance.rightScore },
+                { Test: 'Balans - VÄ Gen. diff', Verdi: data.page1.balance.leftDiff },
+                { Test: 'Balans - HÖ Gen. diff', Verdi: data.page1.balance.rightDiff },
+                { Test: 'Balans - Kommentar', Verdi: data.page1.balance.comment },
+                { Test: 'Balans - Asymmetri %', Verdi: data.page1.balance.asymmetryPercent },
+                { Test: 'CMJ - VÄ Hopp 1', Verdi: data.page1.cmj.vaJumps[0] },
+                { Test: 'CMJ - VÄ Hopp 2', Verdi: data.page1.cmj.vaJumps[1] },
+                { Test: 'CMJ - VÄ Hopp 3', Verdi: data.page1.cmj.vaJumps[2] },
+                { Test: 'CMJ - HÖ Hopp 1', Verdi: data.page1.cmj.hoJumps[0] },
+                { Test: 'CMJ - HÖ Hopp 2', Verdi: data.page1.cmj.hoJumps[1] },
+                { Test: 'CMJ - HÖ Hopp 3', Verdi: data.page1.cmj.hoJumps[2] },
+                { Test: 'CMJ - Kommentar', Verdi: data.page1.cmj.comment },
+                { Test: 'CMJ - Asymmetri %', Verdi: data.page1.cmj.asymmetryPercent },
+                { Test: 'TIA - VÄ Hopphöjd', Verdi: data.page1.tia.leftJump },
+                { Test: 'TIA - HÖ Hopphöjd', Verdi: data.page1.tia.rightJump },
+                { Test: 'TIA - VÄ GCT', Verdi: data.page1.tia.leftGct },
+                { Test: 'TIA - HÖ GCT', Verdi: data.page1.tia.rightGct },
+                { Test: 'TIA - Kommentar', Verdi: data.page1.tia.comment },
+                { Test: 'TIA - Asymmetri %', Verdi: data.page1.tia.asymmetryPercent },
+                { Test: 'Sidhopp - VÄ Antal', Verdi: data.page1.sidehop.leftCount },
+                { Test: 'Sidhopp - HÖ Antal', Verdi: data.page1.sidehop.rightCount },
+                { Test: 'Sidhopp - Kommentar', Verdi: data.page1.sidehop.comment },
+                { Test: 'Sidhopp - Asymmetri %', Verdi: data.page1.sidehop.asymmetryPercent },
+                { Test: 'Squat Analytics - Försök 1', Verdi: data.page1.squatAnalytics.attempt1 },
+                { Test: 'Squat Analytics - Försök 2', Verdi: data.page1.squatAnalytics.attempt2 },
+                { Test: 'Squat Analytics - Försök 3', Verdi: data.page1.squatAnalytics.attempt3 },
+                { Test: 'Squat Analytics - Kommentar', Verdi: data.page1.squatAnalytics.comment },
+                { Test: 'Repeated Bilateral - Gen. Hopphöjd', Verdi: data.page1.repeatedBilateral.avgHeight },
+                { Test: 'Repeated Bilateral - Gen. GCT', Verdi: data.page1.repeatedBilateral.avgGct },
+                { Test: 'Repeated Bilateral - Kommentar', Verdi: data.page1.repeatedBilateral.comment },
+                { Test: 'Styrka - Hip Thrust VÄ', Verdi: data.page2.strengthTests.hipThrust.left },
+                { Test: 'Styrka - Hip Thrust HÖ', Verdi: data.page2.strengthTests.hipThrust.right },
+                { Test: 'Styrka - Hip Thrust Två ben', Verdi: data.page2.strengthTests.hipThrust.tva },
+                { Test: 'Styrka - Hip Thrust Kommentar', Verdi: data.page2.strengthTests.hipThrust.comment },
+                { Test: 'Styrka - Hip Thrust Asymmetri %', Verdi: data.page2.strengthTests.hipThrust.asymmetryPercent },
+                { Test: 'Styrka - Quadriceps VÄ', Verdi: data.page2.strengthTests.quadriceps.left },
+                { Test: 'Styrka - Quadriceps HÖ', Verdi: data.page2.strengthTests.quadriceps.right },
+                { Test: 'Styrka - Quadriceps Kommentar', Verdi: data.page2.strengthTests.quadriceps.comment },
+                { Test: 'Styrka - Quadriceps Asymmetri %', Verdi: data.page2.strengthTests.quadriceps.asymmetryPercent },
+                { Test: 'Styrka - Static Squat VÄ', Verdi: data.page2.strengthTests.staticSquat.left },
+                { Test: 'Styrka - Static Squat HÖ', Verdi: data.page2.strengthTests.staticSquat.right },
+                { Test: 'Styrka - Static Squat Två ben', Verdi: data.page2.strengthTests.staticSquat.tva },
+                { Test: 'Styrka - Static Squat Kommentar', Verdi: data.page2.strengthTests.staticSquat.comment },
+                { Test: 'Styrka - Static Squat Asymmetri %', Verdi: data.page2.strengthTests.staticSquat.asymmetryPercent },
+                { Test: 'Styrka - Hamstring VÄ', Verdi: data.page2.strengthTests.hamstring.left },
+                { Test: 'Styrka - Hamstring HÖ', Verdi: data.page2.strengthTests.hamstring.right },
+                { Test: 'Styrka - Hamstring Kommentar', Verdi: data.page2.strengthTests.hamstring.comment },
+                { Test: 'Styrka - Hamstring Asymmetri %', Verdi: data.page2.strengthTests.hamstring.asymmetryPercent },
+                { Test: 'Manuell - SRP Tare', Verdi: data.page2.manual.srp.tare },
+                { Test: 'Manuell - SRP Force', Verdi: data.page2.manual.srp.force },
+                { Test: 'Manuell - SPTS kg', Verdi: data.page2.manual.spts.kg },
+                { Test: 'Manuell - MPU Tare', Verdi: data.page2.manual.mpu.tare },
+                { Test: 'Manuell - MPU Force', Verdi: data.page2.manual.mpu.force },
+                { Test: 'Manuell - BPC Hits', Verdi: data.page2.manual.bpc.hits },
+            ];
+
+            const worksheet = XLSX.utils.json_to_sheet(flatData);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Testdata");
+            XLSX.writeFile(workbook, `Fysiosport_Data_${data.patientInfo.name || 'patient'}_${data.patientInfo.date || ''}.xlsx`);
+        }
+        
+        function setDefaultComments() {
+            document.getElementById('comment_balance').value = 'Visar balanspoäng och genomsnittlig avvikelse i cm.';
+            document.getElementById('comment_cmj').value = 'Visar hopphöjd i centimeter (cm) för tre separata hopp.';
+            document.getElementById('comment_tia').value = 'Visar genomsnittlig hopphöjd (cm) och markkontakttid (sekunder).';
+            document.getElementById('comment_sidehop').value = 'Visar antal sidhopp utförda inom tidsramen.';
+            document.getElementById('comment_squat').value = 'Visar poäng för tre separata knäböjsförsök.';
+            document.getElementById('comment_repeated_bilateral').value = 'Visar genomsnittlig hopphöjd och markkontakttid för hopp på två ben.';
+            const defaultStrengthComment = 'Visar kraftutveckling för vänster (VÄ) och höger (HÖ) sida.';
+            document.getElementById('comment_hipthrust').value = defaultStrengthComment;
+            document.getElementById('comment_quads').value = defaultStrengthComment;
+            document.getElementById('comment_squat_pull').value = defaultStrengthComment;
+            document.getElementById('comment_hamstring').value = defaultStrengthComment;
+        }
+
+        document.getElementById('pdf-preview').addEventListener('click', () => {
+            const reportData = collectDataFromForm();
+            localStorage.setItem('fysiosportData', JSON.stringify(reportData));
+            window.open('fysiosport.html', '_blank');
+        });
+
+        document.getElementById('clear-form').addEventListener('click', () => {
+            if (confirm('Är du säker på att du vill rensa alla fält? Denna åtgärd kan inte ångras.')) {
+                localStorage.removeItem('fysiosportData');
+                const form = document.getElementById('input-form');
+                const inputs = form.querySelectorAll('input, textarea');
+                inputs.forEach(input => {
+                    if(input.type !== 'file' && input.type !== 'radio') {
+                       input.value = '';
+                    }
+                });
+                document.querySelector('input[name="dominance_type"][value="dominant"]').checked = true;
+                document.querySelector('input[name="dominant_side"][value="Höger"]').checked = true;
+                setDefaultComments();
+                updatePreview();
+            }
+        });
+
+        document.getElementById('export-data').addEventListener('click', exportToExcel);
+        
+        const importFileInput = document.getElementById('import-file-input');
+        document.getElementById('import-data').addEventListener('click', () => {
+            importFileInput.click();
+        });
+
+        importFileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, {type: 'array'});
+                const firstSheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[firstSheetName];
+                const json = XLSX.utils.sheet_to_json(worksheet);
+                
+                const structuredData = { 
+                    patientInfo: {}, 
+                    page1: { 
+                        balance: {}, 
+                        cmj: { vaJumps: [], hoJumps: [] }, 
+                        tia: {}, 
+                        sidehop: {}, 
+                        squatAnalytics: {}, 
+                        repeatedBilateral: {} 
+                    }, 
+                    page2: { 
+                        strengthTests: { 
+                            hipThrust: {}, 
+                            quadriceps: {}, 
+                            staticSquat: {}, 
+                            hamstring: {} 
+                        }, 
+                        manual: { 
+                            srp: {}, 
+                            spts: {}, 
+                            mpu: {}, 
+                            bpc: {} 
+                        } 
+                    } 
+                };
+                
+                json.forEach(row => {
+                    const key = row.Test;
+                    const value = row.Verdi;
+                    switch (key) {
+                        case 'Namn': structuredData.patientInfo.name = value; break;
+                        case 'Datum': structuredData.patientInfo.date = value; break;
+                        case 'Sport/Position': structuredData.patientInfo.sportPosition = value; break;
+                        case 'Skapad Av': structuredData.patientInfo.createdBy = value; break;
+                        case 'Referenstyp': structuredData.patientInfo.dominantSideType = value; break;
+                        case 'Referenssida': structuredData.patientInfo.dominantSide = value; break;
+                        case 'Balans - VÄ Score': structuredData.page1.balance.leftScore = value; break;
+                        case 'Balans - HÖ Score': structuredData.page1.balance.rightScore = value; break;
+                        case 'Balans - VÄ Gen. diff': structuredData.page1.balance.leftDiff = value; break;
+                        case 'Balans - HÖ Gen. diff': structuredData.page1.balance.rightDiff = value; break;
+                        case 'Balans - Kommentar': structuredData.page1.balance.comment = value; break;
+                        case 'CMJ - VÄ Hopp 1': structuredData.page1.cmj.vaJumps[0] = value; break;
+                        case 'CMJ - VÄ Hopp 2': structuredData.page1.cmj.vaJumps[1] = value; break;
+                        case 'CMJ - VÄ Hopp 3': structuredData.page1.cmj.vaJumps[2] = value; break;
+                        case 'CMJ - HÖ Hopp 1': structuredData.page1.cmj.hoJumps[0] = value; break;
+                        case 'CMJ - HÖ Hopp 2': structuredData.page1.cmj.hoJumps[1] = value; break;
+                        case 'CMJ - HÖ Hopp 3': structuredData.page1.cmj.hoJumps[2] = value; break;
+                        case 'CMJ - Kommentar': structuredData.page1.cmj.comment = value; break;
+                        case 'TIA - VÄ Hopphöjd': structuredData.page1.tia.leftJump = value; break;
+                        case 'TIA - HÖ Hopphöjd': structuredData.page1.tia.rightJump = value; break;
+                        case 'TIA - VÄ GCT': structuredData.page1.tia.leftGct = value; break;
+                        case 'TIA - HÖ GCT': structuredData.page1.tia.rightGct = value; break;
+                        case 'TIA - Kommentar': structuredData.page1.tia.comment = value; break;
+                        case 'Sidhopp - VÄ Antal': structuredData.page1.sidehop.leftCount = value; break;
+                        case 'Sidhopp - HÖ Antal': structuredData.page1.sidehop.rightCount = value; break;
+                        case 'Sidhopp - Kommentar': structuredData.page1.sidehop.comment = value; break;
+                        case 'Squat Analytics - Försök 1': structuredData.page1.squatAnalytics.attempt1 = value; break;
+                        case 'Squat Analytics - Försök 2': structuredData.page1.squatAnalytics.attempt2 = value; break;
+                        case 'Squat Analytics - Försök 3': structuredData.page1.squatAnalytics.attempt3 = value; break;
+                        case 'Squat Analytics - Kommentar': structuredData.page1.squatAnalytics.comment = value; break;
+                        case 'Repeated Bilateral - Gen. Hopphöjd': structuredData.page1.repeatedBilateral.avgHeight = value; break;
+                        case 'Repeated Bilateral - Gen. GCT': structuredData.page1.repeatedBilateral.avgGct = value; break;
+                        case 'Repeated Bilateral - Kommentar': structuredData.page1.repeatedBilateral.comment = value; break;
+                        case 'Styrka - Hip Thrust VÄ': structuredData.page2.strengthTests.hipThrust.left = value; break;
+                        case 'Styrka - Hip Thrust HÖ': structuredData.page2.strengthTests.hipThrust.right = value; break;
+                        case 'Styrka - Hip Thrust Två ben': structuredData.page2.strengthTests.hipThrust.tva = value; break;
+                        case 'Styrka - Hip Thrust Kommentar': structuredData.page2.strengthTests.hipThrust.comment = value; break;
+                        case 'Styrka - Quadriceps VÄ': structuredData.page2.strengthTests.quadriceps.left = value; break;
+                        case 'Styrka - Quadriceps HÖ': structuredData.page2.strengthTests.quadriceps.right = value; break;
+                        case 'Styrka - Quadriceps Kommentar': structuredData.page2.strengthTests.quadriceps.comment = value; break;
+                        case 'Styrka - Static Squat VÄ': structuredData.page2.strengthTests.staticSquat.left = value; break;
+                        case 'Styrka - Static Squat HÖ': structuredData.page2.strengthTests.staticSquat.right = value; break;
+                        case 'Styrka - Static Squat Två ben': structuredData.page2.strengthTests.staticSquat.tva = value; break;
+                        case 'Styrka - Static Squat Kommentar': structuredData.page2.strengthTests.staticSquat.comment = value; break;
+                        case 'Styrka - Hamstring VÄ': structuredData.page2.strengthTests.hamstring.left = value; break;
+                        case 'Styrka - Hamstring HÖ': structuredData.page2.strengthTests.hamstring.right = value; break;
+                        case 'Styrka - Hamstring Kommentar': structuredData.page2.strengthTests.hamstring.comment = value; break;
+                        case 'Manuell - SRP Tare': structuredData.page2.manual.srp.tare = value; break;
+                        case 'Manuell - SRP Force': structuredData.page2.manual.srp.force = value; break;
+                        case 'Manuell - SPTS kg': structuredData.page2.manual.spts.kg = value; break;
+                        case 'Manuell - MPU Tare': structuredData.page2.manual.mpu.tare = value; break;
+                        case 'Manuell - MPU Force': structuredData.page2.manual.mpu.force = value; break;
+                        case 'Manuell - BPC Hits': structuredData.page2.manual.bpc.hits = value; break;
+                    }
+                });
+
+                populateFormFromData(structuredData); 
+                alert('Data importerad!');
+            };
+            reader.readAsArrayBuffer(file);
+            event.target.value = '';
+        });
+
+        document.querySelectorAll('#input-form input, #input-form textarea').forEach(input => {
+            input.addEventListener('input', () => {
+                updatePreview();
+                saveData();
+            });
+        });
+        
+        document.querySelectorAll('textarea[id^="comment_"]').forEach(textarea => {
+            textarea.addEventListener('focus', () => {
+                textarea.dataset.isDefault = 'false';
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedData = localStorage.getItem('fysiosportData');
+            if (savedData) {
+                try {
+                    const parsedData = JSON.parse(savedData);
+                    populateFormFromData(parsedData);
+                } catch (e) {
+                    console.error("Kunde inte ladda sparad data:", e);
+                    localStorage.removeItem('fysiosportData');
+                    setDefaultComments();
+                    document.getElementById('date').value = new Date().toISOString().split('T')[0];
+                    updatePreview();
+                }
+            } else {
+                setDefaultComments();
+                document.getElementById('date').value = new Date().toISOString().split('T')[0];
+                updatePreview();
+            }
+        });
+
+    </script>
+</body>
+</html>
