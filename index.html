@@ -302,30 +302,28 @@
             min-height: 220px;
             flex-grow: 1;
         }
-        /* --- UPDATED ANIMAL OVERLAY STYLES --- */
-        .graph-overlay-wrapper {
+        .graph-overlay-image {
             position: absolute;
-            top: 55%;
-            left: 80%;
-            transform: translate(-50%, -50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px; /* Liten avstand mellom bilde og tekst */
+            top: 65px;
+            left: 80%; 
+            transform: translateX(-50%); 
+            width: 80px;
+            height: auto;
             pointer-events: none;
             z-index: 2;
-            width: 140px; /* Bredden på hele overleggs-elementet */
-        }
-        .graph-overlay-image {
-            width: 100%; /* Bildet fyller wrapper-bredden */
-            height: auto;
         }
         .graph-overlay-text {
-            width: 100%;
+            position: absolute;
+            bottom: 20px;
+            left: 80%;
+            transform: translateX(-50%);
+            width: 100px; 
             font-size: 12px;
             color: var(--dark-gray);
             text-align: center;
-            line-height: 1.3;
+            pointer-events: none;
+            z-index: 2;
+            line-height: 1.2;
         }
         #donut-container {
             display: flex;
@@ -403,6 +401,52 @@
             display: block;
             margin-top: 5px;
         }
+        
+        /* Styles for test selection */
+        #test-selection-container {
+            background-color: var(--box-background-color);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            margin-bottom: 40px;
+        }
+        #test-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .test-selector-btn {
+            background-color: var(--white);
+            border: 1px solid var(--medium-gray);
+            padding: 12px 15px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            font-size: 0.95rem;
+            text-align: left;
+            position: relative;
+            box-shadow: var(--subtle-shadow);
+        }
+        .test-selector-btn:hover {
+            border-color: var(--app-primary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow);
+        }
+        .test-selector-btn[data-selected="false"] {
+            background-color: #e9ecef;
+            color: #6c757d;
+            border-color: var(--medium-gray);
+        }
+        .test-selector-btn[data-selected="false"]::after {
+            content: '\00d7'; /* Multiplication sign '×' */
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #6c757d;
+        }
     </style>
 </head>
 <body>
@@ -460,261 +504,302 @@
                     </div>
                 </div>
 
-                <h3 class="test-title">1. Balans</h3>
-                <div class="test-row">
-                    <div class="input-column">
-                        <div class="input-container">
-                            <div class="input-row"><label>VÄ Score:</label><div class="input-wrapper"><input type="number" id="p1_g1_va_score"><span class="unit-text phantom"></span></div></div>
-                            <div class="input-row"><label>VÄ Gen. diff:</label><div class="input-wrapper"><input type="number" step="0.01" id="p1_g1_va_diff"><span class="unit-text">cm</span></div></div>
-                            <hr class="input-separator">
-                            <div class="input-row"><label>HÖ Score:</label><div class="input-wrapper"><input type="number" id="p1_g1_ho_score"><span class="unit-text phantom"></span></div></div>
-                            <div class="input-row"><label>HÖ Gen. diff:</label><div class="input-wrapper"><input type="number" step="0.01" id="p1_g1_ho_diff"><span class="unit-text">cm</span></div></div>
-                        </div>
-                        <div class="comment-container">
-                            <div class="asymmetry-display" id="asymmetry_balance"></div>
-                            <div class="input-group"><label for="comment_balance">Kommentar:</label><textarea id="comment_balance"></textarea></div>
-                        </div>
-                    </div>
-                    <div class="graph-container">
-                        <h3>Balans</h3>
-                        <div id="p1-chart-balance" class="js-plotly-plot"></div>
-                    </div>
+                <!-- Test Selection Screen -->
+                <div id="test-selection-container">
+                    <h2 class="section-title-main">Välj tester</h2>
+                    <div id="test-list"></div>
                 </div>
 
-                <h3 class="test-title">2. Max Hopp CMJ</h3>
-                <div class="test-row">
-                    <div class="input-column">
-                        <div class="input-container">
-                            <div class="input-row"><label>VÄ Hopp 1:</label><div class="input-wrapper"><input type="number" id="p1_g2_va_1"><span class="unit-text">cm</span></div></div>
-                            <div class="input-row"><label>VÄ Hopp 2:</label><div class="input-wrapper"><input type="number" id="p1_g2_va_2"><span class="unit-text">cm</span></div></div>
-                            <div class="input-row"><label>VÄ Hopp 3:</label><div class="input-wrapper"><input type="number" id="p1_g2_va_3"><span class="unit-text">cm</span></div></div>
-                            <hr class="input-separator">
-                            <div class="input-row"><label>HÖ Hopp 1:</label><div class="input-wrapper"><input type="number" id="p1_g2_ho_1"><span class="unit-text">cm</span></div></div>
-                            <div class="input-row"><label>HÖ Hopp 2:</label><div class="input-wrapper"><input type="number" id="p1_g2_ho_2"><span class="unit-text">cm</span></div></div>
-                            <div class="input-row"><label>HÖ Hopp 3:</label><div class="input-wrapper"><input type="number" id="p1_g2_ho_3"><span class="unit-text">cm</span></div></div>
-                        </div>
-                        <div class="comment-container">
-                            <div class="asymmetry-display" id="asymmetry_cmj"></div>
-                            <div class="input-group"><label for="comment_cmj">Kommentar:</label><textarea id="comment_cmj"></textarea></div>
-                        </div>
-                    </div>
-                    <div class="graph-container">
-                        <h3>Max Hopp CMJ</h3>
-                        <div id="p1-chart-cmj" class="js-plotly-plot"></div>
-                    </div>
-                </div>
-
-                <h3 class="test-title">3. Repeterade Hopp (TIA)</h3>
-                <div class="test-row">
-                    <div class="input-column">
-                        <div class="input-container">
-                            <div class="input-row"><label>VÄ Gen. hopphöjd:</label><div class="input-wrapper"><input type="number" step="0.1" id="p1_g3_va_jump"><span class="unit-text">cm</span></div></div>
-                            <div class="input-row"><label>VÄ GCT:</label><div class="input-wrapper"><input type="number" step="0.01" id="p1_g3_va_gct"><span class="unit-text">s</span></div></div>
-                            <hr class="input-separator">
-                            <div class="input-row"><label>HÖ Gen. hopphöjd:</label><div class="input-wrapper"><input type="number" step="0.1" id="p1_g3_ho_jump"><span class="unit-text">cm</span></div></div>
-                            <div class="input-row"><label>HÖ GCT:</label><div class="input-wrapper"><input type="number" step="0.01" id="p1_g3_ho_gct"><span class="unit-text">s</span></div></div>
-                        </div>
-                        <div class="comment-container">
-                            <div class="asymmetry-display" id="asymmetry_tia"></div>
-                            <div class="input-group"><label for="comment_tia">Kommentar:</label><textarea id="comment_tia"></textarea></div>
-                        </div>
-                    </div>
-                    <div class="graph-container">
-                        <h3>Repeterade Hopp (TIA)</h3>
-                        <div id="p1-chart-tia" class="js-plotly-plot"></div>
-                    </div>
-                </div>
-
-                <h3 class="test-title">4. Sidhopp (TIA)</h3>
-                <div class="test-row">
-                    <div class="input-column">
-                        <div class="input-container">
-                            <div class="input-row"><label>VÄ Antal:</label><div class="input-wrapper"><input type="number" id="p1_g4_va_count"><span class="unit-text">st</span></div></div>
-                            <hr class="input-separator">
-                            <div class="input-row"><label>HÖ Antal:</label><div class="input-wrapper"><input type="number" id="p1_g4_ho_count"><span class="unit-text">st</span></div></div>
-                        </div>
-                        <div class="comment-container">
-                            <div class="asymmetry-display" id="asymmetry_sidehop"></div>
-                            <div class="input-group"><label for="comment_sidehop">Kommentar:</label><textarea id="comment_sidehop"></textarea></div>
-                        </div>
-                    </div>
-                    <div class="graph-container">
-                        <h3>Sidhopp (TIA)</h3>
-                        <div id="p1-chart-sidehop" class="js-plotly-plot"></div>
-                    </div>
-                </div>
-
-                <h3 class="test-title">5. Squat Analytics</h3>
-                <div class="test-row">
-                    <div class="input-column">
-                         <div class="input-container">
-                            <div class="input-row"><label>Försök 1:</label><div class="input-wrapper"><input type="number" id="p1_g5_attempt_1"><span class="unit-text">%</span></div></div>
-                            <div class="input-row"><label>Försök 2:</label><div class="input-wrapper"><input type="number" id="p1_g5_attempt_2"><span class="unit-text">%</span></div></div>
-                            <div class="input-row"><label>Försök 3:</label><div class="input-wrapper"><input type="number" id="p1_g5_attempt_3"><span class="unit-text">%</span></div></div>
-                        </div>
-                        <div class="comment-container">
-                             <div class="input-group"><label for="comment_squat">Kommentar:</label><textarea id="comment_squat"></textarea></div>
-                        </div>
-                    </div>
-                    <div class="graph-container">
-                        <h3>Squat Analytics</h3>
-                        <div id="donut-container">
-                            <div class="donut-wrapper">
-                                <div id="p1-chart-donut-1" class="js-plotly-plot"></div>
-                                <p class="donut-label">Försök 1</p>
+                <!-- Test Input Sections -->
+                <div id="test-input-container">
+                    <div class="test-section" id="test-section-balance">
+                        <h3 class="test-title">1. Balans</h3>
+                        <div class="test-row">
+                            <div class="input-column">
+                                <div class="input-container">
+                                    <div class="input-row"><label>VÄ Score:</label><div class="input-wrapper"><input type="number" id="p1_g1_va_score"><span class="unit-text phantom"></span></div></div>
+                                    <div class="input-row"><label>VÄ Gen. diff:</label><div class="input-wrapper"><input type="number" step="0.01" id="p1_g1_va_diff"><span class="unit-text">cm</span></div></div>
+                                    <hr class="input-separator">
+                                    <div class="input-row"><label>HÖ Score:</label><div class="input-wrapper"><input type="number" id="p1_g1_ho_score"><span class="unit-text phantom"></span></div></div>
+                                    <div class="input-row"><label>HÖ Gen. diff:</label><div class="input-wrapper"><input type="number" step="0.01" id="p1_g1_ho_diff"><span class="unit-text">cm</span></div></div>
+                                </div>
+                                <div class="comment-container">
+                                    <div class="asymmetry-display" id="asymmetry_balance"></div>
+                                    <div class="input-group"><label for="comment_balance">Kommentar:</label><textarea id="comment_balance"></textarea></div>
+                                </div>
                             </div>
-                            <div class="donut-wrapper">
-                                <div id="p1-chart-donut-2" class="js-plotly-plot"></div>
-                                <p class="donut-label">Försök 2</p>
-                            </div>
-                            <div class="donut-wrapper">
-                                <div id="p1-chart-donut-3" class="js-plotly-plot"></div>
-                                <p class="donut-label">Försök 3</p>
+                            <div class="graph-container">
+                                <h3>Balans</h3>
+                                <div id="p1-chart-balance" class="js-plotly-plot"></div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <h3 class="test-title">6. Repeated Jumps (Två Ben)</h3>
-                <div class="test-row">
-                    <div class="input-column">
-                        <div class="input-container">
-                            <div class="input-row"><label>Gen. hopphöjd:</label><div class="input-wrapper"><input type="number" step="0.1" id="p1_g6_avg_height"><span class="unit-text">cm</span></div></div>
-                            <div class="input-row"><label>Gen. GCT:</label><div class="input-wrapper"><input type="number" step="0.01" id="p1_g6_avg_gct"><span class="unit-text">s</span></div></div>
-                        </div>
-                        <div class="comment-container">
-                            <div class="input-group"><label for="comment_repeated_bilateral">Kommentar:</label><textarea id="comment_repeated_bilateral"></textarea></div>
-                        </div>
-                    </div>
-                    <div class="graph-container">
-                        <h3>Repeated Jumps (Två Ben)</h3>
-                        <div id="p1-chart-repeated-bilateral" class="js-plotly-plot"></div>
-                    </div>
-                </div>
-
-                <h3 class="test-title">7. Hip Thrusters Pull</h3>
-                <div class="test-row">
-                    <div class="input-column">
-                        <div class="input-container">
-                            <div class="input-row"><label>Hip Thrust VÄ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g1_va"><span class="unit-text">kg</span></div></div>
-                            <div class="input-row"><label>Hip Thrust HÖ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g1_ho"><span class="unit-text">kg</span></div></div>
-                            <hr class="input-separator">
-                            <div class="input-row"><label>Två ben (Djur):</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g1_tva"><span class="unit-text">kg</span></div></div>
-                        </div>
-                        <div class="comment-container">
-                            <div class="asymmetry-display" id="asymmetry_hipthrust"></div>
-                            <div class="input-group"><label for="comment_hipthrust">Kommentar:</label><textarea id="comment_hipthrust"></textarea></div>
-                        </div>
-                    </div>
-                    <div class="graph-container">
-                        <h3>Hip Thrusters Pull</h3>
-                        <div id="p2-chart-hipthrust" class="js-plotly-plot"></div>
-                        <div class="graph-overlay-wrapper">
-                            <img id="overlay-image-hipthrust" src="" class="graph-overlay-image" alt="Animal">
-                            <div id="overlay-text-hipthrust" class="graph-overlay-text"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <h3 class="test-title">8. Quadriceps Isometrisk Styrka</h3>
-                <div class="test-row">
-                    <div class="input-column">
-                        <div class="input-container">
-                            <div class="input-row"><label>Quadriceps VÄ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g2_va"><span class="unit-text">kg</span></div></div>
-                            <hr class="input-separator">
-                            <div class="input-row"><label>Quadriceps HÖ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g2_ho"><span class="unit-text">kg</span></div></div>
-                        </div>
-                        <div class="comment-container">
-                            <div class="asymmetry-display" id="asymmetry_quads"></div>
-                            <div class="input-group"><label for="comment_quads">Kommentar:</label><textarea id="comment_quads"></textarea></div>
-                        </div>
-                    </div>
-                    <div class="graph-container">
-                        <h3>Quadriceps Isometrisk Styrka</h3>
-                        <div id="p2-chart-quads" class="js-plotly-plot"></div>
-                    </div>
-                </div>
-
-                <h3 class="test-title">9. Static Squat Pull</h3>
-                <div class="test-row">
-                    <div class="input-column">
-                        <div class="input-container">
-                            <div class="input-row"><label>Static Squat VÄ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g3_va"><span class="unit-text">kg</span></div></div>
-                            <div class="input-row"><label>Static Squat HÖ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g3_ho"><span class="unit-text">kg</span></div></div>
-                            <hr class="input-separator">
-                            <div class="input-row"><label>Två ben (Djur):</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g3_tva"><span class="unit-text">kg</span></div></div>
-                        </div>
-                        <div class="comment-container">
-                             <div class="asymmetry-display" id="asymmetry_squat_pull"></div>
-                            <div class="input-group"><label for="comment_squat_pull">Kommentar:</label><textarea id="comment_squat_pull"></textarea></div>
-                        </div>
-                    </div>
-                    <div class="graph-container">
-                        <h3>Static Squat Pull</h3>
-                        <div id="p2-chart-squat" class="js-plotly-plot"></div>
-                        <div class="graph-overlay-wrapper">
-                            <img id="overlay-image-squat" src="" class="graph-overlay-image" alt="Animal">
-                            <div id="overlay-text-squat" class="graph-overlay-text"></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <h3 class="test-title">10. Hamstring Isometrisk Styrka</h3>
-                <div class="test-row">
-                    <div class="input-column">
-                        <div class="input-container">
-                            <div class="input-row"><label>Hamstring VÄ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g4_va"><span class="unit-text">N</span></div></div>
-                             <hr class="input-separator">
-                            <div class="input-row"><label>Hamstring HÖ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g4_ho"><span class="unit-text">N</span></div></div>
-                        </div>
-                        <div class="comment-container">
-                            <div class="asymmetry-display" id="asymmetry_hamstring"></div>
-                            <div class="input-group"><label for="comment_hamstring">Kommentar:</label><textarea id="comment_hamstring"></textarea></div>
-                        </div>
-                    </div>
-                    <div class="graph-container">
-                        <h3>Hamstring Isometrisk Styrka</h3>
-                        <div id="p2-chart-hamstring" class="js-plotly-plot"></div>
-                    </div>
-                </div>
-
-                <h3 class="test-title">11. Manuella Mätningar</h3>
-                 <div class="test-row">
-                    <div class="input-column">
-                        <div class="input-container">
-                            <div class="manual-measurements-grid">
-                                <div class="manual-box">
-                                    <h4>Static Row Pull</h4>
-                                    <div class="input-group"><label>Tare (N):</label><input type="number" id="p2_text_srp_tare"></div>
-                                    <div class="input-group"><label>Force (N):</label><input type="number" id="p2_text_srp_force"></div>
+                    <div class="test-section" id="test-section-cmj">
+                        <h3 class="test-title">2. Max Hopp CMJ</h3>
+                        <div class="test-row">
+                            <div class="input-column">
+                                <div class="input-container">
+                                    <div class="input-row"><label>VÄ Hopp 1:</label><div class="input-wrapper"><input type="number" id="p1_g2_va_1"><span class="unit-text">cm</span></div></div>
+                                    <div class="input-row"><label>VÄ Hopp 2:</label><div class="input-wrapper"><input type="number" id="p1_g2_va_2"><span class="unit-text">cm</span></div></div>
+                                    <div class="input-row"><label>VÄ Hopp 3:</label><div class="input-wrapper"><input type="number" id="p1_g2_va_3"><span class="unit-text">cm</span></div></div>
+                                    <hr class="input-separator">
+                                    <div class="input-row"><label>HÖ Hopp 1:</label><div class="input-wrapper"><input type="number" id="p1_g2_ho_1"><span class="unit-text">cm</span></div></div>
+                                    <div class="input-row"><label>HÖ Hopp 2:</label><div class="input-wrapper"><input type="number" id="p1_g2_ho_2"><span class="unit-text">cm</span></div></div>
+                                    <div class="input-row"><label>HÖ Hopp 3:</label><div class="input-wrapper"><input type="number" id="p1_g2_ho_3"><span class="unit-text">cm</span></div></div>
                                 </div>
-                                <div class="manual-box">
-                                    <h4>Squat Power to Speed</h4>
-                                    <div class="input-group"><label>Vikt (kg):</label><input type="number" id="p2_text_spts_kg"></div>
+                                <div class="comment-container">
+                                    <div class="asymmetry-display" id="asymmetry_cmj"></div>
+                                    <div class="input-group"><label for="comment_cmj">Kommentar:</label><textarea id="comment_cmj"></textarea></div>
                                 </div>
-                                <div class="manual-box">
-                                    <h4>Max Press Push Up</h4>
-                                    <div class="input-group"><label>Tare (N):</label><input type="number" id="p2_text_mpu_tare"></div>
-                                    <div class="input-group"><label>Force (N):</label><input type="number" id="p2_text_mpu_force"></div>
+                            </div>
+                            <div class="graph-container">
+                                <h3>Max Hopp CMJ</h3>
+                                <div id="p1-chart-cmj" class="js-plotly-plot"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="test-section" id="test-section-tia">
+                        <h3 class="test-title">3. Repeterade Hopp (TIA)</h3>
+                        <div class="test-row">
+                            <div class="input-column">
+                                <div class="input-container">
+                                    <div class="input-row"><label>VÄ Gen. hopphöjd:</label><div class="input-wrapper"><input type="number" step="0.1" id="p1_g3_va_jump"><span class="unit-text">cm</span></div></div>
+                                    <div class="input-row"><label>VÄ GCT:</label><div class="input-wrapper"><input type="number" step="0.01" id="p1_g3_va_gct"><span class="unit-text">s</span></div></div>
+                                    <hr class="input-separator">
+                                    <div class="input-row"><label>HÖ Gen. hopphöjd:</label><div class="input-wrapper"><input type="number" step="0.1" id="p1_g3_ho_jump"><span class="unit-text">cm</span></div></div>
+                                    <div class="input-row"><label>HÖ GCT:</label><div class="input-wrapper"><input type="number" step="0.01" id="p1_g3_ho_gct"><span class="unit-text">s</span></div></div>
                                 </div>
-                                <div class="manual-box">
-                                    <h4>Blaze Pod Challenge</h4>
-                                    <div class="input-group"><label>Antal träffar:</label><input type="number" id="p2_text_bpc_hits"></div>
+                                <div class="comment-container">
+                                    <div class="asymmetry-display" id="asymmetry_tia"></div>
+                                    <div class="input-group"><label for="comment_tia">Kommentar:</label><textarea id="comment_tia"></textarea></div>
+                                </div>
+                            </div>
+                            <div class="graph-container">
+                                <h3>Repeterade Hopp (TIA)</h3>
+                                <div id="p1-chart-tia" class="js-plotly-plot"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="test-section" id="test-section-sidehop">
+                        <h3 class="test-title">4. Sidhopp (TIA)</h3>
+                        <div class="test-row">
+                            <div class="input-column">
+                                <div class="input-container">
+                                    <div class="input-row"><label>VÄ Antal:</label><div class="input-wrapper"><input type="number" id="p1_g4_va_count"><span class="unit-text">st</span></div></div>
+                                    <hr class="input-separator">
+                                    <div class="input-row"><label>HÖ Antal:</label><div class="input-wrapper"><input type="number" id="p1_g4_ho_count"><span class="unit-text">st</span></div></div>
+                                </div>
+                                <div class="comment-container">
+                                    <div class="asymmetry-display" id="asymmetry_sidehop"></div>
+                                    <div class="input-group"><label for="comment_sidehop">Kommentar:</label><textarea id="comment_sidehop"></textarea></div>
+                                </div>
+                            </div>
+                            <div class="graph-container">
+                                <h3>Sidhopp (TIA)</h3>
+                                <div id="p1-chart-sidehop" class="js-plotly-plot"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="test-section" id="test-section-squat">
+                        <h3 class="test-title">5. Squat Analytics</h3>
+                        <div class="test-row">
+                            <div class="input-column">
+                                 <div class="input-container">
+                                    <div class="input-row"><label>Försök 1:</label><div class="input-wrapper"><input type="number" id="p1_g5_attempt_1"><span class="unit-text">%</span></div></div>
+                                    <div class="input-row"><label>Försök 2:</label><div class="input-wrapper"><input type="number" id="p1_g5_attempt_2"><span class="unit-text">%</span></div></div>
+                                    <div class="input-row"><label>Försök 3:</label><div class="input-wrapper"><input type="number" id="p1_g5_attempt_3"><span class="unit-text">%</span></div></div>
+                                </div>
+                                <div class="comment-container">
+                                     <div class="input-group"><label for="comment_squat">Kommentar:</label><textarea id="comment_squat"></textarea></div>
+                                </div>
+                            </div>
+                            <div class="graph-container">
+                                <h3>Squat Analytics</h3>
+                                <div id="donut-container">
+                                    <div class="donut-wrapper">
+                                        <div id="p1-chart-donut-1" class="js-plotly-plot"></div>
+                                        <p class="donut-label">Försök 1</p>
+                                    </div>
+                                    <div class="donut-wrapper">
+                                        <div id="p1-chart-donut-2" class="js-plotly-plot"></div>
+                                        <p class="donut-label">Försök 2</p>
+                                    </div>
+                                    <div class="donut-wrapper">
+                                        <div id="p1-chart-donut-3" class="js-plotly-plot"></div>
+                                        <p class="donut-label">Försök 3</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="graph-container">
-                        <h3>Manuella Mätningar</h3>
-                        <div id="manual-preview-content"></div>
+
+                    <div class="test-section" id="test-section-repeated_bilateral">
+                        <h3 class="test-title">6. Repeated Jumps (Två Ben)</h3>
+                        <div class="test-row">
+                            <div class="input-column">
+                                <div class="input-container">
+                                    <div class="input-row"><label>Gen. hopphöjd:</label><div class="input-wrapper"><input type="number" step="0.1" id="p1_g6_avg_height"><span class="unit-text">cm</span></div></div>
+                                    <div class="input-row"><label>Gen. GCT:</label><div class="input-wrapper"><input type="number" step="0.01" id="p1_g6_avg_gct"><span class="unit-text">s</span></div></div>
+                                </div>
+                                <div class="comment-container">
+                                    <div class="input-group"><label for="comment_repeated_bilateral">Kommentar:</label><textarea id="comment_repeated_bilateral"></textarea></div>
+                                </div>
+                            </div>
+                            <div class="graph-container">
+                                <h3>Repeated Jumps (Två Ben)</h3>
+                                <div id="p1-chart-repeated-bilateral" class="js-plotly-plot"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="test-section" id="test-section-hipthrust">
+                        <h3 class="test-title">7. Hip Thrusters Pull</h3>
+                        <div class="test-row">
+                            <div class="input-column">
+                                <div class="input-container">
+                                    <div class="input-row"><label>Hip Thrust VÄ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g1_va"><span class="unit-text">kg</span></div></div>
+                                    <div class="input-row"><label>Hip Thrust HÖ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g1_ho"><span class="unit-text">kg</span></div></div>
+                                    <hr class="input-separator">
+                                    <div class="input-row"><label>Två ben (Djur):</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g1_tva"><span class="unit-text">kg</span></div></div>
+                                </div>
+                                <div class="comment-container">
+                                    <div class="asymmetry-display" id="asymmetry_hipthrust"></div>
+                                    <div class="input-group"><label for="comment_hipthrust">Kommentar:</label><textarea id="comment_hipthrust"></textarea></div>
+                                </div>
+                            </div>
+                            <div class="graph-container">
+                                <h3>Hip Thrusters Pull</h3>
+                                <div id="p2-chart-hipthrust" class="js-plotly-plot"></div>
+                                <img id="overlay-image-hipthrust" src="" class="graph-overlay-image" alt="Animal">
+                                <div id="overlay-text-hipthrust" class="graph-overlay-text"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="test-section" id="test-section-quads">
+                        <h3 class="test-title">8. Quadriceps Isometrisk Styrka</h3>
+                        <div class="test-row">
+                            <div class="input-column">
+                                <div class="input-container">
+                                    <div class="input-row"><label>Quadriceps VÄ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g2_va"><span class="unit-text">kg</span></div></div>
+                                    <hr class="input-separator">
+                                    <div class="input-row"><label>Quadriceps HÖ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g2_ho"><span class="unit-text">kg</span></div></div>
+                                </div>
+                                <div class="comment-container">
+                                    <div class="asymmetry-display" id="asymmetry_quads"></div>
+                                    <div class="input-group"><label for="comment_quads">Kommentar:</label><textarea id="comment_quads"></textarea></div>
+                                </div>
+                            </div>
+                            <div class="graph-container">
+                                <h3>Quadriceps Isometrisk Styrka</h3>
+                                <div id="p2-chart-quads" class="js-plotly-plot"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="test-section" id="test-section-squat_pull">
+                        <h3 class="test-title">9. Static Squat Pull</h3>
+                        <div class="test-row">
+                            <div class="input-column">
+                                <div class="input-container">
+                                    <div class="input-row"><label>Static Squat VÄ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g3_va"><span class="unit-text">kg</span></div></div>
+                                    <div class="input-row"><label>Static Squat HÖ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g3_ho"><span class="unit-text">kg</span></div></div>
+                                    <hr class="input-separator">
+                                    <div class="input-row"><label>Två ben (Djur):</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g3_tva"><span class="unit-text">kg</span></div></div>
+                                </div>
+                                <div class="comment-container">
+                                     <div class="asymmetry-display" id="asymmetry_squat_pull"></div>
+                                    <div class="input-group"><label for="comment_squat_pull">Kommentar:</label><textarea id="comment_squat_pull"></textarea></div>
+                                </div>
+                            </div>
+                            <div class="graph-container">
+                                <h3>Static Squat Pull</h3>
+                                <div id="p2-chart-squat" class="js-plotly-plot"></div>
+                                <img id="overlay-image-squat" src="" class="graph-overlay-image" alt="Animal">
+                                <div id="overlay-text-squat" class="graph-overlay-text"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="test-section" id="test-section-hamstring">
+                        <h3 class="test-title">10. Hamstring Isometrisk Styrka</h3>
+                        <div class="test-row">
+                            <div class="input-column">
+                                <div class="input-container">
+                                    <div class="input-row"><label>Hamstring VÄ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g4_va"><span class="unit-text">N</span></div></div>
+                                     <hr class="input-separator">
+                                    <div class="input-row"><label>Hamstring HÖ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g4_ho"><span class="unit-text">N</span></div></div>
+                                </div>
+                                <div class="comment-container">
+                                    <div class="asymmetry-display" id="asymmetry_hamstring"></div>
+                                    <div class="input-group"><label for="comment_hamstring">Kommentar:</label><textarea id="comment_hamstring"></textarea></div>
+                                </div>
+                            </div>
+                            <div class="graph-container">
+                                <h3>Hamstring Isometrisk Styrka</h3>
+                                <div id="p2-chart-hamstring" class="js-plotly-plot"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="test-section" id="test-section-manual">
+                        <h3 class="test-title">11. Manuella Mätningar</h3>
+                         <div class="test-row">
+                            <div class="input-column">
+                                <div class="input-container">
+                                    <div class="manual-measurements-grid">
+                                        <div class="manual-box">
+                                            <h4>Static Row Pull</h4>
+                                            <div class="input-group"><label>Tare (N):</label><input type="number" id="p2_text_srp_tare"></div>
+                                            <div class="input-group"><label>Force (N):</label><input type="number" id="p2_text_srp_force"></div>
+                                        </div>
+                                        <div class="manual-box">
+                                            <h4>Squat Power to Speed</h4>
+                                            <div class="input-group"><label>Vikt (kg):</label><input type="number" id="p2_text_spts_kg"></div>
+                                        </div>
+                                        <div class="manual-box">
+                                            <h4>Max Press Push Up</h4>
+                                            <div class="input-group"><label>Tare (N):</label><input type="number" id="p2_text_mpu_tare"></div>
+                                            <div class="input-group"><label>Force (N):</label><input type="number" id="p2_text_mpu_force"></div>
+                                        </div>
+                                        <div class="manual-box">
+                                            <h4>Blaze Pod Challenge</h4>
+                                            <div class="input-group"><label>Antal träffar:</label><input type="number" id="p2_text_bpc_hits"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="graph-container">
+                                <h3>Manuella Mätningar</h3>
+                                <div id="manual-preview-content"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
             </form>
         </div>
     </main>
 
     <script>
+        // --- CONFIGURATION ---
+        const allTests = [
+            { id: 'balance', name: '1. Balans' },
+            { id: 'cmj', name: '2. Max Hopp CMJ' },
+            { id: 'tia', name: '3. Repeterade Hopp (TIA)' },
+            { id: 'sidehop', name: '4. Sidhopp (TIA)' },
+            { id: 'squat', name: '5. Squat Analytics' },
+            { id: 'repeated_bilateral', name: '6. Repeated Jumps (Två Ben)' },
+            { id: 'hipthrust', name: '7. Hip Thrusters Pull' },
+            { id: 'quads', name: '8. Quadriceps Isometrisk Styrka' },
+            { id: 'squat_pull', name: '9. Static Squat Pull' },
+            { id: 'hamstring', name: '10. Hamstring Isometrisk Styrka' },
+            { id: 'manual', name: '11. Manuella Mätningar' }
+        ];
+
         // --- UTILITY FUNCTIONS ---
         const plotlyConfig = { responsive: true, displaylogo: false, modeBarButtonsToRemove: ['sendDataToCloud', 'lasso2d', 'select2d', 'autoScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian', 'toggleSpikelines'] };
         function hexToRgba(hex, alpha) { hex = hex.replace('#', ''); const r = parseInt(hex.substring(0, 2), 16); const g = parseInt(hex.substring(2, 4), 16); const b = parseInt(hex.substring(4, 6), 16); return `rgba(${r}, ${g}, ${b}, ${alpha})`; }
@@ -948,7 +1033,7 @@
                     squatAnalytics: { attempt1: getNum('p1_g5_attempt_1'), attempt2: getNum('p1_g5_attempt_2'), attempt3: getNum('p1_g5_attempt_3'), comment: getText('comment_squat') },
                     repeatedBilateral: { avgHeight: getNum('p1_g6_avg_height'), avgGct: getNum('p1_g6_avg_gct'), comment: getText('comment_repeated_bilateral') },
                 },
-                page2: {
+                page2: { 
                     strengthTests: {
                         hipThrust: { left: getNum('p2_g1_va'), right: getNum('p2_g1_ho'), tva: getNum('p2_g1_tva'), comment: getText('comment_hipthrust'), asymmetryPercent: getAsymmetry('asymmetry_hipthrust') },
                         quadriceps: { left: getNum('p2_g2_va'), right: getNum('p2_g2_ho'), comment: getText('comment_quads'), asymmetryPercent: getAsymmetry('asymmetry_quads') },
@@ -1300,6 +1385,7 @@
             document.getElementById('comment_hamstring').value = defaultStrengthComment;
         }
 
+        // --- EVENT LISTENERS & INITIALIZATION ---
         document.getElementById('pdf-preview').addEventListener('click', () => {
             const reportData = collectDataFromForm();
             localStorage.setItem('fysiosportData', JSON.stringify(reportData));
@@ -1429,13 +1515,16 @@
                 });
 
                 populateFormFromData(structuredData); 
+                document.querySelectorAll('.test-section').forEach(section => {
+                    section.style.display = 'block';
+                });
                 alert('Data importerad!');
             };
             reader.readAsArrayBuffer(file);
             event.target.value = '';
         });
 
-        document.querySelectorAll('#input-form input, #input-form textarea').forEach(input => {
+        document.querySelectorAll('#input-form input, #input-form textarea, #input-form input[type="radio"]').forEach(input => {
             input.addEventListener('input', () => {
                 updatePreview();
                 saveData();
@@ -1448,7 +1537,46 @@
             });
         });
 
+        // --- Test Selection Logic ---
+        function renderTestSelection() {
+            const testListContainer = document.getElementById('test-list');
+            allTests.forEach(test => {
+                const button = document.createElement('button');
+                button.type = 'button'; // Prevent form submission
+                button.className = 'test-selector-btn';
+                button.textContent = test.name;
+                button.dataset.testId = test.id;
+                button.dataset.selected = 'true'; // All tests selected by default
+                testListContainer.appendChild(button);
+                
+                // Show the corresponding section by default
+                const section = document.getElementById(`test-section-${test.id}`);
+                if (section) {
+                    section.style.display = 'block';
+                }
+            });
+        }
+
+        document.getElementById('test-list').addEventListener('click', (e) => {
+            if (e.target && e.target.classList.contains('test-selector-btn')) {
+                const button = e.target;
+                const isSelected = button.dataset.selected === 'true';
+                const newSelectedState = !isSelected;
+                button.dataset.selected = newSelectedState;
+
+                const testId = button.dataset.testId;
+                const section = document.getElementById(`test-section-${testId}`);
+                if (section) {
+                    section.style.display = newSelectedState ? 'block' : 'none';
+                }
+                // After showing/hiding, resize plots to avoid rendering issues
+                window.dispatchEvent(new Event('resize'));
+            }
+        });
+
         document.addEventListener('DOMContentLoaded', () => {
+            renderTestSelection(); // Create the test selection buttons and show all sections
+
             const savedData = localStorage.getItem('fysiosportData');
             if (savedData) {
                 try {
