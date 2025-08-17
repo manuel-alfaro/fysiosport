@@ -285,6 +285,10 @@
             margin-bottom: 15px;
         }
 
+        .hidden {
+            display: none !important;
+        }
+
 
         @media print {
             body {
@@ -302,7 +306,7 @@
     </style>
 </head>
 <body>
-    <div class="page page-break">
+    <div id="page-1" class="page page-break">
         <header class="report-header">
             <img src="https://storage.googleapis.com/intro_alphatek/logo%20fysiosport.png" alt="Fysiosport Logo" class="logo-left">
             <img src="https://storage.googleapis.com/intro_alphatek/Kopi%2Bav%2BLogo%2BNegative%2Bnarrow.webp" alt="Alphatek Logo" class="logo-right">
@@ -317,91 +321,14 @@
                         <div><strong>SKAPAD AV:</strong> <span id="p1-createdBy"></span></div>
                     </div>
                     
-                    <!-- Row 1 -->
-                    <div class="position-row"> 
-                        <div class="graph-column"> 
-                            <div id="p1-position-box-I" class="position-box"> 
-                                <h3 class="position-title"></h3> 
-                                <div id="p1-bar-chart-I" class="js-plotly-plot"></div> 
-                            </div>
-                            <div id="p1-balance-comment-box" class="explanation-box-small">
-                                <p class="comment-text"></p>
-                            </div>
-                        </div> 
-                        <div class="graph-column"> 
-                            <div id="p1-normative-chart-container-I" class="normative-box"> 
-                                <h3 class="normative-title"></h3> 
-                                <div id="p1-bar-chart-I-copy" class="js-plotly-plot"></div> 
-                            </div>
-                            <div id="p1-cmj-comment-box" class="explanation-box-small">
-                                <p class="comment-text"></p>
-                            </div>
-                        </div> 
-                    </div>
-
-                    <!-- Row 2 -->
-                    <div class="position-row"> 
-                        <div class="graph-column"> 
-                            <div id="p1-position-box-Y" class="position-box"> 
-                                <h3 class="position-title"></h3> 
-                                <div id="p1-bar-chart-Y" class="js-plotly-plot"></div> 
-                            </div>
-                            <div id="p1-tia-comment-box" class="explanation-box-small">
-                                <p class="comment-text"></p>
-                            </div>
-                        </div> 
-                        <div class="graph-column"> 
-                            <div id="p1-normative-chart-container-Y" class="normative-box"> 
-                                <h3 class="normative-title"></h3> 
-                                <div id="p1-bar-chart-Y-copy" class="js-plotly-plot"></div> 
-                            </div>
-                            <div id="p1-sidehop-comment-box" class="explanation-box-small">
-                                <p class="comment-text"></p>
-                            </div>
-                        </div> 
-                    </div>
-
-                    <!-- Row 3 -->
-                    <div class="position-row"> 
-                        <div class="graph-column">
-                            <div id="p1-position-box-T" class="position-box">
-                                <h3 class="position-title"></h3>
-                                <div id="donut-container">
-                                    <div class="donut-wrapper">
-                                        <div id="donut-chart-1" class="js-plotly-plot"></div>
-                                        <p class="donut-label">Försök 1</p>
-                                    </div>
-                                    <div class="donut-wrapper">
-                                        <div id="donut-chart-2" class="js-plotly-plot"></div>
-                                        <p class="donut-label">Försök 2</p>
-                                    </div>
-                                    <div class="donut-wrapper">
-                                        <div id="donut-chart-3" class="js-plotly-plot"></div>
-                                        <p class="donut-label">Försök 3</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="p1-squat-comment-box" class="explanation-box-small">
-                                <p class="comment-text"></p>
-                            </div>
-                        </div>
-                        <div class="graph-column"> 
-                            <div id="p1-normative-chart-container-T" class="normative-box"> 
-                                <h3 class="normative-title"></h3> 
-                                <div id="p1-bar-chart-T-copy" class="js-plotly-plot"></div> 
-                            </div>
-                            <div id="p1-repeated-comment-box" class="explanation-box-small">
-                                <p class="comment-text"></p>
-                            </div>
-                        </div> 
-                    </div>
+                    <!-- This container will be populated dynamically -->
 
                 </div>
             </div>
         </main>
     </div>
 
-    <div class="page">
+    <div id="page-2" class="page">
         <header class="report-header">
             <img src="https://storage.googleapis.com/intro_alphatek/logo%20fysiosport.png" alt="Fysiosport Logo" class="logo-left">
             <img src="https://storage.googleapis.com/intro_alphatek/Kopi%2Bav%2BLogo%2BNegative%2Bnarrow.webp" alt="Alphatek Logo" class="logo-right">
@@ -416,82 +343,140 @@
                         <div><strong>SKAPAD AV:</strong> <span id="p2-createdBy"></span></div>
                     </div>
                     
-                    <!-- Row 1 -->
-                    <div class="position-row"> 
-                        <div class="graph-column"> 
-                            <div id="p2-position-box-I" class="position-box"> 
-                                <h3 class="position-title"></h3> 
-                                <div id="p2-bar-chart-I" class="js-plotly-plot"></div> 
-                                <img id="overlay-image-I" src="" class="graph-overlay-image" alt="Animal">
-                                <div id="overlay-text-I" class="graph-overlay-text"></div>
-                            </div>
-                            <div id="p2-hipthrust-comment-box" class="explanation-box-small">
-                                <p class="comment-text"></p>
-                            </div>
-                        </div> 
-                        <div class="graph-column"> 
-                            <div id="p2-normative-chart-container-I" class="normative-box"> 
-                                <h3 class="normative-title"></h3> 
-                                <div id="p2-bar-chart-I-copy" class="js-plotly-plot"></div> 
-                            </div>
-                             <div id="p2-quads-comment-box" class="explanation-box-small">
-                                <p class="comment-text"></p>
-                            </div>
-                        </div> 
-                    </div>
-
-                    <!-- Row 2 -->
-                    <div class="position-row"> 
-                        <div class="graph-column"> 
-                            <div id="p2-position-box-Y" class="position-box"> 
-                                <h3 class="position-title"></h3> 
-                                <div id="p2-bar-chart-Y" class="js-plotly-plot"></div> 
-                                 <img id="overlay-image-Y" src="" class="graph-overlay-image" alt="Animal">
-                                 <div id="overlay-text-Y" class="graph-overlay-text"></div>
-                            </div>
-                             <div id="p2-squat-comment-box" class="explanation-box-small">
-                                <p class="comment-text"></p>
-                            </div>
-                        </div> 
-                        <div class="graph-column"> 
-                            <div id="p2-normative-chart-container-Y" class="normative-box"> 
-                                <h3 class="normative-title"></h3> 
-                                <div id="p2-bar-chart-Y-copy" class="js-plotly-plot"></div> 
-                            </div>
-                             <div id="p2-hamstring-comment-box" class="explanation-box-small">
-                                <p class="comment-text"></p>
-                            </div>
-                        </div> 
-                    </div>
-
-                    <!-- Row 3 with Text Boxes -->
-                    <div class="position-row" id="manual-text-boxes">
-                        <div class="graph-column text-box">
-                            <h3 class="position-title">ISOMETRIC ROW PULL</h3>
-                            <div class="text-content" id="manual-srp">
-                            </div>
-                        </div>
-                        <div class="graph-column text-box">
-                            <h3 class="position-title">SQUAT POWER TO SPEED</h3>
-                            <div class="text-content" id="manual-spts">
-                            </div>
-                        </div>
-                        <div class="graph-column text-box">
-                            <h3 class="position-title">MAX PRESS PUSH UP</h3>
-                            <div class="text-content" id="manual-mpu">
-                            </div>
-                        </div>
-                        <div class="graph-column text-box">
-                            <h3 class="position-title">BLAZE POD CHALLENGE</h3>
-                            <div class="text-content" id="manual-bpc">
-                            </div>
-                        </div>
-                    </div>
+                     <!-- This container will be populated dynamically -->
 
                 </div>
             </div>
         </main>
     </div>
+
+    <!-- Template elements that will be cloned and moved -->
+    <div id="templates" class="hidden">
+        <div id="col-balance" class="graph-column"> 
+            <div id="p1-position-box-I" class="position-box"> 
+                <h3 class="position-title"></h3> 
+                <div id="p1-bar-chart-I" class="js-plotly-plot"></div> 
+            </div>
+            <div id="p1-balance-comment-box" class="explanation-box-small">
+                <p class="comment-text"></p>
+            </div>
+        </div> 
+        <div id="col-cmj" class="graph-column"> 
+            <div id="p1-normative-chart-container-I" class="normative-box"> 
+                <h3 class="normative-title"></h3> 
+                <div id="p1-bar-chart-I-copy" class="js-plotly-plot"></div> 
+            </div>
+            <div id="p1-cmj-comment-box" class="explanation-box-small">
+                <p class="comment-text"></p>
+            </div>
+        </div> 
+        <div id="col-tia" class="graph-column"> 
+            <div id="p1-position-box-Y" class="position-box"> 
+                <h3 class="position-title"></h3> 
+                <div id="p1-bar-chart-Y" class="js-plotly-plot"></div> 
+            </div>
+            <div id="p1-tia-comment-box" class="explanation-box-small">
+                <p class="comment-text"></p>
+            </div>
+        </div> 
+        <div id="col-sidehop" class="graph-column"> 
+            <div id="p1-normative-chart-container-Y" class="normative-box"> 
+                <h3 class="normative-title"></h3> 
+                <div id="p1-bar-chart-Y-copy" class="js-plotly-plot"></div> 
+            </div>
+            <div id="p1-sidehop-comment-box" class="explanation-box-small">
+                <p class="comment-text"></p>
+            </div>
+        </div> 
+        <div id="col-squat" class="graph-column">
+            <div id="p1-position-box-T" class="position-box">
+                <h3 class="position-title"></h3>
+                <div id="donut-container">
+                    <div class="donut-wrapper">
+                        <div id="donut-chart-1" class="js-plotly-plot"></div>
+                        <p class="donut-label">Försök 1</p>
+                    </div>
+                    <div class="donut-wrapper">
+                        <div id="donut-chart-2" class="js-plotly-plot"></div>
+                        <p class="donut-label">Försök 2</p>
+                    </div>
+                    <div class="donut-wrapper">
+                        <div id="donut-chart-3" class="js-plotly-plot"></div>
+                        <p class="donut-label">Försök 3</p>
+                    </div>
+                </div>
+            </div>
+            <div id="p1-squat-comment-box" class="explanation-box-small">
+                <p class="comment-text"></p>
+            </div>
+        </div>
+        <div id="col-repeated" class="graph-column"> 
+            <div id="p1-normative-chart-container-T" class="normative-box"> 
+                <h3 class="normative-title"></h3> 
+                <div id="p1-bar-chart-T-copy" class="js-plotly-plot"></div> 
+            </div>
+            <div id="p1-repeated-comment-box" class="explanation-box-small">
+                <p class="comment-text"></p>
+            </div>
+        </div> 
+        <div id="col-hipthrust" class="graph-column"> 
+            <div id="p2-position-box-I" class="position-box"> 
+                <h3 class="position-title"></h3> 
+                <div id="p2-bar-chart-I" class="js-plotly-plot"></div> 
+                <img id="overlay-image-I" src="" class="graph-overlay-image" alt="Animal">
+                <div id="overlay-text-I" class="graph-overlay-text"></div>
+            </div>
+            <div id="p2-hipthrust-comment-box" class="explanation-box-small">
+                <p class="comment-text"></p>
+            </div>
+        </div> 
+        <div id="col-quads" class="graph-column"> 
+            <div id="p2-normative-chart-container-I" class="normative-box"> 
+                <h3 class="normative-title"></h3> 
+                <div id="p2-bar-chart-I-copy" class="js-plotly-plot"></div> 
+            </div>
+             <div id="p2-quads-comment-box" class="explanation-box-small">
+                <p class="comment-text"></p>
+            </div>
+        </div> 
+        <div id="col-staticsquat" class="graph-column"> 
+            <div id="p2-position-box-Y" class="position-box"> 
+                <h3 class="position-title"></h3> 
+                <div id="p2-bar-chart-Y" class="js-plotly-plot"></div> 
+                 <img id="overlay-image-Y" src="" class="graph-overlay-image" alt="Animal">
+                 <div id="overlay-text-Y" class="graph-overlay-text"></div>
+            </div>
+             <div id="p2-squat-comment-box" class="explanation-box-small">
+                <p class="comment-text"></p>
+            </div>
+        </div> 
+        <div id="col-hamstring" class="graph-column"> 
+            <div id="p2-normative-chart-container-Y" class="normative-box"> 
+                <h3 class="normative-title"></h3> 
+                <div id="p2-bar-chart-Y-copy" class="js-plotly-plot"></div> 
+            </div>
+             <div id="p2-hamstring-comment-box" class="explanation-box-small">
+                <p class="comment-text"></p>
+            </div>
+        </div> 
+        <div id="col-srp" class="graph-column text-box">
+            <h3 class="position-title">STATIC ROW PULL</h3>
+            <div class="text-content" id="manual-srp"></div>
+        </div>
+        <div id="col-spts" class="graph-column text-box">
+            <h3 class="position-title">SQUAT POWER TO SPEED</h3>
+            <div class="text-content" id="manual-spts"></div>
+        </div>
+        <div id="col-mpu" class="graph-column text-box">
+            <h3 class="position-title">MAX PRESS PUSH UP</h3>
+            <div class="text-content" id="manual-mpu"></div>
+        </div>
+        <div id="col-bpc" class="graph-column text-box">
+            <h3 class="position-title">BLAZE POD CHALLENGE</h3>
+            <div class="text-content" id="manual-bpc"></div>
+        </div>
+    </div>
+
 
     <script>
         const plotlyConfig = { responsive: true, displaylogo: false, modeBarButtonsToRemove: ['sendDataToCloud', 'lasso2d', 'select2d', 'autoScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian', 'toggleSpikelines'] };
@@ -529,10 +514,10 @@
             return { name: "The Beast", url: baseUrl + "the_beast.png" };
         }
 
-        function updateAnimalOverlay(weight, imageElementId, textElementId) {
+        function updateAnimalOverlay(weight, imageElement, textElement) {
             const animal = getAnimalForWeight(weight);
-            document.getElementById(imageElementId).src = animal.url;
-            document.getElementById(textElementId).innerHTML = `Sammanlagd kraft: ${weight.toFixed(1)} kg<br>Du är en ${animal.name}!`;
+            imageElement.src = animal.url;
+            textElement.innerHTML = `Sammanlagd kraft: ${weight.toFixed(1)} kg<br>Du är en ${animal.name}!`;
         }
 
         // --- CHART CREATION FUNCTIONS ---
@@ -692,7 +677,6 @@
             return fig;
         }
 
-        // RESTORED: This function is now the original one you provided.
         function createPage2CustomBarChart(chartData, config = {}) {
             const vaColorHex = getComputedStyle(document.documentElement).getPropertyValue('--va-color').trim();
             const hoColorHex = getComputedStyle(document.documentElement).getPropertyValue('--ho-color').trim();
@@ -874,123 +858,186 @@
             updateBox('p2-hamstring-comment-box', hamstringData.comment, hamstringData.asymmetryPercent, hasHamstringData);
         }
 
-        async function updateAllGraphs(reportData) { 
+        async function updateLayoutAndRenderGraphs(reportData) {
             const plotPromises = [];
+            const templates = document.getElementById('templates');
             
-            // --- PAGE 1 ---
-            document.querySelector('#p1-position-box-I .position-title').textContent = 'STÅENDE BALANS 15S - UTAN RÖRELSE';
-            const balanceData = reportData.page1.balance;
-            if (!(balanceData.leftScore === 0 && balanceData.rightScore === 0 && balanceData.leftDiff === 0 && balanceData.rightDiff === 0)) {
-                const fig1_p1 = createDualAxisBarChart({leftVal1: balanceData.leftScore, rightVal1: balanceData.rightScore, leftVal2: balanceData.leftDiff, rightVal2: balanceData.rightDiff}, {metricNames: ['Score', 'Gj. diff'], y1Title: 'Score', y2Title: 'cm', y1Decimals: 0, y2Decimals: 2});
-                plotPromises.push(Plotly.react('p1-bar-chart-I', fig1_p1.data, fig1_p1.layout, plotlyConfig));
-            } else {
-                showNoDataPlaceholder('p1-bar-chart-I', 'Test ej genomfört');
-            }
+            const allTestBlocks = [
+                { 
+                    id: 'balance', 
+                    col: templates.querySelector('#col-balance'),
+                    hasData: !(reportData.page1.balance.leftScore === 0 && reportData.page1.balance.rightScore === 0 && reportData.page1.balance.leftDiff === 0 && reportData.page1.balance.rightDiff === 0),
+                    render: (element) => {
+                        element.querySelector('.position-title').textContent = 'STÅENDE BALANS 15S - UTAN RÖRELSE';
+                        const fig = createDualAxisBarChart({leftVal1: reportData.page1.balance.leftScore, rightVal1: reportData.page1.balance.rightScore, leftVal2: reportData.page1.balance.leftDiff, rightVal2: reportData.page1.balance.rightDiff}, {metricNames: ['Score', 'Gj. diff'], y1Title: 'Score', y2Title: 'cm', y1Decimals: 0, y2Decimals: 2});
+                        plotPromises.push(Plotly.react(element.querySelector('.js-plotly-plot'), fig.data, fig.layout, plotlyConfig));
+                    }
+                },
+                { 
+                    id: 'cmj', 
+                    col: templates.querySelector('#col-cmj'),
+                    hasData: !(reportData.page1.cmj.vaJumps.every(j => j === 0) && reportData.page1.cmj.hoJumps.every(j => j === 0)),
+                    render: (element) => {
+                        element.querySelector('.normative-title').textContent = 'MAX HOPP CMJ (TOV)';
+                        const fig = createGroupedBarChart({labels: ['Hopp 1', 'Hopp 2', 'Hopp 3'], vaValues: reportData.page1.cmj.vaJumps, hoValues: reportData.page1.cmj.hoJumps}, {yTitle: 'Hopphøyde (cm)'});
+                        plotPromises.push(Plotly.react(element.querySelector('.js-plotly-plot'), fig.data, fig.layout, plotlyConfig));
+                    }
+                },
+                { 
+                    id: 'tia', 
+                    col: templates.querySelector('#col-tia'),
+                    hasData: !(reportData.page1.tia.leftJump === 0 && reportData.page1.tia.rightJump === 0 && reportData.page1.tia.leftGct === 0 && reportData.page1.tia.rightGct === 0),
+                    render: (element) => {
+                        element.querySelector('.position-title').textContent = 'REPETERADE HOPP (TIA) ETT BEN I TAGET X5';
+                        const fig = createDualAxisBarChart({leftVal1: reportData.page1.tia.leftJump, rightVal1: reportData.page1.tia.rightJump, leftVal2: reportData.page1.tia.leftGct, rightVal2: reportData.page1.tia.rightGct}, {metricNames: ['Gj. hopp', 'GCT'], y1Title: 'cm', y2Title: 's', y1Decimals: 1, y2Decimals: 2});
+                        plotPromises.push(Plotly.react(element.querySelector('.js-plotly-plot'), fig.data, fig.layout, plotlyConfig));
+                    }
+                },
+                { 
+                    id: 'sidehop', 
+                    col: templates.querySelector('#col-sidehop'),
+                    hasData: !(reportData.page1.sidehop.leftCount === 0 && reportData.page1.sidehop.rightCount === 0),
+                    render: (element) => {
+                        element.querySelector('.normative-title').textContent = 'SIDOHOPP (TIA) 1 FÖRSÖK PER BEN, ANTAL';
+                        const fig = createSingleMetricBarChart({leftVal: reportData.page1.sidehop.leftCount, rightVal: reportData.page1.sidehop.rightCount}, {yAxisTitle: 'Antall (stk)', metricName: 'Antall', decimals: 0});
+                        plotPromises.push(Plotly.react(element.querySelector('.js-plotly-plot'), fig.data, fig.layout, plotlyConfig));
+                    }
+                },
+                { 
+                    id: 'squat', 
+                    col: templates.querySelector('#col-squat'),
+                    hasData: !(reportData.page1.squatAnalytics.attempt1 === 0 && reportData.page1.squatAnalytics.attempt2 === 0 && reportData.page1.squatAnalytics.attempt3 === 0),
+                    render: (element) => {
+                        element.querySelector('.position-title').textContent = 'Squat Analytics';
+                        const donutValues = [reportData.page1.squatAnalytics.attempt1, reportData.page1.squatAnalytics.attempt2, reportData.page1.squatAnalytics.attempt3];
+                        const donutDivs = element.querySelectorAll('.js-plotly-plot');
+                        donutValues.forEach((value, index) => {
+                            const fig = createSingleDonutChart(value);
+                            plotPromises.push(Plotly.newPlot(donutDivs[index], fig.data, fig.layout, plotlyConfig));
+                        });
+                    }
+                },
+                { 
+                    id: 'repeated', 
+                    col: templates.querySelector('#col-repeated'),
+                    hasData: !(reportData.page1.repeatedBilateral.avgHeight === 0 && reportData.page1.repeatedBilateral.avgGct === 0),
+                    render: (element) => {
+                        element.querySelector('.normative-title').textContent = 'Repeated jumps TVÅ BEN x10';
+                        const fig = createBilateralDualAxisChart({val1: reportData.page1.repeatedBilateral.avgHeight, val2: reportData.page1.repeatedBilateral.avgGct}, {metricNames: ['Gj. hopp', 'Gj. GCT'], y1Title: 'cm', y2Title: 's'});
+                        plotPromises.push(Plotly.react(element.querySelector('.js-plotly-plot'), fig.data, fig.layout, plotlyConfig));
+                    }
+                },
+                { 
+                    id: 'hipthrust', 
+                    col: templates.querySelector('#col-hipthrust'),
+                    hasData: !(reportData.page2.strengthTests.hipThrust.left === 0 && reportData.page2.strengthTests.hipThrust.right === 0),
+                    render: (element) => {
+                        element.querySelector('.position-title').textContent = 'HIP THRUSTERS PULL';
+                        const data = reportData.page2.strengthTests.hipThrust;
+                        const fig = createPage2CustomBarChart({leftVal1: data.left, rightVal1: data.right}, { yAxisTitle: 'KG', metricNames: ['Force', ' '], decimals: 1 });
+                        plotPromises.push(Plotly.react(element.querySelector('.js-plotly-plot'), fig.data, fig.layout, plotlyConfig));
+                        if (data.tva && data.tva > 0) {
+                            updateAnimalOverlay(data.tva, element.querySelector('#overlay-image-I'), element.querySelector('#overlay-text-I'));
+                        } else {
+                            element.querySelector('#overlay-image-I').style.display = 'none';
+                            element.querySelector('#overlay-text-I').style.display = 'none';
+                        }
+                    }
+                },
+                { 
+                    id: 'quads', 
+                    col: templates.querySelector('#col-quads'),
+                    hasData: !(reportData.page2.strengthTests.quadriceps.left === 0 && reportData.page2.strengthTests.quadriceps.right === 0),
+                    render: (element) => {
+                        element.querySelector('.normative-title').textContent = 'QUADRICEPS ISOMETRISK STYRKA';
+                        const data = reportData.page2.strengthTests.quadriceps;
+                        const fig = createPage2CustomBarChart({leftVal1: data.left, rightVal1: data.right}, { yAxisTitle: 'KG', metricNames: ['Force', ' '], decimals: 1 });
+                        plotPromises.push(Plotly.react(element.querySelector('.js-plotly-plot'), fig.data, fig.layout, plotlyConfig));
+                    }
+                },
+                { 
+                    id: 'staticsquat', 
+                    col: templates.querySelector('#col-staticsquat'),
+                    hasData: !(reportData.page2.strengthTests.staticSquat.left === 0 && reportData.page2.strengthTests.staticSquat.right === 0),
+                    render: (element) => {
+                        element.querySelector('.position-title').textContent = 'STATIC SQUAT PULL';
+                        const data = reportData.page2.strengthTests.staticSquat;
+                        const fig = createPage2CustomBarChart({leftVal1: data.left, rightVal1: data.right}, { yAxisTitle: 'KG', metricNames: ['Force', ' '], decimals: 1 });
+                        plotPromises.push(Plotly.react(element.querySelector('.js-plotly-plot'), fig.data, fig.layout, plotlyConfig));
+                        if (data.tva && data.tva > 0) {
+                            updateAnimalOverlay(data.tva, element.querySelector('#overlay-image-Y'), element.querySelector('#overlay-text-Y'));
+                        } else {
+                            element.querySelector('#overlay-image-Y').style.display = 'none';
+                            element.querySelector('#overlay-text-Y').style.display = 'none';
+                        }
+                    }
+                },
+                { 
+                    id: 'hamstring', 
+                    col: templates.querySelector('#col-hamstring'),
+                    hasData: !(reportData.page2.strengthTests.hamstring.left === 0 && reportData.page2.strengthTests.hamstring.right === 0),
+                    render: (element) => {
+                        element.querySelector('.normative-title').textContent = 'HAMSTRING ISOMETRISK STYRKA';
+                        const data = reportData.page2.strengthTests.hamstring;
+                        const fig = createPage2CustomBarChart({leftVal1: data.left, rightVal1: data.right}, { yAxisTitle: 'Newton', metricNames: ['Force', ' '], decimals: 1 });
+                        plotPromises.push(Plotly.react(element.querySelector('.js-plotly-plot'), fig.data, fig.layout, plotlyConfig));
+                    }
+                },
+                { 
+                    id: 'srp', 
+                    col: templates.querySelector('#col-srp'),
+                    isManual: true,
+                    hasData: !(reportData.page2.manual.srp.force === 0 && reportData.page2.manual.srp.tare === 0)
+                },
+                { 
+                    id: 'spts', 
+                    col: templates.querySelector('#col-spts'),
+                    isManual: true,
+                    hasData: reportData.page2.manual.spts.kg !== 0
+                },
+                { 
+                    id: 'mpu', 
+                    col: templates.querySelector('#col-mpu'),
+                    isManual: true,
+                    hasData: !(reportData.page2.manual.mpu.force === 0 && reportData.page2.manual.mpu.tare === 0)
+                },
+                { 
+                    id: 'bpc', 
+                    col: templates.querySelector('#col-bpc'),
+                    isManual: true,
+                    hasData: reportData.page2.manual.bpc.hits !== 0
+                }
+            ];
 
-            document.querySelector('#p1-normative-chart-container-I .normative-title').textContent = 'MAX HOPP CMJ (TOV)';
-            const cmjData = reportData.page1.cmj;
-            if (!(cmjData.vaJumps.every(j => j === 0) && cmjData.hoJumps.every(j => j === 0))) {
-                const fig2_p1 = createGroupedBarChart({labels: ['Hopp 1', 'Hopp 2', 'Hopp 3'], vaValues: cmjData.vaJumps, hoValues: cmjData.hoJumps}, {yTitle: 'Hopphøyde (cm)'});
-                plotPromises.push(Plotly.react('p1-bar-chart-I-copy', fig2_p1.data, fig2_p1.layout, plotlyConfig));
-            } else {
-                showNoDataPlaceholder('p1-bar-chart-I-copy', 'Test ej genomfört');
-            }
-
-            document.querySelector('#p1-position-box-Y .position-title').textContent = 'REPETERADE HOPP (TIA) ETT BEN I TAGET X5';
-            const tiaData = reportData.page1.tia;
-            if (!(tiaData.leftJump === 0 && tiaData.rightJump === 0 && tiaData.leftGct === 0 && tiaData.rightGct === 0)) {
-                const fig3_p1 = createDualAxisBarChart({leftVal1: tiaData.leftJump, rightVal1: tiaData.rightJump, leftVal2: tiaData.leftGct, rightVal2: tiaData.rightGct}, {metricNames: ['Gj. hopp', 'GCT'], y1Title: 'cm', y2Title: 's', y1Decimals: 1, y2Decimals: 2});
-                plotPromises.push(Plotly.react('p1-bar-chart-Y', fig3_p1.data, fig3_p1.layout, plotlyConfig));
-            } else {
-                showNoDataPlaceholder('p1-bar-chart-Y', 'Test ej genomfört');
-            }
+            const activeBlocks = allTestBlocks.filter(b => b.hasData);
+            const page1Container = document.getElementById('report-content-page1');
+            const page2Container = document.getElementById('report-content-page2');
             
-            document.querySelector('#p1-normative-chart-container-Y .normative-title').textContent = 'SIDOHOPP (TIA) 1 FÖRSÖK PER BEN, ANTAL';
-            const sidehopData = reportData.page1.sidehop;
-            if (!(sidehopData.leftCount === 0 && sidehopData.rightCount === 0)) {
-                const fig4_p1 = createSingleMetricBarChart({leftVal: sidehopData.leftCount, rightVal: sidehopData.rightCount}, {yAxisTitle: 'Antall (stk)', metricName: 'Antall', decimals: 0});
-                plotPromises.push(Plotly.react('p1-bar-chart-Y-copy', fig4_p1.data, fig4_p1.layout, plotlyConfig));
-            } else {
-                showNoDataPlaceholder('p1-bar-chart-Y-copy', 'Test ej genomfört');
+            let currentRow = null;
+            let currentContainer = page1Container;
+            let itemsOnPage = 0;
+
+            activeBlocks.forEach((block) => {
+                if (itemsOnPage % 2 === 0) {
+                    if (itemsOnPage >= 6) {
+                        currentContainer = page2Container;
+                    }
+                    currentRow = document.createElement('div');
+                    currentRow.className = 'position-row';
+                    currentContainer.appendChild(currentRow);
+                }
+                currentRow.appendChild(block.col);
+                if (block.render) {
+                    block.render(block.col);
+                }
+                itemsOnPage++;
+            });
+
+            if (itemsOnPage <= 6) {
+                 document.getElementById('page-1').classList.remove('page-break');
+                 document.getElementById('page-2').classList.add('hidden');
             }
 
-            document.querySelector('#p1-position-box-T .position-title').textContent = 'Squat Analytics';
-            const squatData = reportData.page1.squatAnalytics;
-            if (!(squatData.attempt1 === 0 && squatData.attempt2 === 0 && squatData.attempt3 === 0)) {
-                const donutValues = [squatData.attempt1, squatData.attempt2, squatData.attempt3];
-                const donutIds = ['donut-chart-1', 'donut-chart-2', 'donut-chart-3'];
-                donutIds.forEach((id, index) => {
-                    const fig = createSingleDonutChart(donutValues[index]);
-                    plotPromises.push(Plotly.newPlot(id, fig.data, fig.layout, plotlyConfig));
-                });
-            } else {
-                showNoDataPlaceholder('donut-container', 'Test ej genomfört');
-            }
-            
-            document.querySelector('#p1-normative-chart-container-T .normative-title').textContent = 'Repeated jumps TVÅ BEN x10';
-            const repeatedData = reportData.page1.repeatedBilateral;
-            if (!(repeatedData.avgHeight === 0 && repeatedData.avgGct === 0)) {
-                const fig6_p1 = createBilateralDualAxisChart({val1: repeatedData.avgHeight, val2: repeatedData.avgGct}, {metricNames: ['Gj. hopp', 'Gj. GCT'], y1Title: 'cm', y2Title: 's'});
-                plotPromises.push(Plotly.react('p1-bar-chart-T-copy', fig6_p1.data, fig6_p1.layout, plotlyConfig)); 
-            } else {
-                showNoDataPlaceholder('p1-bar-chart-T-copy', 'Test ej genomfört');
-            }
-
-            // --- PAGE 2 ---
-            const forceMetric_p2 = ['Force', ' '];
-            document.querySelector('#p2-position-box-I .position-title').textContent = 'HIP THRUSTERS PULL';
-            const hipThrustData = reportData.page2.strengthTests.hipThrust;
-            if (!(hipThrustData.left === 0 && hipThrustData.right === 0)) {
-                const fig1_p2 = createPage2CustomBarChart({leftVal1: hipThrustData.left, rightVal1: hipThrustData.right}, { yAxisTitle: 'KG', metricNames: forceMetric_p2, decimals: 1 });
-                plotPromises.push(Plotly.react('p2-bar-chart-I', fig1_p2.data, fig1_p2.layout, plotlyConfig));
-            } else {
-                showNoDataPlaceholder('p2-bar-chart-I', 'Test ej genomfört');
-            }
-            if (hipThrustData.tva && hipThrustData.tva > 0) {
-                document.getElementById('overlay-image-I').style.display = 'block';
-                document.getElementById('overlay-text-I').style.display = 'block';
-                updateAnimalOverlay(hipThrustData.tva, 'overlay-image-I', 'overlay-text-I');
-            } else {
-                document.getElementById('overlay-image-I').style.display = 'none';
-                document.getElementById('overlay-text-I').style.display = 'none';
-            }
-
-            document.querySelector('#p2-normative-chart-container-I .normative-title').textContent = 'QUADRICEPS ISOMETRISK STYRKA';
-            const quadsData = reportData.page2.strengthTests.quadriceps;
-            if (!(quadsData.left === 0 && quadsData.right === 0)) {
-                const fig2_p2 = createPage2CustomBarChart({leftVal1: quadsData.left, rightVal1: quadsData.right}, { yAxisTitle: 'KG', metricNames: forceMetric_p2, decimals: 1 });
-                plotPromises.push(Plotly.react('p2-bar-chart-I-copy', fig2_p2.data, fig2_p2.layout, plotlyConfig));
-            } else {
-                showNoDataPlaceholder('p2-bar-chart-I-copy', 'Test ej genomfört');
-            }
-
-            document.querySelector('#p2-position-box-Y .position-title').textContent = 'STATIC SQUAT PULL';
-            const staticSquatData = reportData.page2.strengthTests.staticSquat;
-            if (!(staticSquatData.left === 0 && staticSquatData.right === 0)) {
-                const fig3_p2 = createPage2CustomBarChart({leftVal1: staticSquatData.left, rightVal1: staticSquatData.right}, { yAxisTitle: 'KG', metricNames: forceMetric_p2, decimals: 1 });
-                plotPromises.push(Plotly.react('p2-bar-chart-Y', fig3_p2.data, fig3_p2.layout, plotlyConfig));
-            } else {
-                showNoDataPlaceholder('p2-bar-chart-Y', 'Test ej genomfört');
-            }
-            if (staticSquatData.tva && staticSquatData.tva > 0) {
-                document.getElementById('overlay-image-Y').style.display = 'block';
-                document.getElementById('overlay-text-Y').style.display = 'block';
-                updateAnimalOverlay(staticSquatData.tva, 'overlay-image-Y', 'overlay-text-Y');
-            } else {
-                document.getElementById('overlay-image-Y').style.display = 'none';
-                document.getElementById('overlay-text-Y').style.display = 'none';
-            }
-            
-            document.querySelector('#p2-normative-chart-container-Y .normative-title').textContent = 'HAMSTRING ISOMETRISK STYRKA';
-            const hamstringData = reportData.page2.strengthTests.hamstring;
-            if (!(hamstringData.left === 0 && hamstringData.right === 0)) {
-                const fig4_p2 = createPage2CustomBarChart({leftVal1: hamstringData.left, rightVal1: hamstringData.right}, { yAxisTitle: 'Newton', metricNames: forceMetric_p2, decimals: 1 });
-                plotPromises.push(Plotly.react('p2-bar-chart-Y-copy', fig4_p2.data, fig4_p2.layout, plotlyConfig));
-            } else {
-                showNoDataPlaceholder('p2-bar-chart-Y-copy', 'Test ej genomfört');
-            }
-            
-            // --- FINAL RENDERING STEPS ---
             await Promise.all(plotPromises);
             
             setTimeout(() => { 
@@ -1014,7 +1061,7 @@
                     populateInfoBoxes(reportData.patientInfo);
                     updateManualTextBoxes(reportData.page2.manual);
                     populateCommentsAndDifferences(reportData);
-                    updateAllGraphs(reportData);
+                    updateLayoutAndRenderGraphs(reportData);
                 } catch (e) {
                     console.error("Failed to parse or render data from localStorage:", e);
                 }
