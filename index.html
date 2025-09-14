@@ -304,7 +304,7 @@
         }
         .graph-overlay-image {
             position: absolute;
-            top: 65px;
+            top: 55px;
             left: 80%; 
             transform: translateX(-50%); 
             width: 80px;
@@ -314,7 +314,7 @@
         }
         .graph-overlay-text {
             position: absolute;
-            bottom: 20px;
+            top: 140px;
             left: 80%;
             transform: translateX(-50%);
             width: 100px; 
@@ -325,7 +325,7 @@
             z-index: 2;
             line-height: 1.2;
         }
-        #donut-container {
+        #donut-container, #donut-container-cmj2ben, #donut-container-nordic {
             display: flex;
             justify-content: space-around;
             align-items: center;
@@ -656,8 +656,41 @@
                         </div>
                     </div>
 
+                    <div class="test-section" id="test-section-cmj2ben">
+                        <h3 class="test-title">7. CMJ (TOV) Två Ben</h3>
+                        <div class="test-row">
+                            <div class="input-column">
+                                <div class="input-container">
+                                    <div class="input-row"><label>Försök 1:</label><div class="input-wrapper"><input type="number" id="p1_g7_attempt_1"><span class="unit-text">cm</span></div></div>
+                                    <div class="input-row"><label>Försök 2:</label><div class="input-wrapper"><input type="number" id="p1_g7_attempt_2"><span class="unit-text">cm</span></div></div>
+                                    <div class="input-row"><label>Försök 3:</label><div class="input-wrapper"><input type="number" id="p1_g7_attempt_3"><span class="unit-text">cm</span></div></div>
+                                </div>
+                                <div class="comment-container">
+                                    <div class="input-group"><label for="comment_cmj2ben">Kommentar:</label><textarea id="comment_cmj2ben"></textarea></div>
+                                </div>
+                            </div>
+                            <div class="graph-container">
+                                <h3>CMJ (TOV) Två Ben</h3>
+                                <div id="donut-container-cmj2ben">
+                                     <div class="donut-wrapper">
+                                        <div id="p1-chart-donut-cmj2ben-1" class="js-plotly-plot"></div>
+                                        <p class="donut-label">Försök 1</p>
+                                    </div>
+                                    <div class="donut-wrapper">
+                                        <div id="p1-chart-donut-cmj2ben-2" class="js-plotly-plot"></div>
+                                        <p class="donut-label">Försök 2</p>
+                                    </div>
+                                    <div class="donut-wrapper">
+                                        <div id="p1-chart-donut-cmj2ben-3" class="js-plotly-plot"></div>
+                                        <p class="donut-label">Försök 3</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="test-section" id="test-section-hipthrust">
-                        <h3 class="test-title">7. Hip Thrusters Pull</h3>
+                        <h3 class="test-title">8. Hip Thrusters Pull</h3>
                         <div class="test-row">
                             <div class="input-column">
                                 <div class="input-container">
@@ -681,7 +714,7 @@
                     </div>
 
                     <div class="test-section" id="test-section-quads">
-                        <h3 class="test-title">8. Quadriceps Isometrisk Styrka</h3>
+                        <h3 class="test-title">9. Quadriceps Isometrisk Styrka</h3>
                         <div class="test-row">
                             <div class="input-column">
                                 <div class="input-container">
@@ -701,38 +734,62 @@
                         </div>
                     </div>
 
-                    <div class="test-section" id="test-section-squat_pull">
-                        <h3 class="test-title">9. Static Squat Pull</h3>
+                    <div class="test-section" id="test-section-staticsquat-handdrag">
+                        <h3 class="test-title">10. Static Squat Pull - Handdrag</h3>
                         <div class="test-row">
                             <div class="input-column">
                                 <div class="input-container">
-                                    <div class="input-row"><label>Static Squat VÄ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g3_va"><span class="unit-text">kg</span></div></div>
-                                    <div class="input-row"><label>Static Squat HÖ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g3_ho"><span class="unit-text">kg</span></div></div>
+                                    <div class="input-row"><label>VÄ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g3_va"><span class="unit-text">kg</span></div></div>
+                                    <div class="input-row"><label>HÖ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g3_ho"><span class="unit-text">kg</span></div></div>
                                     <hr class="input-separator">
                                     <div class="input-row"><label>Två ben (Djur):</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g3_tva"><span class="unit-text">kg</span></div></div>
                                 </div>
                                 <div class="comment-container">
-                                     <div class="asymmetry-display" id="asymmetry_squat_pull"></div>
-                                    <div class="input-group"><label for="comment_squat_pull">Kommentar:</label><textarea id="comment_squat_pull"></textarea></div>
+                                     <div class="asymmetry-display" id="asymmetry_squat_pull_handdrag"></div>
+                                    <div class="input-group"><label for="comment_squat_pull_handdrag">Kommentar:</label><textarea id="comment_squat_pull_handdrag"></textarea></div>
                                 </div>
                             </div>
                             <div class="graph-container">
-                                <h3>Static Squat Pull</h3>
-                                <div id="p2-chart-squat" class="js-plotly-plot"></div>
-                                <img id="overlay-image-squat" src="" class="graph-overlay-image" alt="Animal">
-                                <div id="overlay-text-squat" class="graph-overlay-text"></div>
+                                <h3>Static Squat Pull - Handdrag</h3>
+                                <div id="p2-chart-squat-handdrag" class="js-plotly-plot"></div>
+                                <img id="overlay-image-squat-handdrag" src="" class="graph-overlay-image" alt="Animal">
+                                <div id="overlay-text-squat-handdrag" class="graph-overlay-text"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="test-section" id="test-section-staticsquat-hoftrem">
+                        <h3 class="test-title">11. Static Squat Pull - Höftrem</h3>
+                        <div class="test-row">
+                            <div class="input-column">
+                                <div class="input-container">
+                                    <div class="input-row"><label>VÄ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g4_va"><span class="unit-text">kg</span></div></div>
+                                    <div class="input-row"><label>HÖ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g4_ho"><span class="unit-text">kg</span></div></div>
+                                    <hr class="input-separator">
+                                    <div class="input-row"><label>Två ben (Djur):</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g4_tva"><span class="unit-text">kg</span></div></div>
+                                </div>
+                                <div class="comment-container">
+                                     <div class="asymmetry-display" id="asymmetry_squat_pull_hoftrem"></div>
+                                    <div class="input-group"><label for="comment_squat_pull_hoftrem">Kommentar:</label><textarea id="comment_squat_pull_hoftrem"></textarea></div>
+                                </div>
+                            </div>
+                            <div class="graph-container">
+                                <h3>Static Squat Pull - Höftrem</h3>
+                                <div id="p2-chart-squat-hoftrem" class="js-plotly-plot"></div>
+                                <img id="overlay-image-squat-hoftrem" src="" class="graph-overlay-image" alt="Animal">
+                                <div id="overlay-text-squat-hoftrem" class="graph-overlay-text"></div>
                             </div>
                         </div>
                     </div>
                     
                     <div class="test-section" id="test-section-hamstring">
-                        <h3 class="test-title">10. Hamstring Isometrisk Styrka</h3>
+                        <h3 class="test-title">12. Hamstring Isometrisk Styrka</h3>
                         <div class="test-row">
                             <div class="input-column">
                                 <div class="input-container">
-                                    <div class="input-row"><label>Hamstring VÄ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g4_va"><span class="unit-text">N</span></div></div>
+                                    <div class="input-row"><label>Hamstring VÄ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g5_va"><span class="unit-text">N</span></div></div>
                                      <hr class="input-separator">
-                                    <div class="input-row"><label>Hamstring HÖ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g4_ho"><span class="unit-text">N</span></div></div>
+                                    <div class="input-row"><label>Hamstring HÖ:</label><div class="input-wrapper"><input type="number" step="0.1" id="p2_g5_ho"><span class="unit-text">N</span></div></div>
                                 </div>
                                 <div class="comment-container">
                                     <div class="asymmetry-display" id="asymmetry_hamstring"></div>
@@ -746,8 +803,41 @@
                         </div>
                     </div>
 
+                     <div class="test-section" id="test-section-nordic-hamstring">
+                        <h3 class="test-title">13. Nordic Hamstrings</h3>
+                        <div class="test-row">
+                            <div class="input-column">
+                                 <div class="input-container">
+                                    <div class="input-row"><label>Försök 1:</label><div class="input-wrapper"><input type="number" id="p2_g6_attempt_1"><span class="unit-text">N</span></div></div>
+                                    <div class="input-row"><label>Försök 2:</label><div class="input-wrapper"><input type="number" id="p2_g6_attempt_2"><span class="unit-text">N</span></div></div>
+                                    <div class="input-row"><label>Försök 3:</label><div class="input-wrapper"><input type="number" id="p2_g6_attempt_3"><span class="unit-text">N</span></div></div>
+                                </div>
+                                <div class="comment-container">
+                                     <div class="input-group"><label for="comment_nordic_hamstring">Kommentar:</label><textarea id="comment_nordic_hamstring"></textarea></div>
+                                </div>
+                            </div>
+                            <div class="graph-container">
+                                <h3>Nordic Hamstrings</h3>
+                                <div id="donut-container-nordic">
+                                     <div class="donut-wrapper">
+                                        <div id="p2-chart-donut-nordic-1" class="js-plotly-plot"></div>
+                                        <p class="donut-label">Försök 1</p>
+                                    </div>
+                                    <div class="donut-wrapper">
+                                        <div id="p2-chart-donut-nordic-2" class="js-plotly-plot"></div>
+                                        <p class="donut-label">Försök 2</p>
+                                    </div>
+                                    <div class="donut-wrapper">
+                                        <div id="p2-chart-donut-nordic-3" class="js-plotly-plot"></div>
+                                        <p class="donut-label">Försök 3</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="test-section" id="test-section-manual">
-                        <h3 class="test-title">11. Manuella Mätningar</h3>
+                        <h3 class="test-title">14. Manuella Mätningar</h3>
                          <div class="test-row">
                             <div class="input-column">
                                 <div class="input-container">
@@ -793,11 +883,14 @@
             { id: 'sidehop', name: '4. Sidhopp (TIA)' },
             { id: 'squat', name: '5. Squat Analytics' },
             { id: 'repeated_bilateral', name: '6. Repeated Jumps (Två Ben)' },
-            { id: 'hipthrust', name: '7. Hip Thrusters Pull' },
-            { id: 'quads', name: '8. Quadriceps Isometrisk Styrka' },
-            { id: 'squat_pull', name: '9. Static Squat Pull' },
-            { id: 'hamstring', name: '10. Hamstring Isometrisk Styrka' },
-            { id: 'manual', name: '11. Manuella Mätningar' }
+            { id: 'cmj2ben', name: '7. CMJ (TOV) Två Ben' },
+            { id: 'hipthrust', name: '8. Hip Thrusters Pull' },
+            { id: 'quads', name: '9. Quadriceps Isometrisk Styrka' },
+            { id: 'staticsquat-handdrag', name: '10. Static Squat Pull - Handdrag' },
+            { id: 'staticsquat-hoftrem', name: '11. Static Squat Pull - Höftrem' },
+            { id: 'hamstring', name: '12. Hamstring Isometrisk Styrka' },
+            { id: 'nordic-hamstring', name: '13. Nordic Hamstrings' },
+            { id: 'manual', name: '14. Manuella Mätningar' }
         ];
 
         // --- UTILITY FUNCTIONS ---
@@ -825,20 +918,24 @@
         }
 
         function updateAnimalOverlay(weight, imageElementId, textElementId) {
-            const animal = getAnimalForWeight(weight);
-            document.getElementById(imageElementId).src = animal.url;
-            document.getElementById(textElementId).innerHTML = `Du drar ${weight.toFixed(1)} kg<br>Du är en ${animal.name}!`;
+            const imageElement = document.getElementById(imageElementId);
+            const textElement = document.getElementById(textElementId);
+            if (!imageElement || !textElement) return;
+            
+            if (weight && weight > 0) {
+                const animal = getAnimalForWeight(weight);
+                imageElement.src = animal.url;
+                textElement.innerHTML = `Du drar ${weight.toFixed(1)} kg<br>Du är en ${animal.name}!`;
+                imageElement.style.display = 'block';
+                textElement.style.display = 'block';
+            } else {
+                imageElement.style.display = 'none';
+                textElement.style.display = 'none';
+            }
         }
 
         // --- CHART CREATION FUNCTIONS ---
-        function processChartData(dataArray) {
-            if (dataArray.length === 2) {
-                return [dataArray[0], null, dataArray[1]];
-            }
-            return dataArray;
-        }
-
-        function createPairedBarChart(config) {
+         function createPairedBarChart(config) {
             const vaColorHex = getComputedStyle(document.documentElement).getPropertyValue('--va-color').trim();
             const hoColorHex = getComputedStyle(document.documentElement).getPropertyValue('--ho-color').trim();
             const leftColorRgba = hexToRgba(vaColorHex, 0.8);
@@ -846,41 +943,19 @@
             const darkGrayColor = getComputedStyle(document.documentElement).getPropertyValue('--dark-gray').trim();
             const whiteColor = getComputedStyle(document.documentElement).getPropertyValue('--white').trim();
 
-            const MAX_BARS = 3;
-            const labels = new Array(MAX_BARS).fill('');
-            const va_y1 = new Array(MAX_BARS).fill(null);
-            const ho_y1 = new Array(MAX_BARS).fill(null);
-            const text_va_y1 = new Array(MAX_BARS).fill(null);
-            const text_ho_y1 = new Array(MAX_BARS).fill(null);
+            const labels = config.data.map(d => d.name);
+            const va_y1 = config.data.map(d => d.yaxis !== 'y2' ? d.va : null);
+            const ho_y1 = config.data.map(d => d.yaxis !== 'y2' ? d.ho : null);
+            const text_va_y1 = config.data.map(d => d.yaxis !== 'y2' ? d.va.toFixed(d.decimals ?? 1) : null);
+            const text_ho_y1 = config.data.map(d => d.yaxis !== 'y2' ? d.ho.toFixed(d.decimals ?? 1) : null);
             
-            const va_y2 = new Array(MAX_BARS).fill(null);
-            const ho_y2 = new Array(MAX_BARS).fill(null);
-            const text_va_y2 = new Array(MAX_BARS).fill(null);
-            const text_ho_y2 = new Array(MAX_BARS).fill(null);
+            const va_y2 = config.data.map(d => d.yaxis === 'y2' ? d.va : null);
+            const ho_y2 = config.data.map(d => d.yaxis === 'y2' ? d.ho : null);
+            const text_va_y2 = config.data.map(d => d.yaxis === 'y2' ? d.va.toFixed(d.decimals ?? 1) : null);
+            const text_ho_y2 = config.data.map(d => d.yaxis === 'y2' ? d.ho.toFixed(d.decimals ?? 1) : null);
 
-            let max_y1 = 0;
-            let max_y2 = 0;
-
-            const processedData = processChartData(config.data);
-
-            processedData.forEach((d, i) => {
-                if (i < MAX_BARS && d) {
-                    labels[i] = d.name;
-                    if (d.yaxis === 'y2') {
-                        va_y2[i] = d.va;
-                        ho_y2[i] = d.ho;
-                        text_va_y2[i] = d.va.toFixed(d.decimals ?? 1);
-                        text_ho_y2[i] = d.ho.toFixed(d.decimals ?? 1);
-                        max_y2 = Math.max(max_y2, d.va, d.ho);
-                    } else {
-                        va_y1[i] = d.va;
-                        ho_y1[i] = d.ho;
-                        text_va_y1[i] = d.va.toFixed(d.decimals ?? 1);
-                        text_ho_y1[i] = d.ho.toFixed(d.decimals ?? 1);
-                        max_y1 = Math.max(max_y1, d.va, d.ho);
-                    }
-                }
-            });
+            let max_y1 = Math.max(...va_y1.filter(v => v !== null), ...ho_y1.filter(v => v !== null), 0);
+            let max_y2 = Math.max(...va_y2.filter(v => v !== null), ...ho_y2.filter(v => v !== null), 0);
 
             const traces = [
                 { type: 'bar', name: 'VÄ', x: labels, y: va_y1, marker: { color: leftColorRgba }, text: text_va_y1, textposition: 'inside', insidetextanchor: 'middle', textfont: { color: whiteColor }, hoverinfo: 'none', yaxis: 'y' },
@@ -896,11 +971,17 @@
                 barmode: 'group',
                 font: { color: darkGrayColor, family: 'Avenir, sans-serif' },
                 yaxis: { title: config.y1Title, range: [0, max_y1 > 0 ? max_y1 * 1.25 : 10], showgrid: false, zeroline: false },
-                xaxis: { showgrid: false, zeroline: false, showline: false, fixedrange: true, categoryorder: 'array', categoryarray: labels, tickvals: labels.filter(l => l !== '') },
+                xaxis: { showgrid: false, zeroline: false, showline: false, fixedrange: true, categoryorder: 'array', categoryarray: labels },
                 paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
                 legend: { orientation: "h", yanchor: "bottom", y: 1.02, xanchor: "center", x: 0.5 },
                 margin: { l: 50, r: config.y2Title ? 65 : 25, b: 40, t: 35, pad: 5 },
+                bargap: 0.4,
+                bargroupgap: 0.1
             };
+            
+            if (config.hasOverlay) {
+                layout.xaxis.domain = [0, 0.7]; 
+            }
             
             if (config.y2Title) {
                 layout.yaxis2 = { title: config.y2Title, overlaying: 'y', side: 'right', showgrid: false, zeroline: false, showline: false, range: [0, max_y2 > 0 ? max_y2 * 1.25 : 1] };
@@ -915,33 +996,15 @@
             const darkGrayColor = getComputedStyle(document.documentElement).getPropertyValue('--dark-gray').trim();
             const whiteColor = getComputedStyle(document.documentElement).getPropertyValue('--white').trim();
 
-            const MAX_BARS = 3;
-            const labels = new Array(MAX_BARS).fill('');
-            const y1_vals = new Array(MAX_BARS).fill(null);
-            const y2_vals = new Array(MAX_BARS).fill(null);
-            const y1_texts = new Array(MAX_BARS).fill(null);
-            const y2_texts = new Array(MAX_BARS).fill(null);
+            const labels = config.data.map(d => d.name);
+            const y1_vals = config.data.map(d => d.yaxis !== 'y2' ? d.val : null);
+            const y2_vals = config.data.map(d => d.yaxis === 'y2' ? d.val : null);
+            const y1_texts = config.data.map(d => d.yaxis !== 'y2' ? d.val.toFixed(d.decimals ?? 1) : null);
+            const y2_texts = config.data.map(d => d.yaxis === 'y2' ? d.val.toFixed(d.decimals ?? 1) : null);
 
-            let max_y1 = 0;
-            let max_y2 = 0;
+            let max_y1 = Math.max(...y1_vals.filter(v => v !== null), 0);
+            let max_y2 = Math.max(...y2_vals.filter(v => v !== null), 0);
             
-            const processedData = processChartData(config.data);
-
-            processedData.forEach((d, i) => {
-                if (i < MAX_BARS && d) {
-                    labels[i] = d.name;
-                    if (d.yaxis === 'y2') {
-                        y2_vals[i] = d.val;
-                        y2_texts[i] = d.val.toFixed(d.decimals ?? 1);
-                        max_y2 = Math.max(max_y2, d.val);
-                    } else {
-                        y1_vals[i] = d.val;
-                        y1_texts[i] = d.val.toFixed(d.decimals ?? 1);
-                        max_y1 = Math.max(max_y1, d.val);
-                    }
-                }
-            });
-
             const traces = [
                 { type: 'bar', name: config.y1Title, x: labels, y: y1_vals, marker: { color: primaryColorRgba }, text: y1_texts, textposition: 'inside', insidetextanchor: 'middle', textfont: { color: whiteColor }, hoverinfo: 'none', yaxis: 'y' },
             ];
@@ -955,7 +1018,7 @@
                 showlegend: false,
                 font: { color: darkGrayColor, family: 'Avenir, sans-serif' },
                 yaxis: { title: config.y1Title, range: [0, max_y1 > 0 ? max_y1 * 1.25 : 10], showgrid: false, zeroline: false },
-                xaxis: { showgrid: false, zeroline: false, showline: false, fixedrange: true, categoryorder: 'array', categoryarray: labels, tickvals: labels.filter(l => l !== '') },
+                xaxis: { showgrid: false, zeroline: false, showline: false, fixedrange: true, categoryorder: 'array', categoryarray: labels },
                 paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
                 margin: { l: 50, r: config.y2Title ? 65 : 25, b: 40, t: 35, pad: 5 },
             };
@@ -967,18 +1030,27 @@
             return { data: traces, layout: layout };
         }
 
-        function createSingleDonutChart(value) {
+        function createSingleDonutChart(value, displayType = 'percent') {
             const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--app-primary-color').trim();
             const primaryColorRgba = hexToRgba(primaryColor, 0.8);
             const emptyColorRgba = 'rgba(222, 226, 230, 0.8)';
             const darkGrayColor = getComputedStyle(document.documentElement).getPropertyValue('--dark-gray').trim();
 
-            const barWidth = 360 * (value / 100);
+            let data;
+            let text = `${value}`;
 
-            const data = [
-                { type: "barpolar", r: [100], theta: [0], width: [360], marker: { color: emptyColorRgba }, hoverinfo: "none", layer: 'below' },
-                { type: "barpolar", r: [100], theta: [barWidth / 2], width: [barWidth], marker: { color: primaryColorRgba }, hoverinfo: "none" }
-            ];
+            if (displayType === 'percent') {
+                 const barWidth = 360 * (value / 100);
+                 data = [
+                    { type: "barpolar", r: [100], theta: [0], width: [360], marker: { color: emptyColorRgba }, hoverinfo: "none", layer: 'below' },
+                    { type: "barpolar", r: [100], theta: [barWidth / 2], width: [barWidth], marker: { color: primaryColorRgba }, hoverinfo: "none" }
+                ];
+            } else { // 'value'
+                 data = [
+                    { type: "pie", values: [100], hole: 0.7, marker: { colors: [primaryColorRgba] }, 
+                      textinfo: "none", hoverinfo: "none", sort: false }
+                ];
+            }
 
             const layout = {
                 showlegend: false,
@@ -991,7 +1063,7 @@
                 },
                 annotations: [{
                     font: { size: 24, color: darkGrayColor, weight: 'bold' }, showarrow: false,
-                    text: `${value}`, x: 0.5, y: 0.5, xanchor: 'center', yanchor: 'middle'
+                    text: text, x: 0.5, y: 0.5, xanchor: 'center', yanchor: 'middle'
                 }]
             };
             return { data, layout };
@@ -1032,13 +1104,16 @@
                     sidehop: { leftCount: getNum('p1_g4_va_count'), rightCount: getNum('p1_g4_ho_count'), comment: getText('comment_sidehop'), asymmetryPercent: getAsymmetry('asymmetry_sidehop') },
                     squatAnalytics: { attempt1: getNum('p1_g5_attempt_1'), attempt2: getNum('p1_g5_attempt_2'), attempt3: getNum('p1_g5_attempt_3'), comment: getText('comment_squat') },
                     repeatedBilateral: { avgHeight: getNum('p1_g6_avg_height'), avgGct: getNum('p1_g6_avg_gct'), comment: getText('comment_repeated_bilateral') },
+                    cmj2ben: { attempt1: getNum('p1_g7_attempt_1'), attempt2: getNum('p1_g7_attempt_2'), attempt3: getNum('p1_g7_attempt_3'), comment: getText('comment_cmj2ben') }
                 },
                 page2: { 
                     strengthTests: {
                         hipThrust: { left: getNum('p2_g1_va'), right: getNum('p2_g1_ho'), tva: getNum('p2_g1_tva'), comment: getText('comment_hipthrust'), asymmetryPercent: getAsymmetry('asymmetry_hipthrust') },
                         quadriceps: { left: getNum('p2_g2_va'), right: getNum('p2_g2_ho'), comment: getText('comment_quads'), asymmetryPercent: getAsymmetry('asymmetry_quads') },
-                        staticSquat: { left: getNum('p2_g3_va'), right: getNum('p2_g3_ho'), tva: getNum('p2_g3_tva'), comment: getText('comment_squat_pull'), asymmetryPercent: getAsymmetry('asymmetry_squat_pull') },
-                        hamstring: { left: getNum('p2_g4_va'), right: getNum('p2_g4_ho'), comment: getText('comment_hamstring'), asymmetryPercent: getAsymmetry('asymmetry_hamstring') },
+                        staticsquatHanddrag: { left: getNum('p2_g3_va'), right: getNum('p2_g3_ho'), both: getNum('p2_g3_tva'), comment: getText('comment_squat_pull_handdrag'), asymmetryPercent: getAsymmetry('asymmetry_squat_pull_handdrag') },
+                        staticsquatHoftrem: { left: getNum('p2_g4_va'), right: getNum('p2_g4_ho'), both: getNum('p2_g4_tva'), comment: getText('comment_squat_pull_hoftrem'), asymmetryPercent: getAsymmetry('asymmetry_squat_pull_hoftrem') },
+                        hamstring: { left: getNum('p2_g5_va'), right: getNum('p2_g5_ho'), comment: getText('comment_hamstring'), asymmetryPercent: getAsymmetry('asymmetry_hamstring') },
+                        nordicHamstring: { attempt1: getNum('p2_g6_attempt_1'), attempt2: getNum('p2_g6_attempt_2'), attempt3: getNum('p2_g6_attempt_3'), comment: getText('comment_nordic_hamstring') },
                     },
                     manual: {
                         srp: { tare: getNum('p2_text_srp_tare'), force: getNum('p2_text_srp_force') },
@@ -1088,6 +1163,10 @@
             setVal('p1_g6_avg_height', data.page1?.repeatedBilateral?.avgHeight);
             setVal('p1_g6_avg_gct', data.page1?.repeatedBilateral?.avgGct);
             setVal('comment_repeated_bilateral', data.page1?.repeatedBilateral?.comment);
+            setVal('p1_g7_attempt_1', data.page1?.cmj2ben?.attempt1);
+            setVal('p1_g7_attempt_2', data.page1?.cmj2ben?.attempt2);
+            setVal('p1_g7_attempt_3', data.page1?.cmj2ben?.attempt3);
+            setVal('comment_cmj2ben', data.page1?.cmj2ben?.comment);
 
             setVal('p2_g1_va', data.page2?.strengthTests?.hipThrust?.left);
             setVal('p2_g1_ho', data.page2?.strengthTests?.hipThrust?.right);
@@ -1096,13 +1175,22 @@
             setVal('p2_g2_va', data.page2?.strengthTests?.quadriceps?.left);
             setVal('p2_g2_ho', data.page2?.strengthTests?.quadriceps?.right);
             setVal('comment_quads', data.page2?.strengthTests?.quadriceps?.comment);
-            setVal('p2_g3_va', data.page2?.strengthTests?.staticSquat?.left);
-            setVal('p2_g3_ho', data.page2?.strengthTests?.staticSquat?.right);
-            setVal('p2_g3_tva', data.page2?.strengthTests?.staticSquat?.tva);
-            setVal('comment_squat_pull', data.page2?.strengthTests?.staticSquat?.comment);
-            setVal('p2_g4_va', data.page2?.strengthTests?.hamstring?.left);
-            setVal('p2_g4_ho', data.page2?.strengthTests?.hamstring?.right);
+            setVal('p2_g3_va', data.page2?.strengthTests?.staticsquatHanddrag?.left);
+            setVal('p2_g3_ho', data.page2?.strengthTests?.staticsquatHanddrag?.right);
+            setVal('p2_g3_tva', data.page2?.strengthTests?.staticsquatHanddrag?.both);
+            setVal('comment_squat_pull_handdrag', data.page2?.strengthTests?.staticsquatHanddrag?.comment);
+            setVal('p2_g4_va', data.page2?.strengthTests?.staticsquatHoftrem?.left);
+            setVal('p2_g4_ho', data.page2?.strengthTests?.staticsquatHoftrem?.right);
+            setVal('p2_g4_tva', data.page2?.strengthTests?.staticsquatHoftrem?.both);
+            setVal('comment_squat_pull_hoftrem', data.page2?.strengthTests?.staticsquatHoftrem?.comment);
+            setVal('p2_g5_va', data.page2?.strengthTests?.hamstring?.left);
+            setVal('p2_g5_ho', data.page2?.strengthTests?.hamstring?.right);
             setVal('comment_hamstring', data.page2?.strengthTests?.hamstring?.comment);
+            setVal('p2_g6_attempt_1', data.page2?.strengthTests?.nordicHamstring?.attempt1);
+            setVal('p2_g6_attempt_2', data.page2?.strengthTests?.nordicHamstring?.attempt2);
+            setVal('p2_g6_attempt_3', data.page2?.strengthTests?.nordicHamstring?.attempt3);
+            setVal('comment_nordic_hamstring', data.page2?.strengthTests?.nordicHamstring?.comment);
+            
             setVal('p2_text_srp_tare', data.page2?.manual?.srp?.tare);
             setVal('p2_text_srp_force', data.page2?.manual?.srp?.force);
             setVal('p2_text_spts_kg', data.page2?.manual?.spts?.kg);
@@ -1217,7 +1305,8 @@
             updateAsymmetryDisplay(data.page1.sidehop.leftCount, data.page1.sidehop.rightCount, referenceSide, 'asymmetry_sidehop');
             updateAsymmetryDisplay(data.page2.strengthTests.hipThrust.left, data.page2.strengthTests.hipThrust.right, referenceSide, 'asymmetry_hipthrust');
             updateAsymmetryDisplay(data.page2.strengthTests.quadriceps.left, data.page2.strengthTests.quadriceps.right, referenceSide, 'asymmetry_quads');
-            updateAsymmetryDisplay(data.page2.strengthTests.staticSquat.left, data.page2.strengthTests.staticSquat.right, referenceSide, 'asymmetry_squat_pull');
+            updateAsymmetryDisplay(data.page2.strengthTests.staticsquatHanddrag.left, data.page2.strengthTests.staticsquatHanddrag.right, referenceSide, 'asymmetry_squat_pull_handdrag');
+            updateAsymmetryDisplay(data.page2.strengthTests.staticsquatHoftrem.left, data.page2.strengthTests.staticsquatHoftrem.right, referenceSide, 'asymmetry_squat_pull_hoftrem');
             updateAsymmetryDisplay(data.page2.strengthTests.hamstring.left, data.page2.strengthTests.hamstring.right, referenceSide, 'asymmetry_hamstring');
 
             const balanceChartConfig = {
@@ -1254,12 +1343,13 @@
             };
             Plotly.react('p1-chart-sidehop', createPairedBarChart(sidehopChartConfig).data, createPairedBarChart(sidehopChartConfig).layout, plotlyConfig);
             
-            const donut1 = createSingleDonutChart(data.page1.squatAnalytics.attempt1);
-            Plotly.react('p1-chart-donut-1', donut1.data, donut1.layout, plotlyConfig);
-            const donut2 = createSingleDonutChart(data.page1.squatAnalytics.attempt2);
-            Plotly.react('p1-chart-donut-2', donut2.data, donut2.layout, plotlyConfig);
-            const donut3 = createSingleDonutChart(data.page1.squatAnalytics.attempt3);
-            Plotly.react('p1-chart-donut-3', donut3.data, donut3.layout, plotlyConfig);
+            Plotly.react('p1-chart-donut-1', createSingleDonutChart(data.page1.squatAnalytics.attempt1).data, createSingleDonutChart(data.page1.squatAnalytics.attempt1).layout, plotlyConfig);
+            Plotly.react('p1-chart-donut-2', createSingleDonutChart(data.page1.squatAnalytics.attempt2).data, createSingleDonutChart(data.page1.squatAnalytics.attempt2).layout, plotlyConfig);
+            Plotly.react('p1-chart-donut-3', createSingleDonutChart(data.page1.squatAnalytics.attempt3).data, createSingleDonutChart(data.page1.squatAnalytics.attempt3).layout, plotlyConfig);
+
+            Plotly.react('p1-chart-donut-cmj2ben-1', createSingleDonutChart(data.page1.cmj2ben.attempt1, 'value').data, createSingleDonutChart(data.page1.cmj2ben.attempt1, 'value').layout, plotlyConfig);
+            Plotly.react('p1-chart-donut-cmj2ben-2', createSingleDonutChart(data.page1.cmj2ben.attempt2, 'value').data, createSingleDonutChart(data.page1.cmj2ben.attempt2, 'value').layout, plotlyConfig);
+            Plotly.react('p1-chart-donut-cmj2ben-3', createSingleDonutChart(data.page1.cmj2ben.attempt3, 'value').data, createSingleDonutChart(data.page1.cmj2ben.attempt3, 'value').layout, plotlyConfig);
 
             const repeatedBilateralConfig = {
                 y1Title: 'cm', y2Title: 's',
@@ -1272,29 +1362,43 @@
 
             const hipThrustConfig = {
                 y1Title: 'KG',
-                data: [ { name: 'Hip Thrust', va: data.page2.strengthTests.hipThrust.left, ho: data.page2.strengthTests.hipThrust.right, decimals: 1 } ]
+                hasOverlay: true,
+                data: [ { name: 'Force', va: data.page2.strengthTests.hipThrust.left, ho: data.page2.strengthTests.hipThrust.right, decimals: 1 } ]
             };
             Plotly.react('p2-chart-hipthrust', createPairedBarChart(hipThrustConfig).data, createPairedBarChart(hipThrustConfig).layout, plotlyConfig);
             updateAnimalOverlay(data.page2.strengthTests.hipThrust.tva, 'overlay-image-hipthrust', 'overlay-text-hipthrust');
             
             const quadsConfig = {
                 y1Title: 'KG',
-                data: [ { name: 'Quadriceps', va: data.page2.strengthTests.quadriceps.left, ho: data.page2.strengthTests.quadriceps.right, decimals: 1 } ]
+                data: [ { name: 'Force', va: data.page2.strengthTests.quadriceps.left, ho: data.page2.strengthTests.quadriceps.right, decimals: 1 } ]
             };
             Plotly.react('p2-chart-quads', createPairedBarChart(quadsConfig).data, createPairedBarChart(quadsConfig).layout, plotlyConfig);
             
-            const squatConfig = {
+            const squatHanddragConfig = {
                 y1Title: 'KG',
-                data: [ { name: 'Static Squat', va: data.page2.strengthTests.staticSquat.left, ho: data.page2.strengthTests.staticSquat.right, decimals: 1 } ]
+                hasOverlay: true,
+                data: [ { name: 'Force', va: data.page2.strengthTests.staticsquatHanddrag.left, ho: data.page2.strengthTests.staticsquatHanddrag.right, decimals: 1 } ]
             };
-            Plotly.react('p2-chart-squat', createPairedBarChart(squatConfig).data, createPairedBarChart(squatConfig).layout, plotlyConfig);
-            updateAnimalOverlay(data.page2.strengthTests.staticSquat.tva, 'overlay-image-squat', 'overlay-text-squat');
-            
+            Plotly.react('p2-chart-squat-handdrag', createPairedBarChart(squatHanddragConfig).data, createPairedBarChart(squatHanddragConfig).layout, plotlyConfig);
+            updateAnimalOverlay(data.page2.strengthTests.staticsquatHanddrag.both, 'overlay-image-squat-handdrag', 'overlay-text-squat-handdrag');
+
+            const squatHoftremConfig = {
+                y1Title: 'KG',
+                hasOverlay: true,
+                data: [ { name: 'Force', va: data.page2.strengthTests.staticsquatHoftrem.left, ho: data.page2.strengthTests.staticsquatHoftrem.right, decimals: 1 } ]
+            };
+            Plotly.react('p2-chart-squat-hoftrem', createPairedBarChart(squatHoftremConfig).data, createPairedBarChart(squatHoftremConfig).layout, plotlyConfig);
+            updateAnimalOverlay(data.page2.strengthTests.staticsquatHoftrem.both, 'overlay-image-squat-hoftrem', 'overlay-text-squat-hoftrem');
+
             const hamstringConfig = {
                 y1Title: 'Newton',
-                data: [ { name: 'Hamstring', va: data.page2.strengthTests.hamstring.left, ho: data.page2.strengthTests.hamstring.right, decimals: 1 } ]
+                data: [ { name: 'Force', va: data.page2.strengthTests.hamstring.left, ho: data.page2.strengthTests.hamstring.right, decimals: 1 } ]
             };
             Plotly.react('p2-chart-hamstring', createPairedBarChart(hamstringConfig).data, createPairedBarChart(hamstringConfig).layout, plotlyConfig);
+
+            Plotly.react('p2-chart-donut-nordic-1', createSingleDonutChart(data.page2.strengthTests.nordicHamstring.attempt1, 'value').data, createSingleDonutChart(data.page2.strengthTests.nordicHamstring.attempt1, 'value').layout, plotlyConfig);
+            Plotly.react('p2-chart-donut-nordic-2', createSingleDonutChart(data.page2.strengthTests.nordicHamstring.attempt2, 'value').data, createSingleDonutChart(data.page2.strengthTests.nordicHamstring.attempt2, 'value').layout, plotlyConfig);
+            Plotly.react('p2-chart-donut-nordic-3', createSingleDonutChart(data.page2.strengthTests.nordicHamstring.attempt3, 'value').data, createSingleDonutChart(data.page2.strengthTests.nordicHamstring.attempt3, 'value').layout, plotlyConfig);
 
             updateManualPreview(data.page2.manual);
         }
@@ -1339,6 +1443,10 @@
                 { Test: 'Repeated Bilateral - Gen. Hopphöjd', Verdi: data.page1.repeatedBilateral.avgHeight },
                 { Test: 'Repeated Bilateral - Gen. GCT', Verdi: data.page1.repeatedBilateral.avgGct },
                 { Test: 'Repeated Bilateral - Kommentar', Verdi: data.page1.repeatedBilateral.comment },
+                { Test: 'CMJ Två Ben - Försök 1', Verdi: data.page1.cmj2ben.attempt1 },
+                { Test: 'CMJ Två Ben - Försök 2', Verdi: data.page1.cmj2ben.attempt2 },
+                { Test: 'CMJ Två Ben - Försök 3', Verdi: data.page1.cmj2ben.attempt3 },
+                { Test: 'CMJ Två Ben - Kommentar', Verdi: data.page1.cmj2ben.comment },
                 { Test: 'Styrka - Hip Thrust VÄ', Verdi: data.page2.strengthTests.hipThrust.left },
                 { Test: 'Styrka - Hip Thrust HÖ', Verdi: data.page2.strengthTests.hipThrust.right },
                 { Test: 'Styrka - Hip Thrust Två ben', Verdi: data.page2.strengthTests.hipThrust.tva },
@@ -1348,15 +1456,24 @@
                 { Test: 'Styrka - Quadriceps HÖ', Verdi: data.page2.strengthTests.quadriceps.right },
                 { Test: 'Styrka - Quadriceps Kommentar', Verdi: data.page2.strengthTests.quadriceps.comment },
                 { Test: 'Styrka - Quadriceps Asymmetri %', Verdi: data.page2.strengthTests.quadriceps.asymmetryPercent },
-                { Test: 'Styrka - Static Squat VÄ', Verdi: data.page2.strengthTests.staticSquat.left },
-                { Test: 'Styrka - Static Squat HÖ', Verdi: data.page2.strengthTests.staticSquat.right },
-                { Test: 'Styrka - Static Squat Två ben', Verdi: data.page2.strengthTests.staticSquat.tva },
-                { Test: 'Styrka - Static Squat Kommentar', Verdi: data.page2.strengthTests.staticSquat.comment },
-                { Test: 'Styrka - Static Squat Asymmetri %', Verdi: data.page2.strengthTests.staticSquat.asymmetryPercent },
+                { Test: 'Styrka - Squat Handdrag VÄ', Verdi: data.page2.strengthTests.staticsquatHanddrag.left },
+                { Test: 'Styrka - Squat Handdrag HÖ', Verdi: data.page2.strengthTests.staticsquatHanddrag.right },
+                { Test: 'Styrka - Squat Handdrag Två ben', Verdi: data.page2.strengthTests.staticsquatHanddrag.both },
+                { Test: 'Styrka - Squat Handdrag Kommentar', Verdi: data.page2.strengthTests.staticsquatHanddrag.comment },
+                { Test: 'Styrka - Squat Handdrag Asymmetri %', Verdi: data.page2.strengthTests.staticsquatHanddrag.asymmetryPercent },
+                { Test: 'Styrka - Squat Höftrem VÄ', Verdi: data.page2.strengthTests.staticsquatHoftrem.left },
+                { Test: 'Styrka - Squat Höftrem HÖ', Verdi: data.page2.strengthTests.staticsquatHoftrem.right },
+                { Test: 'Styrka - Squat Höftrem Två ben', Verdi: data.page2.strengthTests.staticsquatHoftrem.both },
+                { Test: 'Styrka - Squat Höftrem Kommentar', Verdi: data.page2.strengthTests.staticsquatHoftrem.comment },
+                { Test: 'Styrka - Squat Höftrem Asymmetri %', Verdi: data.page2.strengthTests.staticsquatHoftrem.asymmetryPercent },
                 { Test: 'Styrka - Hamstring VÄ', Verdi: data.page2.strengthTests.hamstring.left },
                 { Test: 'Styrka - Hamstring HÖ', Verdi: data.page2.strengthTests.hamstring.right },
                 { Test: 'Styrka - Hamstring Kommentar', Verdi: data.page2.strengthTests.hamstring.comment },
                 { Test: 'Styrka - Hamstring Asymmetri %', Verdi: data.page2.strengthTests.hamstring.asymmetryPercent },
+                { Test: 'Styrka - Nordic Hamstring Försök 1', Verdi: data.page2.strengthTests.nordicHamstring.attempt1 },
+                { Test: 'Styrka - Nordic Hamstring Försök 2', Verdi: data.page2.strengthTests.nordicHamstring.attempt2 },
+                { Test: 'Styrka - Nordic Hamstring Försök 3', Verdi: data.page2.strengthTests.nordicHamstring.attempt3 },
+                { Test: 'Styrka - Nordic Hamstring Kommentar', Verdi: data.page2.strengthTests.nordicHamstring.comment },
                 { Test: 'Manuell - SRP Tare', Verdi: data.page2.manual.srp.tare },
                 { Test: 'Manuell - SRP Force', Verdi: data.page2.manual.srp.force },
                 { Test: 'Manuell - SPTS kg', Verdi: data.page2.manual.spts.kg },
@@ -1378,18 +1495,21 @@
             document.getElementById('comment_sidehop').value = 'Visar antal sidhopp utförda inom tidsramen.';
             document.getElementById('comment_squat').value = 'Visar poäng för tre separata knäböjsförsök.';
             document.getElementById('comment_repeated_bilateral').value = 'Visar genomsnittlig hopphöjd och markkontakttid för hopp på två ben.';
+            document.getElementById('comment_cmj2ben').value = 'Visar poäng för tre separata CMJ-hopp på två ben.';
             const defaultStrengthComment = 'Visar kraftutveckling för vänster (VÄ) och höger (HÖ) sida.';
             document.getElementById('comment_hipthrust').value = defaultStrengthComment;
             document.getElementById('comment_quads').value = defaultStrengthComment;
-            document.getElementById('comment_squat_pull').value = defaultStrengthComment;
+            document.getElementById('comment_squat_pull_handdrag').value = defaultStrengthComment;
+            document.getElementById('comment_squat_pull_hoftrem').value = defaultStrengthComment;
             document.getElementById('comment_hamstring').value = defaultStrengthComment;
+            document.getElementById('comment_nordic_hamstring').value = 'Visar poäng för tre separata Nordic Hamstring-försök.';
         }
 
         // --- EVENT LISTENERS & INITIALIZATION ---
         document.getElementById('pdf-preview').addEventListener('click', () => {
             const reportData = collectDataFromForm();
             localStorage.setItem('fysiosportData', JSON.stringify(reportData));
-            window.open('fysiosport.html', '_blank');
+            window.open('report.html', '_blank');
         });
 
         document.getElementById('clear-form').addEventListener('click', () => {
@@ -1436,14 +1556,17 @@
                         tia: {}, 
                         sidehop: {}, 
                         squatAnalytics: {}, 
-                        repeatedBilateral: {} 
+                        repeatedBilateral: {},
+                        cmj2ben: {}
                     }, 
                     page2: { 
                         strengthTests: { 
                             hipThrust: {}, 
                             quadriceps: {}, 
-                            staticSquat: {}, 
-                            hamstring: {} 
+                            staticsquatHanddrag: {}, 
+                            staticsquatHoftrem: {},
+                            hamstring: {},
+                            nordicHamstring: {}
                         }, 
                         manual: { 
                             srp: {}, 
@@ -1491,6 +1614,10 @@
                         case 'Repeated Bilateral - Gen. Hopphöjd': structuredData.page1.repeatedBilateral.avgHeight = value; break;
                         case 'Repeated Bilateral - Gen. GCT': structuredData.page1.repeatedBilateral.avgGct = value; break;
                         case 'Repeated Bilateral - Kommentar': structuredData.page1.repeatedBilateral.comment = value; break;
+                        case 'CMJ Två Ben - Försök 1': structuredData.page1.cmj2ben.attempt1 = value; break;
+                        case 'CMJ Två Ben - Försök 2': structuredData.page1.cmj2ben.attempt2 = value; break;
+                        case 'CMJ Två Ben - Försök 3': structuredData.page1.cmj2ben.attempt3 = value; break;
+                        case 'CMJ Två Ben - Kommentar': structuredData.page1.cmj2ben.comment = value; break;
                         case 'Styrka - Hip Thrust VÄ': structuredData.page2.strengthTests.hipThrust.left = value; break;
                         case 'Styrka - Hip Thrust HÖ': structuredData.page2.strengthTests.hipThrust.right = value; break;
                         case 'Styrka - Hip Thrust Två ben': structuredData.page2.strengthTests.hipThrust.tva = value; break;
@@ -1498,13 +1625,21 @@
                         case 'Styrka - Quadriceps VÄ': structuredData.page2.strengthTests.quadriceps.left = value; break;
                         case 'Styrka - Quadriceps HÖ': structuredData.page2.strengthTests.quadriceps.right = value; break;
                         case 'Styrka - Quadriceps Kommentar': structuredData.page2.strengthTests.quadriceps.comment = value; break;
-                        case 'Styrka - Static Squat VÄ': structuredData.page2.strengthTests.staticSquat.left = value; break;
-                        case 'Styrka - Static Squat HÖ': structuredData.page2.strengthTests.staticSquat.right = value; break;
-                        case 'Styrka - Static Squat Två ben': structuredData.page2.strengthTests.staticSquat.tva = value; break;
-                        case 'Styrka - Static Squat Kommentar': structuredData.page2.strengthTests.staticSquat.comment = value; break;
+                        case 'Styrka - Squat Handdrag VÄ': structuredData.page2.strengthTests.staticsquatHanddrag.left = value; break;
+                        case 'Styrka - Squat Handdrag HÖ': structuredData.page2.strengthTests.staticsquatHanddrag.right = value; break;
+                        case 'Styrka - Squat Handdrag Två ben': structuredData.page2.strengthTests.staticsquatHanddrag.both = value; break;
+                        case 'Styrka - Squat Handdrag Kommentar': structuredData.page2.strengthTests.staticsquatHanddrag.comment = value; break;
+                        case 'Styrka - Squat Höftrem VÄ': structuredData.page2.strengthTests.staticsquatHoftrem.left = value; break;
+                        case 'Styrka - Squat Höftrem HÖ': structuredData.page2.strengthTests.staticsquatHoftrem.right = value; break;
+                        case 'Styrka - Squat Höftrem Två ben': structuredData.page2.strengthTests.staticsquatHoftrem.both = value; break;
+                        case 'Styrka - Squat Höftrem Kommentar': structuredData.page2.strengthTests.staticsquatHoftrem.comment = value; break;
                         case 'Styrka - Hamstring VÄ': structuredData.page2.strengthTests.hamstring.left = value; break;
                         case 'Styrka - Hamstring HÖ': structuredData.page2.strengthTests.hamstring.right = value; break;
                         case 'Styrka - Hamstring Kommentar': structuredData.page2.strengthTests.hamstring.comment = value; break;
+                        case 'Styrka - Nordic Hamstring Försök 1': structuredData.page2.strengthTests.nordicHamstring.attempt1 = value; break;
+                        case 'Styrka - Nordic Hamstring Försök 2': structuredData.page2.strengthTests.nordicHamstring.attempt2 = value; break;
+                        case 'Styrka - Nordic Hamstring Försök 3': structuredData.page2.strengthTests.nordicHamstring.attempt3 = value; break;
+                        case 'Styrka - Nordic Hamstring Kommentar': structuredData.page2.strengthTests.nordicHamstring.comment = value; break;
                         case 'Manuell - SRP Tare': structuredData.page2.manual.srp.tare = value; break;
                         case 'Manuell - SRP Force': structuredData.page2.manual.srp.force = value; break;
                         case 'Manuell - SPTS kg': structuredData.page2.manual.spts.kg = value; break;
@@ -1599,3 +1734,4 @@
     </script>
 </body>
 </html>
+
