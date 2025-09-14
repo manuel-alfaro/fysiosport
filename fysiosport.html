@@ -60,7 +60,7 @@
         }
         .content-container {
             max-width: 100% !important;
-             margin: 0 auto;
+            margin: 0 auto;
         }
         .report-header {
             display: flex;
@@ -207,7 +207,7 @@
             flex-grow: 1;
         }
         .text-box h3.position-title {
-             font-size: calc(18.4px * var(--scale-factor, 1));
+            font-size: calc(18.4px * var(--scale-factor, 1));
         }
 
         .text-box .text-content p {
@@ -306,7 +306,7 @@
     </style>
 </head>
 <body>
-    <div id="page-1" class="page page-break">
+    <div id="page-1" class="page">
         <header class="report-header">
             <img src="https://storage.googleapis.com/intro_alphatek/logo%20fysiosport.png" alt="Fysiosport Logo" class="logo-left">
             <img src="https://storage.googleapis.com/intro_alphatek/Kopi%2Bav%2BLogo%2BNegative%2Bnarrow.webp" alt="Alphatek Logo" class="logo-right">
@@ -343,7 +343,29 @@
                         <div><strong>SKAPAD AV:</strong> <span id="p2-createdBy"></span></div>
                     </div>
                     
-                     <!-- This container will be populated dynamically -->
+                    <!-- This container will be populated dynamically -->
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="page-3" class="page">
+        <header class="report-header">
+            <img src="https://storage.googleapis.com/intro_alphatek/logo%20fysiosport.png" alt="Fysiosport Logo" class="logo-left">
+            <img src="https://storage.googleapis.com/intro_alphatek/Kopi%2Bav%2BLogo%2BNegative%2Bnarrow.webp" alt="Alphatek Logo" class="logo-right">
+        </header>
+        <main class="app-main-content">
+            <div class="content-container">
+                <div id="report-content-page3">
+                    <div class="info-box">
+                        <div><strong>NAMN:</strong> <span id="p3-name"></span></div>
+                        <div><strong>DATUM:</strong> <span id="p3-date"></span></div>
+                        <div><strong>SPORT/POSITION:</strong> <span id="p3-sport"></span></div>
+                        <div><strong>SKAPAD AV:</strong> <span id="p3-createdBy"></span></div>
+                    </div>
+                    
+                    <!-- This container will be populated dynamically -->
 
                 </div>
             </div>
@@ -419,6 +441,28 @@
                 <p class="comment-text"></p>
             </div>
         </div> 
+        <div id="col-cmj2ben" class="graph-column">
+            <div id="p1-cmj2ben-position-box" class="position-box">
+                <h3 class="position-title"></h3>
+                <div id="donut-container">
+                    <div class="donut-wrapper">
+                        <div id="cmj2ben-donut-1" class="js-plotly-plot"></div>
+                        <p class="donut-label">Försök 1</p>
+                    </div>
+                    <div class="donut-wrapper">
+                        <div id="cmj2ben-donut-2" class="js-plotly-plot"></div>
+                        <p class="donut-label">Försök 2</p>
+                    </div>
+                    <div class="donut-wrapper">
+                        <div id="cmj2ben-donut-3" class="js-plotly-plot"></div>
+                        <p class="donut-label">Försök 3</p>
+                    </div>
+                </div>
+            </div>
+            <div id="p1-cmj2ben-comment-box" class="explanation-box-small">
+                <p class="comment-text"></p>
+            </div>
+        </div>
         <div id="col-hipthrust" class="graph-column"> 
             <div id="p2-position-box-I" class="position-box"> 
                 <h3 class="position-title"></h3> 
@@ -439,14 +483,25 @@
                 <p class="comment-text"></p>
             </div>
         </div> 
-        <div id="col-staticsquat" class="graph-column"> 
-            <div id="p2-position-box-Y" class="position-box"> 
+        <div id="col-staticsquat-handdrag" class="graph-column"> 
+            <div id="p2-position-box-handdrag" class="position-box"> 
                 <h3 class="position-title"></h3> 
-                <div id="p2-bar-chart-Y" class="js-plotly-plot"></div> 
-                 <img id="overlay-image-Y" src="" class="graph-overlay-image" alt="Animal">
-                 <div id="overlay-text-Y" class="graph-overlay-text"></div>
+                <div id="p2-bar-chart-handdrag" class="js-plotly-plot"></div> 
+                 <img id="overlay-image-handdrag" src="" class="graph-overlay-image" alt="Animal">
+                <div id="overlay-text-handdrag" class="graph-overlay-text"></div>
             </div>
-             <div id="p2-squat-comment-box" class="explanation-box-small">
+            <div id="p2-staticsquat-handdrag-comment-box" class="explanation-box-small">
+                <p class="comment-text"></p>
+            </div>
+        </div> 
+        <div id="col-staticsquat-hoftrem" class="graph-column"> 
+            <div id="p2-position-box-hoftrem" class="position-box"> 
+                <h3 class="position-title"></h3> 
+                <div id="p2-bar-chart-hoftrem" class="js-plotly-plot"></div> 
+                <img id="overlay-image-hoftrem" src="" class="graph-overlay-image" alt="Animal">
+                <div id="overlay-text-hoftrem" class="graph-overlay-text"></div>
+            </div>
+            <div id="p2-staticsquat-hoftrem-comment-box" class="explanation-box-small">
                 <p class="comment-text"></p>
             </div>
         </div> 
@@ -459,6 +514,28 @@
                 <p class="comment-text"></p>
             </div>
         </div> 
+        <div id="col-nordic-hamstring" class="graph-column">
+            <div id="p2-nordic-hamstring-position-box" class="position-box">
+                <h3 class="position-title"></h3>
+                <div id="donut-container">
+                    <div class="donut-wrapper">
+                        <div id="nordic-hamstring-donut-1" class="js-plotly-plot"></div>
+                        <p class="donut-label">Försök 1</p>
+                    </div>
+                    <div class="donut-wrapper">
+                        <div id="nordic-hamstring-donut-2" class="js-plotly-plot"></div>
+                        <p class="donut-label">Försök 2</p>
+                    </div>
+                    <div class="donut-wrapper">
+                        <div id="nordic-hamstring-donut-3" class="js-plotly-plot"></div>
+                        <p class="donut-label">Försök 3</p>
+                    </div>
+                </div>
+            </div>
+            <div id="p2-nordic-hamstring-comment-box" class="explanation-box-small">
+                <p class="comment-text"></p>
+            </div>
+        </div>
         <div id="col-srp" class="graph-column text-box">
             <h3 class="position-title">STATIC ROW PULL</h3>
             <div class="text-content" id="manual-srp"></div>
@@ -578,7 +655,7 @@
                ],
                layout: {
                    height: 200, barmode: 'group',
-                   font: { color: darkGrayColor, family: 'Avenir, sans-serif', size: Math.round(14 * globalScaleFactor), weight: 400 },
+                   font: { color: darkGrayColor, family: 'Avenir', size: Math.round(14 * globalScaleFactor), weight: 400 },
                    yaxis: { title: yTitle, titlefont: { size: Math.round(16 * globalScaleFactor) }, tickfont: { size: Math.round(14 * globalScaleFactor) }, range: [0, maxYValue], showgrid: false, zeroline: false },
                    xaxis: { showgrid: false, zeroline: false, showline: false, tickfont: { size: Math.round(14 * globalScaleFactor) }, automargin: true, fixedrange: true },
                    paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
@@ -589,37 +666,82 @@
            };
            return fig;
         }
+        
+        // New function for 3-bar charts (Right, Left, Both)
+        function createThreeBarChart(data, config) {
+            const hoColorHex = getComputedStyle(document.documentElement).getPropertyValue('--ho-color').trim();
+            const vaColorHex = getComputedStyle(document.documentElement).getPropertyValue('--va-color').trim();
+            const bothColor = '#1e88e5'; // A neutral blue for "Båda"
+            const hoColorRgba = hexToRgba(hoColorHex, 0.8);
+            const vaColorRgba = hexToRgba(vaColorHex, 0.8);
+            const bothColorRgba = hexToRgba(bothColor, 0.8);
+            const darkGrayColor = getComputedStyle(document.documentElement).getPropertyValue('--dark-gray').trim();
+            const whiteColor = getComputedStyle(document.documentElement).getPropertyValue('--white').trim();
+
+            const { rightVal, leftVal, bothVal } = data;
+            const { yAxisTitle, decimals } = config;
+            const maxYValue = Math.max(rightVal, leftVal, bothVal, 10) * 1.25;
+            const barTextFontSize = Math.round(18 * globalScaleFactor);
+            const labels = ['VÄ', 'HÖ', 'TVÅ BEN'];
+            const values = [leftVal, rightVal, bothVal];
+            const colors = [vaColorRgba, hoColorRgba, bothColorRgba];
+
+            const fig = {
+                data: [{ 
+                    type: 'bar', 
+                    x: labels, 
+                    y: values, 
+                    marker: { color: colors }, 
+                    text: values.map(val => val.toFixed(decimals)), 
+                    textposition: 'inside', 
+                    insidetextanchor: 'middle', 
+                    textfont: { color: whiteColor, size: barTextFontSize, angle: 0 }, 
+                    hoverinfo: 'x+y'
+                }],
+                layout: {
+                    height: 200, 
+                    font: { color: darkGrayColor, family: 'Avenir', size: Math.round(14 * globalScaleFactor), weight: 400 },
+                    yaxis: { title: yAxisTitle, titlefont: { size: Math.round(16 * globalScaleFactor) }, tickfont: { size: Math.round(14 * globalScaleFactor) }, range: [0, maxYValue], showgrid: true, zeroline: false },
+                    xaxis: { showgrid: false, zeroline: false, showline: false, tickfont: { size: Math.round(14 * globalScaleFactor) }, automargin: true, fixedrange: true },
+                    paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
+                    showlegend: false,
+                    margin: { l: 50, r: 20, b: 75, t: 35, pad: 5 },
+                    width: 285, bargap: 0.4
+                }
+            };
+            return fig;
+        }
 
         function createSingleMetricBarChart(data, config) {
-           const hoColorHex = getComputedStyle(document.documentElement).getPropertyValue('--ho-color').trim();
-           const vaColorHex = getComputedStyle(document.documentElement).getPropertyValue('--va-color').trim();
-           const hoColorRgba = hexToRgba(hoColorHex, 0.8);
-           const vaColorRgba = hexToRgba(vaColorHex, 0.8);
-           const darkGrayColor = getComputedStyle(document.documentElement).getPropertyValue('--dark-gray').trim();
-           const whiteColor = getComputedStyle(document.documentElement).getPropertyValue('--white').trim();
+            const hoColorHex = getComputedStyle(document.documentElement).getPropertyValue('--ho-color').trim();
+            const vaColorHex = getComputedStyle(document.documentElement).getPropertyValue('--va-color').trim();
+            const hoColorRgba = hexToRgba(hoColorHex, 0.8);
+            const vaColorRgba = hexToRgba(vaColorHex, 0.8);
+            const darkGrayColor = getComputedStyle(document.documentElement).getPropertyValue('--dark-gray').trim();
+            const whiteColor = getComputedStyle(document.documentElement).getPropertyValue('--white').trim();
 
-           const { leftVal, rightVal } = data;
-           const { yAxisTitle, metricName, decimals } = config;
-           const maxYValue = Math.max(leftVal, rightVal, 10) * 1.25;
-           const barTextFontSize = Math.round(18 * globalScaleFactor);
+            const { leftVal, rightVal } = data;
+            const { yAxisTitle, metricName, decimals } = config;
+            const maxYValue = Math.max(leftVal, rightVal, 10) * 1.25;
+            const barTextFontSize = Math.round(18 * globalScaleFactor);
 
-           const fig = {
-               data: [
-                   { type: 'bar', name: 'VÄ', x: [' ', metricName, '  '], y: [null, leftVal, null], marker: { color: vaColorRgba }, text: [null, leftVal.toFixed(decimals), null], textposition: 'inside', insidetextanchor: 'middle', textfont: { color: whiteColor, size: barTextFontSize }, hoverinfo: 'name', hovertemplate: 'VÄ: %{y}<extra></extra>' },
-                   { type: 'bar', name: 'HÖ', x: [' ', metricName, '  '], y: [null, rightVal, null], marker: { color: hoColorRgba }, text: [null, rightVal.toFixed(decimals), null], textposition: 'inside', insidetextanchor: 'middle', textfont: { color: whiteColor, size: barTextFontSize }, hoverinfo: 'name', hovertemplate: 'HÖ: %{y}<extra></extra>' }
-               ],
-               layout: {
-                   height: 200, barmode: 'group',
-                   font: { color: darkGrayColor, family: 'Avenir, sans-serif', size: Math.round(14 * globalScaleFactor), weight: 400 },
-                   yaxis: { title: yAxisTitle, titlefont: { size: Math.round(16 * globalScaleFactor) }, tickfont: { size: Math.round(14 * globalScaleFactor) }, range: [0, maxYValue], showgrid: true, zeroline: false },
-                   xaxis: { showgrid: false, zeroline: false, showline: false, tickfont: { size: Math.round(14 * globalScaleFactor) }, automargin: true, fixedrange: true },
-                   paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
-                   legend: { orientation: "h", yanchor: "bottom", y: 1.02, xanchor: "center", x: 0.5, font: { size: Math.round(14 * globalScaleFactor) }},
-                   margin: { l: 50, r: 20, b: 75, t: 35, pad: 5 },
-                   width: 285, bargroupgap: 0.1
-               }
-           };
-           return fig;
+            const fig = {
+                data: [
+                    { type: 'bar', name: 'VÄ', x: [' ', metricName, '  '], y: [null, leftVal, null], marker: { color: vaColorRgba }, text: [null, leftVal.toFixed(decimals), null], textposition: 'inside', insidetextanchor: 'middle', textfont: { color: whiteColor, size: barTextFontSize }, hoverinfo: 'name', hovertemplate: 'VÄ: %{y}<extra></extra>' },
+                    { type: 'bar', name: 'HÖ', x: [' ', metricName, '  '], y: [null, rightVal, null], marker: { color: hoColorRgba }, text: [null, rightVal.toFixed(decimals), null], textposition: 'inside', insidetextanchor: 'middle', textfont: { color: whiteColor, size: barTextFontSize }, hoverinfo: 'name', hovertemplate: 'HÖ: %{y}<extra></extra>' }
+                ],
+                layout: {
+                    height: 200, barmode: 'group',
+                    font: { color: darkGrayColor, family: 'Avenir', size: Math.round(14 * globalScaleFactor), weight: 400 },
+                    yaxis: { title: yAxisTitle, titlefont: { size: Math.round(16 * globalScaleFactor) }, tickfont: { size: Math.round(14 * globalScaleFactor) }, range: [0, maxYValue], showgrid: true, zeroline: false },
+                    xaxis: { showgrid: false, zeroline: false, showline: false, tickfont: { size: Math.round(14 * globalScaleFactor) }, automargin: true, fixedrange: true },
+                    paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
+                    legend: { orientation: "h", yanchor: "bottom", y: 1.02, xanchor: "center", x: 0.5, font: { size: Math.round(14 * globalScaleFactor) }},
+                    margin: { l: 50, r: 20, b: 75, t: 35, pad: 5 },
+                    width: 285, bargroupgap: 0.1
+                }
+            };
+            return fig;
         }
 
         function createSingleDonutChart(value) {
@@ -665,7 +787,7 @@
                 ],
                 layout: {
                     height: 200, barmode: 'group', showlegend: false,
-                    font: { color: darkGrayColor, family: 'Avenir, sans-serif', size: Math.round(14 * globalScaleFactor), weight: 400 },
+                    font: { color: darkGrayColor, family: 'Avenir', size: Math.round(14 * globalScaleFactor), weight: 400 },
                     yaxis: { title: y1Title, titlefont: { size: Math.round(16 * globalScaleFactor) }, tickfont: { size: Math.round(14 * globalScaleFactor) }, range: [0, maxY1], showgrid: false, zeroline: false },
                     yaxis2: { title: y2Title, titlefont: { size: Math.round(16 * globalScaleFactor) }, tickfont: { size: Math.round(14 * globalScaleFactor) }, overlaying: 'y', side: 'right', showgrid: false, zeroline: false, showline: false, range: [0, maxY2] },
                     xaxis: { showgrid: false, zeroline: false, showline: false, tickfont: { size: Math.round(14 * globalScaleFactor) }, automargin: true, fixedrange: true, categoryorder: 'array', categoryarray: metricNames },
@@ -680,8 +802,8 @@
         function createPage2CustomBarChart(chartData, config = {}) {
             const vaColorHex = getComputedStyle(document.documentElement).getPropertyValue('--va-color').trim();
             const hoColorHex = getComputedStyle(document.documentElement).getPropertyValue('--ho-color').trim();
-            const leftColorRgba = hexToRgba(vaColorHex, 0.8);
-            const rightColorRgba = hexToRgba(hoColorHex, 0.8);
+            const vaColorRgba = hexToRgba(vaColorHex, 0.8);
+            const hoColorRgba = hexToRgba(hoColorHex, 0.8);
             const darkGrayColor = getComputedStyle(document.documentElement).getPropertyValue('--dark-gray').trim();
             const whiteColor = getComputedStyle(document.documentElement).getPropertyValue('--white').trim();
 
@@ -691,12 +813,12 @@
             const leftTexts = [leftVal1.toFixed(decimals), ''];
             const rightTexts = [rightVal1.toFixed(decimals), ''];
 
-            const maxY1 = Math.max(leftVal1, rightVal1) * 1.25;
+            const maxY1 = Math.max(leftVal1, rightVal1, 0.1) * 1.25;
             const barTextFontSize = Math.round(18 * globalScaleFactor);
 
             const data = [
-                { type: 'bar', name: 'VÄ', x: [metricNames[0]], y: [leftVal1], marker: { color: leftColorRgba }, text: [leftTexts[0]], textposition: 'inside', insidetextanchor: 'middle', textfont: { color: whiteColor, size: barTextFontSize, angle: 0 }, hoverinfo: 'name+y', yaxis: 'y' },
-                { type: 'bar', name: 'HÖ', x: [metricNames[0]], y: [rightVal1], marker: { color: rightColorRgba }, text: [rightTexts[0]], textposition: 'inside', insidetextanchor: 'middle', textfont: { color: whiteColor, size: barTextFontSize, angle: 0 }, hoverinfo: 'name+y', yaxis: 'y' },
+                { type: 'bar', name: 'VÄ', x: [metricNames[0]], y: [leftVal1], marker: { color: vaColorRgba }, text: [leftTexts[0]], textposition: 'inside', insidetextanchor: 'middle', textfont: { color: whiteColor, size: barTextFontSize, angle: 0 }, hoverinfo: 'name+y', yaxis: 'y' },
+                { type: 'bar', name: 'HÖ', x: [metricNames[0]], y: [rightVal1], marker: { color: hoColorRgba }, text: [rightTexts[0]], textposition: 'inside', insidetextanchor: 'middle', textfont: { color: whiteColor, size: barTextFontSize, angle: 0 }, hoverinfo: 'name+y', yaxis: 'y' },
                 { type: 'bar', name: 'VÄ', x: [metricNames[1]], y: [0], marker: { color: 'rgba(0,0,0,0)' }, text: [''], hoverinfo: 'none', yaxis: 'y2', showlegend: false },
                 { type: 'bar', name: 'HÖ', x: [metricNames[1]], y: [0], marker: { color: 'rgba(0,0,0,0)' }, text: [''], hoverinfo: 'none', yaxis: 'y2', showlegend: false }
             ];
@@ -705,7 +827,7 @@
                 data: data,
                 layout: {
                     height: 200, barmode: 'group',
-                    font: { color: darkGrayColor, family: 'Avenir, sans-serif', size: Math.round(14 * globalScaleFactor), weight: 400 },
+                    font: { color: darkGrayColor, family: 'Avenir', size: Math.round(14 * globalScaleFactor), weight: 400 },
                     yaxis: { title: yAxisTitle, titlefont: { size: Math.round(16 * globalScaleFactor) }, tickfont: { size: Math.round(14 * globalScaleFactor) }, range: [0, maxY1], showgrid: false, zeroline: false },
                     yaxis2: { visible: false, range: [0, 1] },
                     xaxis: { 
@@ -735,6 +857,11 @@
             document.getElementById('p2-date').textContent = patientInfo.date || 'N/A';
             document.getElementById('p2-sport').textContent = patientInfo.sportPosition || 'N/A';
             document.getElementById('p2-createdBy').textContent = patientInfo.createdBy || 'N/A';
+
+            document.getElementById('p3-name').textContent = patientInfo.name || 'N/A';
+            document.getElementById('p3-date').textContent = patientInfo.date || 'N/A';
+            document.getElementById('p3-sport').textContent = patientInfo.sportPosition || 'N/A';
+            document.getElementById('p3-createdBy').textContent = patientInfo.createdBy || 'N/A';
         }
 
         function updateManualTextBoxes(manualData) {
@@ -801,7 +928,7 @@
                 if (!commentEl) return;
 
                 if (!hasData) {
-                    commentEl.innerHTML = `<p style="color: var(--medium-gray); font-style: italic;">Ingen data for denne testen.</p>`;
+                    commentEl.innerHTML = `<p style="color: var(--medium-gray); font-style: italic;">Ingen data för denna testen.</p>`;
                     return;
                 }
 
@@ -839,6 +966,10 @@
             const repeatedData = reportData.page1.repeatedBilateral;
             const hasRepeatedData = !(repeatedData.avgHeight === 0 && repeatedData.avgGct === 0);
             updateBox('p1-repeated-comment-box', repeatedData.comment, undefined, hasRepeatedData); // No asymmetry
+
+            const cmj2benData = reportData.page1.cmj2ben;
+            const hasCmj2benData = !(cmj2benData.attempt1 === 0 && cmj2benData.attempt2 === 0 && cmj2benData.attempt3 === 0);
+            updateBox('p1-cmj2ben-comment-box', cmj2benData.comment, undefined, hasCmj2benData);
             
             // Page 2
             const hipThrustData = reportData.page2.strengthTests.hipThrust;
@@ -848,14 +979,22 @@
             const quadsData = reportData.page2.strengthTests.quadriceps;
             const hasQuadsData = !(quadsData.left === 0 && quadsData.right === 0);
             updateBox('p2-quads-comment-box', quadsData.comment, quadsData.asymmetryPercent, hasQuadsData);
+            
+            const staticsquatHanddragData = reportData.page2.strengthTests.staticsquatHanddrag;
+            const hasStaticsquatHanddragData = !(staticsquatHanddragData.left === 0 && staticsquatHanddragData.right === 0 && staticsquatHanddragData.both === 0);
+            updateBox('p2-staticsquat-handdrag-comment-box', staticsquatHanddragData.comment, staticsquatHanddragData.asymmetryPercent, hasStaticsquatHanddragData);
 
-            const staticSquatData = reportData.page2.strengthTests.staticSquat;
-            const hasStaticSquatData = !(staticSquatData.left === 0 && staticSquatData.right === 0);
-            updateBox('p2-squat-comment-box', staticSquatData.comment, staticSquatData.asymmetryPercent, hasStaticSquatData);
+            const staticsquatHoftremData = reportData.page2.strengthTests.staticsquatHoftrem;
+            const hasStaticsquatHoftremData = !(staticsquatHoftremData.left === 0 && staticsquatHoftremData.right === 0 && staticsquatHoftremData.both === 0);
+            updateBox('p2-staticsquat-hoftrem-comment-box', staticsquatHoftremData.comment, staticsquatHoftremData.asymmetryPercent, hasStaticsquatHoftremData);
 
             const hamstringData = reportData.page2.strengthTests.hamstring;
             const hasHamstringData = !(hamstringData.left === 0 && hamstringData.right === 0);
             updateBox('p2-hamstring-comment-box', hamstringData.comment, hamstringData.asymmetryPercent, hasHamstringData);
+
+            const nordicHamstringData = reportData.page2.strengthTests.nordicHamstring;
+            const hasNordicHamstringData = !(nordicHamstringData.attempt1 === 0 && nordicHamstringData.attempt2 === 0 && nordicHamstringData.attempt3 === 0);
+            updateBox('p2-nordic-hamstring-comment-box', nordicHamstringData.comment, undefined, hasNordicHamstringData);
         }
 
         async function updateLayoutAndRenderGraphs(reportData) {
@@ -888,7 +1027,7 @@
                     col: templates.querySelector('#col-tia'),
                     hasData: !(reportData.page1.tia.leftJump === 0 && reportData.page1.tia.rightJump === 0 && reportData.page1.tia.leftGct === 0 && reportData.page1.tia.rightGct === 0),
                     render: (element) => {
-                        element.querySelector('.position-title').textContent = 'REPETERADE HOPP (TIA) ETT BEN I TAGET X5';
+                        element.querySelector('.position-title').textContent = 'REPETERADE HOPP (TIA) ETT BEN I TAGET';
                         const fig = createDualAxisBarChart({leftVal1: reportData.page1.tia.leftJump, rightVal1: reportData.page1.tia.rightJump, leftVal2: reportData.page1.tia.leftGct, rightVal2: reportData.page1.tia.rightGct}, {metricNames: ['Gj. hopp', 'GCT'], y1Title: 'cm', y2Title: 's', y1Decimals: 1, y2Decimals: 2});
                         plotPromises.push(Plotly.react(element.querySelector('.js-plotly-plot'), fig.data, fig.layout, plotlyConfig));
                     }
@@ -922,9 +1061,23 @@
                     col: templates.querySelector('#col-repeated'),
                     hasData: !(reportData.page1.repeatedBilateral.avgHeight === 0 && reportData.page1.repeatedBilateral.avgGct === 0),
                     render: (element) => {
-                        element.querySelector('.normative-title').textContent = 'Repeated jumps TVÅ BEN x10';
+                        element.querySelector('.normative-title').textContent = 'REPETERADE HOPP (TIA) TVÅ BEN';
                         const fig = createBilateralDualAxisChart({val1: reportData.page1.repeatedBilateral.avgHeight, val2: reportData.page1.repeatedBilateral.avgGct}, {metricNames: ['Gj. hopp', 'Gj. GCT'], y1Title: 'cm', y2Title: 's'});
                         plotPromises.push(Plotly.react(element.querySelector('.js-plotly-plot'), fig.data, fig.layout, plotlyConfig));
+                    }
+                },
+                {
+                    id: 'cmj2ben',
+                    col: templates.querySelector('#col-cmj2ben'),
+                    hasData: !(reportData.page1.cmj2ben.attempt1 === 0 && reportData.page1.cmj2ben.attempt2 === 0 && reportData.page1.cmj2ben.attempt3 === 0),
+                    render: (element) => {
+                        element.querySelector('.position-title').textContent = 'CMJ (TOV) TVÅ BEN';
+                        const donutValues = [reportData.page1.cmj2ben.attempt1, reportData.page1.cmj2ben.attempt2, reportData.page1.cmj2ben.attempt3];
+                        const donutDivs = element.querySelectorAll('.js-plotly-plot');
+                        donutValues.forEach((value, index) => {
+                            const fig = createSingleDonutChart(value);
+                            plotPromises.push(Plotly.newPlot(donutDivs[index], fig.data, fig.layout, plotlyConfig));
+                        });
                     }
                 },
                 { 
@@ -956,19 +1109,36 @@
                     }
                 },
                 { 
-                    id: 'staticsquat', 
-                    col: templates.querySelector('#col-staticsquat'),
-                    hasData: !(reportData.page2.strengthTests.staticSquat.left === 0 && reportData.page2.strengthTests.staticSquat.right === 0),
+                    id: 'staticsquat-handdrag', 
+                    col: templates.querySelector('#col-staticsquat-handdrag'),
+                    hasData: !(reportData.page2.strengthTests.staticsquatHanddrag.left === 0 && reportData.page2.strengthTests.staticsquatHanddrag.right === 0 && reportData.page2.strengthTests.staticsquatHanddrag.both === 0),
                     render: (element) => {
-                        element.querySelector('.position-title').textContent = 'STATIC SQUAT PULL';
-                        const data = reportData.page2.strengthTests.staticSquat;
+                        element.querySelector('.position-title').textContent = 'STATIC SQUAT PULL - HANDDRAG';
+                        const data = reportData.page2.strengthTests.staticsquatHanddrag;
                         const fig = createPage2CustomBarChart({leftVal1: data.left, rightVal1: data.right}, { yAxisTitle: 'KG', metricNames: ['Force', ' '], decimals: 1 });
                         plotPromises.push(Plotly.react(element.querySelector('.js-plotly-plot'), fig.data, fig.layout, plotlyConfig));
-                        if (data.tva && data.tva > 0) {
-                            updateAnimalOverlay(data.tva, element.querySelector('#overlay-image-Y'), element.querySelector('#overlay-text-Y'));
+                        if (data.both && data.both > 0) {
+                            updateAnimalOverlay(data.both, element.querySelector('#overlay-image-handdrag'), element.querySelector('#overlay-text-handdrag'));
                         } else {
-                            element.querySelector('#overlay-image-Y').style.display = 'none';
-                            element.querySelector('#overlay-text-Y').style.display = 'none';
+                            element.querySelector('#overlay-image-handdrag').style.display = 'none';
+                            element.querySelector('#overlay-text-handdrag').style.display = 'none';
+                        }
+                    }
+                },
+                { 
+                    id: 'staticsquat-hoftrem', 
+                    col: templates.querySelector('#col-staticsquat-hoftrem'),
+                    hasData: !(reportData.page2.strengthTests.staticsquatHoftrem.left === 0 && reportData.page2.strengthTests.staticsquatHoftrem.right === 0 && reportData.page2.strengthTests.staticsquatHoftrem.both === 0),
+                    render: (element) => {
+                        element.querySelector('.position-title').textContent = 'STATIC SQUAT PULL - HÖFTREM';
+                        const data = reportData.page2.strengthTests.staticsquatHoftrem;
+                        const fig = createPage2CustomBarChart({leftVal1: data.left, rightVal1: data.right}, { yAxisTitle: 'KG', metricNames: ['Force', ' '], decimals: 1 });
+                        plotPromises.push(Plotly.react(element.querySelector('.js-plotly-plot'), fig.data, fig.layout, plotlyConfig));
+                        if (data.both && data.both > 0) {
+                            updateAnimalOverlay(data.both, element.querySelector('#overlay-image-hoftrem'), element.querySelector('#overlay-text-hoftrem'));
+                        } else {
+                            element.querySelector('#overlay-image-hoftrem').style.display = 'none';
+                            element.querySelector('#overlay-text-hoftrem').style.display = 'none';
                         }
                     }
                 },
@@ -981,6 +1151,20 @@
                         const data = reportData.page2.strengthTests.hamstring;
                         const fig = createPage2CustomBarChart({leftVal1: data.left, rightVal1: data.right}, { yAxisTitle: 'Newton', metricNames: ['Force', ' '], decimals: 1 });
                         plotPromises.push(Plotly.react(element.querySelector('.js-plotly-plot'), fig.data, fig.layout, plotlyConfig));
+                    }
+                },
+                {
+                    id: 'nordic-hamstring',
+                    col: templates.querySelector('#col-nordic-hamstring'),
+                    hasData: !(reportData.page2.strengthTests.nordicHamstring.attempt1 === 0 && reportData.page2.strengthTests.nordicHamstring.attempt2 === 0 && reportData.page2.strengthTests.nordicHamstring.attempt3 === 0),
+                    render: (element) => {
+                        element.querySelector('.position-title').textContent = 'NORDIC HAMSTRINGS (TVÅ BEN)';
+                        const donutValues = [reportData.page2.strengthTests.nordicHamstring.attempt1, reportData.page2.strengthTests.nordicHamstring.attempt2, reportData.page2.strengthTests.nordicHamstring.attempt3];
+                        const donutDivs = element.querySelectorAll('.js-plotly-plot');
+                        donutValues.forEach((value, index) => {
+                            const fig = createSingleDonutChart(value);
+                            plotPromises.push(Plotly.newPlot(donutDivs[index], fig.data, fig.layout, plotlyConfig));
+                        });
                     }
                 },
                 { 
@@ -1012,30 +1196,49 @@
             const activeBlocks = allTestBlocks.filter(b => b.hasData);
             const page1Container = document.getElementById('report-content-page1');
             const page2Container = document.getElementById('report-content-page2');
+            const page3Container = document.getElementById('report-content-page3');
             
             let currentRow = null;
             let currentContainer = page1Container;
-            let itemsOnPage = 0;
 
-            activeBlocks.forEach((block) => {
-                if (itemsOnPage % 2 === 0) {
-                    if (itemsOnPage >= 6) {
+            activeBlocks.forEach((block, index) => {
+                if (index % 2 === 0) {
+                    if (index >= 12) {
+                        currentContainer = page3Container;
+                    } else if (index >= 6) {
                         currentContainer = page2Container;
+                    } else {
+                        currentContainer = page1Container;
                     }
                     currentRow = document.createElement('div');
                     currentRow.className = 'position-row';
                     currentContainer.appendChild(currentRow);
                 }
+                
                 currentRow.appendChild(block.col);
                 if (block.render) {
                     block.render(block.col);
                 }
-                itemsOnPage++;
             });
 
-            if (itemsOnPage <= 6) {
-                 document.getElementById('page-1').classList.remove('page-break');
-                 document.getElementById('page-2').classList.add('hidden');
+            const totalItems = activeBlocks.length;
+            const page1 = document.getElementById('page-1');
+            const page2 = document.getElementById('page-2');
+            const page3 = document.getElementById('page-3');
+
+            page1.classList.remove('page-break');
+            page2.classList.remove('page-break');
+            page2.classList.add('hidden');
+            page3.classList.add('hidden');
+
+            if (totalItems > 12) {
+                page1.classList.add('page-break');
+                page2.classList.remove('hidden');
+                page2.classList.add('page-break');
+                page3.classList.remove('hidden');
+            } else if (totalItems > 6) {
+                page1.classList.add('page-break');
+                page2.classList.remove('hidden');
             }
 
             await Promise.all(plotPromises);
@@ -1053,6 +1256,7 @@
         
         window.addEventListener('load', () => {
             scaleHtmlFontSizes(globalScaleFactor); 
+            
             const storedData = localStorage.getItem('fysiosportData');
             
             if (storedData) {
@@ -1081,3 +1285,4 @@
     </script>
 </body>
 </html>
+
