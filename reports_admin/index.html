@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Alphatek Reports</title>
+    <!-- Plotly for graphs -->
+    <script src="https://cdn.plot.ly/plotly-2.27.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- Fonts and Icons -->
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css2?family=Avenir:wght@400&family=Futura:wght@400&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/index.css">
+    <!-- Admin Specific Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <aside class="app-sidebar">
+        <div class="sidebar-header">
+            <h2>Admin</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <button class="nav-button active" data-tab="dashboard">
+                <i class="fas fa-chart-line"></i> Dashboard
+            </button>
+            <button class="nav-button" data-tab="users">
+                <i class="fas fa-users"></i> Användare
+            </button>
+            <button class="nav-button" data-tab="reports">
+                <i class="fas fa-file-medical"></i> Rapporter
+            </button>
+            <button class="nav-button" data-tab="protocols">
+                <i class="fas fa-list-check"></i> Protokoll
+            </button>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="../dashboard.html" class="nav-button" style="text-decoration:none;">
+                <i class="fas fa-arrow-left"></i> Till Appen
+            </a>
+        </div>
+    </aside>
+
+    <main class="app-main-content">
+        <!-- LOGIN OVERLAY -->
+        <div id="admin-login-container"
+            style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:1000; justify-content:center; align-items:center;">
+            <div class="stat-card" style="width:300px; padding:40px;">
+                <h2>Admin Login</h2>
+                <form id="admin-login-form" style="display:flex; flex-direction:column; gap:15px; margin-top:20px;">
+                    <input type="email" id="admin-email" placeholder="E-post"
+                        style="padding:10px; border-radius:4px; border:1px solid #444; background:#222; color:white;">
+                    <input type="password" id="admin-password" placeholder="Lösenord"
+                        style="padding:10px; border-radius:4px; border:1px solid #444; background:#222; color:white;">
+                    <button type="submit" class="nav-button active" style="justify-content:center;">Logga in</button>
+                    <p id="login-error" style="color:#ff6b6b; font-size:0.9rem; margin:0; min-height:20px;"></p>
+                </form>
+            </div>
+        </div>
+
+        <header class="admin-header">
+            <h1>Admin Översikt</h1>
+            <div id="loading-indicator" style="display:none;">Laddar data...</div>
+        </header>
+
+        <div class="content-container">
+
+            <!-- DASHBOARD TAB -->
+            <div id="tab-dashboard" class="tab-content active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Totalt Användare</h3>
+                        <p id="stat-total-users">-</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Totalt Rapporter</h3>
+                        <p id="stat-total-reports">-</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Antal Protokoll</h3>
+                        <p id="stat-total-protocols">-</p>
+                    </div>
+                </div>
+
+                <div class="charts-row">
+                    <div class="chart-container glass-dark">
+                        <h3>Rapporter per Månad</h3>
+                        <div id="chart-reports-timeline"></div>
+                    </div>
+                    <div class="chart-container glass-dark">
+                        <h3>Mest Använda Tester</h3>
+                        <div id="chart-test-types"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- USERS TAB (Master View) -->
+            <div id="tab-users" class="tab-content active"> <!-- Default Active -->
+                <div class="glass-dark table-container">
+                    <h2 style="display:flex; justify-content:space-between; align-items:center;">
+                        Användare & Aktivitet
+                        <span style="font-size:0.6em; color:#888; font-weight:normal;">Klicka på en användare för
+                            detaljer</span>
+                    </h2>
+                    <table class="admin-table" id="users-table">
+                        <thead>
+                            <tr>
+                                <th>Användare</th>
+                                <th>Rapporter</th>
+                                <th>Patienter</th>
+                                <th>Protokoll</th>
+                                <th>Senast Inloggad/Aktiv</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- DASHBOARD TAB (Hidden by default, optional) -->
+            <div id="tab-dashboard" class="tab-content">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Totalt Användare</h3>
+                        <p id="stat-total-users">-</p>
+                    </div>
+                    <!-- ... charts ... -->
+                </div>
+                <div class="charts-row">
+                    <div class="chart-container glass-dark">
+                        <h3>Rapporter per Månad</h3>
+                        <div id="chart-reports-timeline"></div>
+                    </div>
+                    <div class="chart-container glass-dark">
+                        <h3>Mest Använda Tester</h3>
+                        <div id="chart-test-types"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- REMOVED REPORTS/PROTOCOLS TABS (Merged into User Detail) -->
+
+        </div>
+    </main>
+
+    <script type="module" src="admin.js"></script>
+</body>
+
+</html>

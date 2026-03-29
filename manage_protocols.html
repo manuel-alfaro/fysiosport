@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alphatek Protocols</title>
+    <script src="https://cdn.plot.ly/plotly-2.27.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css2?family=Avenir:wght@400&family=Futura:wght@400&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/protocols.css">
+</head>
+
+<body>
+
+    <!-- Modals (Hardcoded duplicates removed) -->
+
+    <div id="confirmation-modal-overlay" class="modal-overlay">
+        <div class="modal-content glass-dark" style="max-width: 400px; text-align: center;">
+            <h3>Bekräfta val</h3>
+            <p>Vill du ladda data för <span id="confirm-patient-name" style="font-weight: bold;"></span>?</p>
+            <div class="modal-actions" style="justify-content: center;">
+                <button id="confirm-cancel-btn" class="modal-cancel-button">Avbryt</button>
+                <button id="confirm-load-btn" class="modal-confirm-button">Ladda</button>
+            </div>
+        </div>
+    </div>
+
+    <aside class="app-sidebar">
+        <div class="sidebar-header">
+            <h2><i class="fas fa-bars"></i></h2>
+        </div>
+        <div>
+            <div class="sidebar-buttons">
+                <!-- Added Dashboard button -->
+                <a href="dashboard.html" class="nav-button"
+                    style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px; padding: 12px 15px; border-radius: 8px; transition: all 0.3s ease; width: 100%; border: none; background: none; font-size: 1rem; cursor: pointer; margin-bottom: 5px;"><i
+                        class="fas fa-home"></i> Dashboard</a>
+
+                <!-- Added Save Data button here for better UX -->
+                <button id="save-data-sidebar-btn"><i class="fas fa-save"></i><span>Spara Data</span></button>
+
+                <button id="import-data"><i class="fas fa-download"></i><span>Importera Data</span></button>
+                <button id="export-data"><i class="fas fa-upload"></i><span>Exportera Data</span></button>
+                <button id="clear-form"><i class="fas fa-eraser"></i><span>Töm formulär</span></button>
+                <button id="manage-protocols-btn"><i class="fas fa-list-check"></i><span>Hantera
+                        Protokoll</span></button>
+
+                <!-- Logout Button (from previous interaction) -->
+                <button id="logout-btn"><i class="fas fa-sign-out-alt"></i><span>Logga ut</span></button>
+            </div>
+        </div>
+        <div class="sidebar-footer">
+            <!-- PDF Preview removed as it was broken/not in user request? Keeping purely requested elements. -->
+            <!-- User snippet HAD PDF button. Keeping it but maybe hidden or handled. -->
+            <button id="pdf-preview"><i class="fas fa-file-pdf"></i><span>PDF Preview</span></button>
+        </div>
+    </aside>
+
+    <main class="app-main-content">
+        <!-- Protocol Management View (Full Page) -->
+        <div id="protocol-management-view" style="display: block; padding: 20px; min-height: 100vh; overflow-y: auto;">
+
+            <!-- Dashboard Header for Consistency -->
+            <header class="report-header-main"
+                style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 20px;">
+                <!-- logo-left injected here dynamically by utils.js -->
+                <img src="https://storage.googleapis.com/intro_alphatek/Kopi%2Bav%2BLogo%2BNegative%2Bnarrow.webp"
+                    alt="Alphatek Logo" class="logo-right" style="margin-left: auto;">
+            </header>
+
+            <!-- Top Bar Actions -->
+            <div class="test-manager-header" style="margin-bottom: 30px;">
+                <h2 class="section-title-main" style="margin: 0; border: none;">Hantera Protokoll</h2>
+                <button id="view-protocols-btn"
+                    style="background-color: var(--app-primary-color); color: var(--white); border: none; padding: 12px 25px; border-radius: 8px; font-size: 1rem; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;">
+                    <i class="fas fa-list"></i>
+                    <span style="font-weight: 600;">Se Mina Protokoll</span>
+                </button>
+            </div>
+
+            <div style="max-width: 1400px; margin: 0 auto; display: flex; flex-direction: column;">
+
+                <!-- Input Section: Name (Minimalist) -->
+                <div style="margin-bottom: 30px;">
+                    <label style="display: block; font-size: 0.9rem; color: var(--dark-gray); margin-bottom: 8px;">Namn
+                        på nytt protokoll</label>
+                    <input type="text" id="manager-protocol-name" placeholder="Skriv in namn..."
+                        style="font-size: 1.5rem; padding: 10px 0; width: 100%; max-width: 500px; border: none; border-bottom: 2px solid var(--medium-gray); background: transparent; color: var(--app-primary-color); outline: none;">
+                </div>
+
+                <!-- Main Content Area: Split 50/50 roughly -->
+                <div style="display: flex; gap: 40px; flex: 1; min-height: 0;">
+
+                    <!-- LEFT: Available Tests (Single Column List) -->
+                    <div style="flex: 1; display: flex; flex-direction: column; min-width: 300px;">
+                        <h3
+                            style="font-size: 1.1rem; color: var(--app-primary-color); margin-bottom: 15px; font-weight: 600;">
+                            Välj Tester</h3>
+
+                        <!-- Search & Filter Bar -->
+                        <div style="display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap;">
+                            <input type="text" id="test-search-input" placeholder="Sök..."
+                                style="padding: 10px 12px; border-radius: 4px; border: 1px solid var(--medium-gray); width: 150px; flex-shrink: 0; background: var(--white);">
+
+                            <button id="create-custom-test-btn"
+                                style="background-color: var(--secondary-color); color: var(--white); border: none; padding: 0 15px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 5px; font-size: 0.9rem;">
+                                <i class="fas fa-plus"></i> Skapa Test
+                            </button>
+
+                            <div id="filter-buttons-container" style="display: flex; gap: 5px; overflow-x: auto;">
+                                <button class="filter-btn active" data-category="all"
+                                    style="white-space: nowrap;">Alla</button>
+                                <button class="filter-btn" data-category="Styrka">Styrka</button>
+                                <button class="filter-btn" data-category="Hopp">Hopp</button>
+                                <button class="filter-btn" data-category="Balans & Analys">Balans</button>
+                                <button class="filter-btn" data-category="Övrigt">Övrigt</button>
+                            </div>
+                        </div>
+
+                        <!-- Single Column List -->
+                        <div id="manager-test-grid-container"
+                            style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; padding-right: 10px;">
+                            <!-- Items injected via JS -->
+                        </div>
+                    </div>
+
+
+                    <!-- CENTER/RIGHT: Preview & Selection -->
+                    <div style="flex: 1; display: flex; flex-direction: column; gap: 30px; min-width: 300px;">
+
+                        <!-- Preview Section -->
+                        <div style="display: flex; flex-direction: column;">
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 15px;">
+                                <h3
+                                    style="font-size: 1.1rem; color: var(--app-primary-color); margin: 0; font-weight: 600;">
+                                    Förhandsvisning</h3>
+                                <span id="preview-test-name"
+                                    style="font-size: 0.9rem; color: var(--dark-gray); font-weight: 500; opacity: 0; transition: opacity 0.3s;"></span>
+                            </div>
+
+                            <!-- Preview Box -->
+                            <div
+                                style="background: var(--box-background-color); border: 1px solid var(--medium-gray); padding: 20px; border-radius: var(--border-radius); box-shadow: inset 0 0 10px rgba(0,0,0,0.03); height: 250px; display: flex; flex-direction: column; position: relative;">
+                                <div id="preview-plot" style="flex: 1; min-height: 0; width: 100%;"></div>
+                                <img id="preview-overlay-image" src="" class="graph-overlay-image" alt="Animal"
+                                    style="display: none;">
+                                <div id="preview-overlay-text" class="graph-overlay-text" style="display: none;"></div>
+                                <div id="preview-placeholder"
+                                    style="flex: 1; display: flex; align-items: center; justify-content: center; opacity: 0.5; font-style: italic; color: var(--dark-gray);">
+                                    Hovra över en test för att se graf
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Selected Tests Area -->
+                        <div style="flex: 1; display: flex; flex-direction: column; min-height: 0;">
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                <h3
+                                    style="font-size: 1.1rem; color: var(--app-primary-color); margin: 0; font-weight: 600;">
+                                    Valda Tester</h3>
+                                <button id="manager-save-btn" class="modal-confirm-button"
+                                    style="padding: 8px 20px; font-size: 0.9rem;">
+                                    <i class="fas fa-save"></i> Spara
+                                </button>
+                            </div>
+
+                            <div id="selected-tests-container"
+                                style="flex: 1; min-height: 500px; background: var(--box-background-color); border-radius: var(--border-radius); padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;">
+                                <span
+                                    style="opacity: 0.5; font-style: italic; text-align: center; margin-top: 20px;">Inga
+                                    tester valda.</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Modal: My Protocols -->
+            <div id="protocols-modal" class="modal-overlay">
+                <div class="modal-content"
+                    style="max-width: 500px; height: 60vh; display: flex; flex-direction: column;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h3 style="margin: 0; color: var(--app-primary-color);">Mina Protokoll</h3>
+                        <button id="close-protocols-modal"
+                            style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-color);">&times;</button>
+                    </div>
+                    <div id="manager-protocol-list" style="flex: 1; overflow-y: auto;">
+                        <!-- List injected via JS -->
+                    </div>
+                </div>
+            </div> <!-- End protocols-modal -->
+
+            <!-- Modal: Create Custom Test -->
+            <div id="create-test-modal" class="modal-overlay">
+                <div class="modal-content"
+                    style="max-width: 800px; height: 85vh; display: flex; flex-direction: column; background: var(--white);">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h3 style="margin: 0; color: var(--app-primary-color);">Skapa Nytt Test</h3>
+                        <button id="close-create-test-modal"
+                            style="background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-color);">&times;</button>
+                    </div>
+
+                    <div style="flex: 1; overflow-y: auto; display: flex; gap: 30px; padding: 10px;">
+                        <!-- Configuration Column -->
+                        <div
+                            style="flex: 1; max-width: 48%; min-width: 300px; display: flex; flex-direction: column; gap: 20px;">
+                            <div class="input-group">
+                                <label style="display:block; margin-bottom:5px; font-weight:600;">Testnamn</label>
+                                <div style="display: flex; gap: 10px;">
+                                    <input type="text" id="custom-test-name" placeholder="T.ex. Enhandsrodd"
+                                        style="flex: 1; padding:10px; border:1px solid var(--medium-gray); border-radius:4px;">
+                                    <button id="save-custom-test-btn"
+                                        style="padding: 10px 20px; background-color: var(--app-primary-color); color: var(--white); border: none; border-radius: 4px; font-weight: 600; cursor: pointer; white-space: nowrap;">
+                                        <i class="fas fa-save"></i> Spara
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label style="display:block; margin-bottom:5px; font-weight:600;">Graftyp</label>
+                                <input type="hidden" id="custom-test-type" value="paired-bar">
+                                <div id="graph-type-grid"
+                                    style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
+                                    <!-- Grid items injected by JS -->
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label style="display:block; margin-bottom:5px; font-weight:600;">Kategori</label>
+                                <select id="custom-test-category"
+                                    style="width:100%; padding:10px; border:1px solid var(--medium-gray); border-radius:4px;">
+                                    <option value="Styrka">Styrka</option>
+                                    <option value="Hopp">Hopp</option>
+                                    <option value="Balans & Analys">Balans & Analys</option>
+                                    <option value="Övrigt">Övrigt</option>
+                                </select>
+                            </div>
+
+                            <!-- Animal Overlay Removed -->
+
+                            <h4
+                                style="margin: 10px 0 5px; color: var(--dark-gray); border-bottom: 1px solid var(--medium-gray); padding-bottom: 5px;">
+                                Konfigurera Graf</h4>
+
+                            <div class="input-group">
+                                <label style="display:block; margin-bottom:5px; font-weight:600;">Y-Axel Titel
+                                    (Enhet)</label>
+                                <input type="text" id="custom-yaxis-title" placeholder="T.ex. Kraft (N)"
+                                    value="Kraft (N)"
+                                    style="width:100%; padding:10px; border:1px solid var(--medium-gray); border-radius:4px;">
+                            </div>
+                            <div class="input-group" id="group-yaxis-2" style="display:none;">
+                                <label style="display:block; margin-bottom:5px; font-weight:600;">Y-Axel 2
+                                    Titel</label>
+                                <input type="text" id="custom-yaxis-2-title" placeholder="T.ex. Tid (ms)"
+                                    style="width:100%; padding:10px; border:1px solid var(--medium-gray); border-radius:4px;">
+                            </div>
+
+                            <!-- Paired Bar Inputs -->
+                            <div id="config-paired-bar" class="config-section">
+                                <div class="input-group">
+                                    <label style="display:block; margin-bottom:5px; font-weight:600;">Etikett
+                                        X1</label>
+                                    <input type="text" id="custom-label-1" value="X1"
+                                        style="width:100%; padding:10px; border:1px solid var(--medium-gray); border-radius:4px;">
+                                </div>
+                                <div class="input-group">
+                                    <label style="display:block; margin-bottom:5px; font-weight:600;">Etikett
+                                        X2</label>
+                                    <input type="text" id="custom-label-2" value="X2"
+                                        style="width:100%; padding:10px; border:1px solid var(--medium-gray); border-radius:4px;">
+                                </div>
+                            </div>
+                            <div class="input-group" id="group-label-3" style="display:none;">
+                                <label style="display:block; margin-bottom:5px; font-weight:600;">Etikett 3</label>
+                                <input type="text" id="custom-label-3" value="Etikett 3"
+                                    style="width:100%; padding:10px; border:1px solid var(--medium-gray); border-radius:4px;">
+                            </div>
+                        </div>
+
+
+                        <!-- Preview Section (Right Column) -->
+                        <div class="preview-section"
+                            style="flex: 1; padding: 20px; box-sizing: border-box; position: sticky; top: 20px; align-self: flex-start;">
+                            <!-- Preview Card -->
+                            <div
+                                style="background-color: var(--white); border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); padding: 20px;">
+                                <h3 style="margin-top: 0; margin-bottom: 20px; color: var(--text-color);">
+                                    Förhandsvisning</h3>
+                                <div
+                                    style="background: var(--white); border: 1px solid var(--medium-gray); border-radius: 8px; position: relative; height: 250px; display: flex; align-items: center; justify-content: center;">
+                                    <div id="custom-test-preview-plot" style="width: 100%; height: 100%;"></div>
+                                    <div id="custom-test-overlay-container"
+                                        style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; display:none;">
+                                        <img id="custom-test-overlay-image" src="" alt="Animal"
+                                            style="position: absolute; bottom: 10px; right: 10px; width: 80px; height: auto; opacity: 0.9; z-index: 10;">
+                                        <div id="custom-test-overlay-text"
+                                            style="position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.9); padding: 5px 8px; border-radius: 6px; font-size: 0.75rem; color: var(--text-color); box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: right; z-index: 10;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Button Moved to Top -->
+                    </div>
+                </div>
+            </div>
+    </main>
+    </div> <!-- End dashboard-grid -->
+    <!-- Note: active-patient-dashboard is not here anymore, but closing divs might be from original template. Cleanup if needed. -->
+    <!-- The structure is main > div#protocol-management-view. -->
+
+    <!-- Scripts -->
+    <script type="module" src="js/utils.js"></script>
+    <script type="module" src="js/graph_templates.js"></script>
+    <script type="module" src="js/manage_protocols.js?v=FIXED_LAYOUT_10"></script>
+</body>
+
+</html>

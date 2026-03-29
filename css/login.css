@@ -1,0 +1,210 @@
+/* Figma-Imported Authentication Styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+
+:root {
+    --primary-auth: rgba(255, 255, 255, 0.2);
+    --primary-blur: blur(52px);
+    --text-white: #ffffff;
+    --text-gray: rgba(255, 255, 255, 0.6);
+}
+
+body {
+    font-family: 'Nimbus Sans', 'Inter', sans-serif;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                radial-gradient(137.63% 79.91% at 29.77% 95.71%, rgba(39, 35, 19, 0.8) 0%, rgba(26, 48, 36, 0.8) 36.98%, rgba(53, 17, 17, 0.8) 66.15%, rgba(19, 22, 48, 0.9) 100%),
+                url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: var(--text-white);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+/* ────────────────────────────────────────────────────────── */
+/* Top Navigation Element (Figma conversion)                  */
+/* ────────────────────────────────────────────────────────── */
+.top-nav {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 16px 24px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.top-nav-logo {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 40px;
+}
+.top-nav-logo img {
+    height: 100%;
+    filter: brightness(0) invert(1);
+}
+
+/* ────────────────────────────────────────────────────────── */
+/* Hero Content                                               */
+/* ────────────────────────────────────────────────────────── */
+
+.hero-section {
+    padding: 24px;
+    margin-top: 20px;
+    max-width: 450px;
+}
+
+.hero-section h1 {
+    font-weight: 300;
+    font-size: 44px;
+    line-height: 48px;
+    letter-spacing: -2px;
+    margin: 0;
+    color: #FFFFFF;
+}
+
+.hero-section p {
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 24px;
+    margin-top: 18px;
+    color: #FFFFFF;
+    opacity: 0.9;
+}
+
+/* ────────────────────────────────────────────────────────── */
+/* Glassmorphic Form                                          */
+/* ────────────────────────────────────────────────────────── */
+
+.login-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 380px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+    position: relative;
+    /* Hide specific fields by default smoothly */
+    transition: all 0.3s;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+
+.glass-input {
+    width: 100%;
+    padding: 20px 16px;
+    border-radius: 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: var(--primary-blur);
+    -webkit-backdrop-filter: var(--primary-blur);
+    color: white;
+    font-size: 16px;
+    font-family: inherit;
+    box-sizing: border-box;
+    transition: all 0.2s;
+}
+
+.glass-input::placeholder {
+    color: rgba(255,255,255,0.2);
+}
+
+.glass-input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+select.glass-input option {
+    background: #111;
+    color: #fff;
+}
+
+.btn-primary {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 32px 16px;
+    height: 80px;
+    gap: 16px;
+    width: 100%;
+    background: var(--primary-auth);
+    backdrop-filter: var(--primary-blur);
+    -webkit-backdrop-filter: var(--primary-blur);
+    border: none;
+    border-radius: 0;
+    color: white;
+    font-size: 17px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-family: inherit;
+    margin-top: 24px;
+    box-sizing: border-box;
+}
+
+.btn-primary:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.toggle-auth {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+}
+
+.toggle-auth a {
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 400;
+    margin-left: 5px;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    padding-bottom: 1px;
+    transition: color 0.2s;
+}
+
+.toggle-auth a:hover {
+    color: #ccc;
+}
+
+#auth-message {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    min-height: 1.2em;
+    text-align: center;
+}
+
+.error-message {
+    color: #ef4444;
+}
+
+.success-message {
+    color: #85FFB6;
+}

@@ -1,0 +1,334 @@
+@import url('variables.css');
+
+body {
+    font-family: 'Avenir', sans-serif;
+    background-color: var(--white);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    box-sizing: border-box;
+    line-height: 1.6;
+    font-weight: var(--normal-font-weight);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.page {
+    overflow: hidden;
+}
+
+.page-break {
+    page-break-after: always;
+}
+
+.app-main-content {
+    padding: 5mm 20mm !important;
+    height: auto !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+.content-container {
+    max-width: 100% !important;
+    margin: 0 auto;
+}
+
+.report-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10mm 20mm 0 20mm;
+    margin-bottom: 15px;
+}
+
+.report-header img {
+    max-height: 35px;
+    width: auto;
+}
+
+h3.position-title,
+h3.normative-title {
+    color: var(--dark-gray);
+    margin-bottom: 0.3em;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.info-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 30px;
+    background-color: var(--white);
+    border: 1px solid var(--medium-gray);
+    padding: 12px 20px;
+    margin-bottom: 25px;
+    border-radius: var(--border-radius);
+    font-size: 13px;
+}
+
+.info-box div {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 4px;
+}
+
+.info-box strong {
+    color: var(--app-primary-color);
+    margin-right: 10px;
+    font-weight: var(--semibold-font-weight);
+}
+
+.explanation-box-small {
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    background-color: var(--box-background-color);
+    border: none;
+    border-left: 4px solid var(--app-primary-color);
+    padding: 10px 15px;
+    margin-top: 10px;
+    border-radius: var(--border-radius);
+    color: var(--dark-gray);
+    page-break-inside: avoid;
+    font-size: calc(12px * var(--scale-factor, 1));
+    min-height: 50px;
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+}
+
+.explanation-box-small i {
+    font-size: 1.4em;
+    color: var(--app-primary-color);
+}
+
+.explanation-box-small p {
+    margin: 0;
+}
+
+.percentage-display {
+    font-weight: var(--bold-font-weight);
+    font-size: 1.1em;
+}
+
+.percentage-display.green {
+    color: var(--success-color);
+}
+
+.percentage-display.red {
+    color: var(--danger-color);
+}
+
+
+.position-box,
+.normative-box {
+    border: none !important;
+    padding: 10px 20px 15px 20px !important;
+    border-radius: var(--border-radius);
+    background-color: var(--box-background-color) !important;
+    box-shadow: none !important;
+    margin-bottom: 0;
+    display: flex !important;
+    flex-direction: column !important;
+    height: 200px !important;
+    min-height: 200px !important;
+    position: relative;
+    overflow: hidden !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+}
+
+.js-plotly-plot {
+    flex-grow: 1 !important;
+    position: relative;
+    z-index: 1;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.js-plotly-plot .plotly>div,
+.js-plotly-plot .plotly>div>svg {
+    max-width: 100%;
+    height: auto !important;
+}
+
+.plotly .scatterlayer .trace.fill {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+}
+
+.plotly .annotation text {
+    font-weight: normal !important;
+}
+
+.plotly .gtitle {
+    fill: black !important;
+    font-weight: normal !important;
+}
+
+.plotly .modebar {
+    display: none !important;
+}
+
+.js-plotly-plot .plotly svg {
+    -webkit-user-select: text !important;
+    -moz-user-select: text !important;
+    -ms-user-select: text !important;
+    user-select: text !important;
+}
+
+.js-plotly-plot .plotly text {
+    pointer-events: auto !important;
+}
+
+.position-row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 20px !important;
+    margin-bottom: 20px;
+    padding-bottom: 3px;
+    align-items: stretch;
+    page-break-inside: avoid !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.graph-column {
+    flex: 0 0 calc(50% - 10px) !important;
+    /* Fixed width: 50% minus half the gap */
+    max-width: calc(50% - 10px) !important;
+    /* Ensure it doesn't exceed this */
+    min-width: 0 !important;
+    display: flex;
+    flex-direction: column;
+    page-break-inside: avoid !important;
+}
+
+.text-box {
+    background-color: var(--box-background-color);
+    padding: 15px 20px;
+    border-radius: var(--border-radius);
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+}
+
+.text-box .text-content {
+    color: var(--dark-gray);
+    font-size: calc(13px * var(--scale-factor, 1));
+    flex-grow: 1;
+}
+
+.text-box h3.position-title {
+    font-size: calc(18.4px * var(--scale-factor, 1));
+}
+
+.text-box .text-content p {
+    margin: 5px 0;
+    line-height: 1.5;
+}
+
+.text-box .text-content b {
+    font-size: 1.1em;
+}
+
+.graph-overlay-image {
+    position: absolute;
+    top: 55px;
+    /* Moved up */
+    left: 80%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: auto;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.graph-overlay-text {
+    position: absolute;
+    bottom: 30px;
+    /* Moved up */
+    left: 80%;
+    transform: translateX(-50%);
+    width: 100px;
+    font-size: 10px;
+    color: var(--dark-gray);
+    text-align: center;
+    pointer-events: none;
+    z-index: 2;
+    line-height: 1.2;
+}
+
+#donut-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    flex-grow: 1;
+}
+
+.donut-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    height: 100%;
+    justify-content: center;
+}
+
+.donut-wrapper .js-plotly-plot {
+    width: 90px !important;
+    height: 90px !important;
+}
+
+.donut-label {
+    margin-top: 8px;
+    font-size: 11px;
+    color: var(--dark-gray);
+    text-align: center;
+    font-weight: var(--semibold-font-weight);
+}
+
+.no-data-placeholder {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: var(--medium-gray);
+    text-align: center;
+    flex-grow: 1;
+}
+
+.no-data-placeholder i {
+    font-size: 3em;
+    margin-bottom: 15px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+@media print {
+    body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .page {
+        box-shadow: none !important;
+        border: none !important;
+        margin: 0;
+        padding: 0;
+    }
+}

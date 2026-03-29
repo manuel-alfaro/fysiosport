@@ -1,0 +1,29 @@
+:root {
+    --app-primary-color: #285484;
+    --app-secondary-color: rgb(112, 188, 252);
+    --app-tertiary-color: #121630;
+    --secondary-color: var(--app-secondary-color);
+    --app-text-on-primary: #ffffff;
+    --light-gray: #f8f9fa;
+    --box-background-color: #f0f2f5;
+    --medium-gray: #dee2e6;
+    --dark-gray: #495057;
+    --text-color: #212529;
+    --success-color: #2a9d8f;
+    --danger-color: #e63946;
+    --white: #ffffff;
+    --border-radius: 4px;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --subtle-shadow: 0 1px 3px rgba(0, 0, 0, 0.07);
+    --sidebar-width: 220px;
+    --ho-color: #193c64;
+    --va-color: #c8a84f;
+    --app-button-light-gradient-start: rgba(112, 188, 252, 0.8);
+    --app-button-light-gradient-end: rgba(40, 84, 132, 0.9);
+
+    /* Report specific fonts variables (can be ignored by index but useful to keep in one place or separate if strictly needed, keeping generic here) */
+    --base-font-size-css: 16px;
+    --normal-font-weight: 400;
+    --semibold-font-weight: 400;
+    --bold-font-weight: 700;
+}

@@ -1,0 +1,42 @@
+@import url('variables.css');
+
+/* Protocol Chip Styling */
+.protocol-chip {
+    padding: 8px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0px;
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--text-color);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.protocol-chip:hover {
+    border-color: var(--app-primary-color);
+    transform: translateY(-1px);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.protocol-chip.active {
+    background-color: var(--app-primary-color);
+    color: #000000;
+    border-color: var(--app-primary-color);
+}
+
+/* Ensure Test Selector Buttons have clear active state */
+.test-selector-btn.active {
+    background-color: var(--app-primary-color);
+    color: #000000;
+    border-color: var(--app-primary-color);
+}
+
+/* Fix visibility for unselected items if needed */
+.test-selector-btn[data-selected="false"] {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: rgba(255, 255, 255, 0.5);
+    border-color: rgba(255, 255, 255, 0.1);
+}

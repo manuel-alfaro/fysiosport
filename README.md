@@ -1,3 +1,3 @@
-# fysiosport
+# Alphatek Reports
 
-https://manuel-alfaro.github.io/fysiosport
+https://manuel-alfaro.github.io/alphatek-reports
