@@ -4428,12 +4428,11 @@ async function loadAndRenderProtocolSelector() {
             // If empty, user requested hardcoded placeholders
             if (filtered.length === 0 && filterText === '') {
                 filtered = [
-                    { id: 'mock-1', name: 'Return to play', testIds: [] },
-                    { id: 'mock-2', name: 'Shoulder screening', testIds: [] },
-                    { id: 'mock-3', name: 'Senior fitness test', testIds: [] },
+                    { id: 'mock-1', name: 'Return to Play', testIds: [] },
+                    { id: 'mock-2', name: 'Shoulder Screening', testIds: [] },
+                    { id: 'mock-3', name: 'Senior Fitness Test', testIds: [] },
                     { id: 'mock-4', name: 'Run Safer', testIds: [] },
-                    { id: 'mock-5', name: 'Rehab Early phase', testIds: [] },
-                    { id: 'mock-6', name: 'Rehab Late Phase', testIds: [] }
+                    { id: 'mock-5', name: 'Complete Rehab', testIds: [] }
                 ];
             }
 
